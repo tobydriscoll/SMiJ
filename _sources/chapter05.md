@@ -56,7 +56,7 @@ end
 fig
 ```
 
-# p10: polynomials and corresponding equipotential curves
+## p10: polynomials and corresponding equipotential curves
 
 ```{code-cell}
 using Polynomials

@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>12. Time stability &#8212; Spectral Methods in Julia</title>
+    <title>11. Time stability &#8212; Spectral Methods in Julia</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -54,7 +54,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="11. Eigenvalues and pseudospectra" href="chapter09.html" />
+    <link rel="prev" title="10. Eigenvalues and pseudospectra" href="chapter09.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -137,27 +137,27 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="chapter06.html">
-   7. Chebyshev diff mats
+   6. Chebyshev diff mats
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="chapter07.html">
-   8. BVPs
+   7. BVPs
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="chapter08.html">
-   10. Chebyshev FFT
+   9. Chebyshev FFT
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="chapter09.html">
-   11. Eigenvalues and pseudospectra
+   10. Eigenvalues and pseudospectra
   </a>
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   12. Time stability
+   11. Time stability
   </a>
  </li>
 </ul>
@@ -358,17 +358,17 @@ title="Print to PDF"
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#p25-stability-regions-for-ode-formulas">
-   12.1. p25: stability regions for ODE formulas
+   11.1. p25: stability regions for ODE formulas
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#p26-eigenvalues-of-2nd-order-chebyshev-diff-matrix">
-   12.2. p26: eigenvalues of 2nd-order Chebyshev diff. matrix
+   11.2. p26: eigenvalues of 2nd-order Chebyshev diff. matrix
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#p27-solve-kdv-eq-u-t-uu-x-u-xxx-0-on">
-   12.3. p27: Solve KdV eq.
+   11.3. p27: Solve KdV eq.
    <span class="math notranslate nohighlight">
     \(u_t + uu_x + u_{xxx} = 0\)
    </span>
@@ -396,17 +396,17 @@ title="Print to PDF"
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#p25-stability-regions-for-ode-formulas">
-   12.1. p25: stability regions for ODE formulas
+   11.1. p25: stability regions for ODE formulas
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#p26-eigenvalues-of-2nd-order-chebyshev-diff-matrix">
-   12.2. p26: eigenvalues of 2nd-order Chebyshev diff. matrix
+   11.2. p26: eigenvalues of 2nd-order Chebyshev diff. matrix
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#p27-solve-kdv-eq-u-t-uu-x-u-xxx-0-on">
-   12.3. p27: Solve KdV eq.
+   11.3. p27: Solve KdV eq.
    <span class="math notranslate nohighlight">
     \(u_t + uu_x + u_{xxx} = 0\)
    </span>
@@ -424,7 +424,7 @@ title="Print to PDF"
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="time-stability">
-<h1><span class="section-number">12. </span>Time stability<a class="headerlink" href="#time-stability" title="Permalink to this headline">#</a></h1>
+<h1><span class="section-number">11. </span>Time stability<a class="headerlink" href="#time-stability" title="Permalink to this headline">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">include</span><span class="p">(</span><span class="s">&quot;smij-functions.jl&quot;</span><span class="p">);</span><span class="w"></span>
@@ -461,7 +461,7 @@ Stacktrace:
 </div>
 </div>
 <section id="p25-stability-regions-for-ode-formulas">
-<h2><span class="section-number">12.1. </span>p25: stability regions for ODE formulas<a class="headerlink" href="#p25-stability-regions-for-ode-formulas" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">11.1. </span>p25: stability regions for ODE formulas<a class="headerlink" href="#p25-stability-regions-for-ode-formulas" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="n">Polynomials</span><span class="w"></span>
@@ -583,7 +583,7 @@ Stacktrace:
 </div>
 </section>
 <section id="p26-eigenvalues-of-2nd-order-chebyshev-diff-matrix">
-<h2><span class="section-number">12.2. </span>p26: eigenvalues of 2nd-order Chebyshev diff. matrix<a class="headerlink" href="#p26-eigenvalues-of-2nd-order-chebyshev-diff-matrix" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">11.2. </span>p26: eigenvalues of 2nd-order Chebyshev diff. matrix<a class="headerlink" href="#p26-eigenvalues-of-2nd-order-chebyshev-diff-matrix" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">N</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">60</span><span class="w"></span>
@@ -663,7 +663,7 @@ Stacktrace:
 </div>
 </section>
 <section id="p27-solve-kdv-eq-u-t-uu-x-u-xxx-0-on">
-<h2><span class="section-number">12.3. </span>p27: Solve KdV eq. <span class="math notranslate nohighlight">\(u_t + uu_x + u_{xxx} = 0\)</span> on [-π,π]<a class="headerlink" href="#p27-solve-kdv-eq-u-t-uu-x-u-xxx-0-on" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">11.3. </span>p27: Solve KdV eq. <span class="math notranslate nohighlight">\(u_t + uu_x + u_{xxx} = 0\)</span> on [-π,π]<a class="headerlink" href="#p27-solve-kdv-eq-u-t-uu-x-u-xxx-0-on" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="c"># Set up grid and two-soliton initial data:</span><span class="w"></span>
@@ -807,7 +807,7 @@ Stacktrace:
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">11. </span>Eigenvalues and pseudospectra</p>
+            <p class="prev-next-title"><span class="section-number">10. </span>Eigenvalues and pseudospectra</p>
         </div>
     </a>
 </div>

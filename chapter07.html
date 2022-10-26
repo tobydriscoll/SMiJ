@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>8. BVPs &#8212; Spectral Methods in Julia</title>
+    <title>7. BVPs &#8212; Spectral Methods in Julia</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -54,8 +54,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="10. Chebyshev FFT" href="chapter08.html" />
-    <link rel="prev" title="7. Chebyshev diff mats" href="chapter06.html" />
+    <link rel="next" title="9. Chebyshev FFT" href="chapter08.html" />
+    <link rel="prev" title="6. Chebyshev diff mats" href="chapter06.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -138,17 +138,22 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="chapter06.html">
-   7. Chebyshev diff mats
+   6. Chebyshev diff mats
   </a>
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   8. BVPs
+   7. BVPs
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="chapter08.html">
-   10. Chebyshev FFT
+   9. Chebyshev FFT
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="chapter09.html">
+   10. Eigenvalues and pseudospectra
   </a>
  </li>
  <li class="toctree-l1">
@@ -354,12 +359,12 @@ title="Print to PDF"
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#">
-   8. BVPs
+   7. BVPs
   </a>
   <ul class="visible nav section-nav flex-column">
    <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#p13-solve-linear-bvp-u-xx-exp-4x-u-1-u-1-0">
-     8.1. p13: solve linear BVP
+     7.1. p13: solve linear BVP
      <span class="math notranslate nohighlight">
       \(u_{xx} = \exp(4x),\; u(-1)=u(1)=0\)
      </span>
@@ -367,7 +372,7 @@ title="Print to PDF"
    </li>
    <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#p14-solve-nonlinear-bvp-u-xx-exp-u-u-1-u-1-0">
-     8.2. p14: solve nonlinear BVP
+     7.2. p14: solve nonlinear BVP
      <span class="math notranslate nohighlight">
       \(u_{xx} = \exp(u),\; u(-1)=u(1)=0\)
      </span>
@@ -375,7 +380,7 @@ title="Print to PDF"
    </li>
    <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#p15-solve-eigenvalue-bvp-u-xx-lambda-u-u-1-u-1-0">
-     8.3. p15: solve eigenvalue BVP
+     7.3. p15: solve eigenvalue BVP
      <span class="math notranslate nohighlight">
       \(u_{xx} = \lambda u, \; u(-1)=u(1)=0\)
      </span>
@@ -383,7 +388,7 @@ title="Print to PDF"
    </li>
    <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#p16-poisson-eq-on-1-1-1-1-with-u-0-on-boundary">
-     8.4. p16: Poisson eq. on [-1,1]×[-1,1] with
+     7.4. p16: Poisson eq. on [-1,1]×[-1,1] with
      <span class="math notranslate nohighlight">
       \(u=0\)
      </span>
@@ -394,7 +399,7 @@ title="Print to PDF"
  </li>
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#p17-helmholtz-eq-u-xx-u-yy-k-2-u-f">
-   9. p17: Helmholtz eq.
+   8. p17: Helmholtz eq.
    <span class="math notranslate nohighlight">
     \(u_{xx} + u_{yy} + k^2 u = f\)
    </span>
@@ -421,12 +426,12 @@ title="Print to PDF"
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#">
-   8. BVPs
+   7. BVPs
   </a>
   <ul class="visible nav section-nav flex-column">
    <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#p13-solve-linear-bvp-u-xx-exp-4x-u-1-u-1-0">
-     8.1. p13: solve linear BVP
+     7.1. p13: solve linear BVP
      <span class="math notranslate nohighlight">
       \(u_{xx} = \exp(4x),\; u(-1)=u(1)=0\)
      </span>
@@ -434,7 +439,7 @@ title="Print to PDF"
    </li>
    <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#p14-solve-nonlinear-bvp-u-xx-exp-u-u-1-u-1-0">
-     8.2. p14: solve nonlinear BVP
+     7.2. p14: solve nonlinear BVP
      <span class="math notranslate nohighlight">
       \(u_{xx} = \exp(u),\; u(-1)=u(1)=0\)
      </span>
@@ -442,7 +447,7 @@ title="Print to PDF"
    </li>
    <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#p15-solve-eigenvalue-bvp-u-xx-lambda-u-u-1-u-1-0">
-     8.3. p15: solve eigenvalue BVP
+     7.3. p15: solve eigenvalue BVP
      <span class="math notranslate nohighlight">
       \(u_{xx} = \lambda u, \; u(-1)=u(1)=0\)
      </span>
@@ -450,7 +455,7 @@ title="Print to PDF"
    </li>
    <li class="toc-h2 nav-item toc-entry">
     <a class="reference internal nav-link" href="#p16-poisson-eq-on-1-1-1-1-with-u-0-on-boundary">
-     8.4. p16: Poisson eq. on [-1,1]×[-1,1] with
+     7.4. p16: Poisson eq. on [-1,1]×[-1,1] with
      <span class="math notranslate nohighlight">
       \(u=0\)
      </span>
@@ -461,7 +466,7 @@ title="Print to PDF"
  </li>
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#p17-helmholtz-eq-u-xx-u-yy-k-2-u-f">
-   9. p17: Helmholtz eq.
+   8. p17: Helmholtz eq.
    <span class="math notranslate nohighlight">
     \(u_{xx} + u_{yy} + k^2 u = f\)
    </span>
@@ -478,7 +483,7 @@ title="Print to PDF"
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="bvps">
-<h1><span class="section-number">8. </span>BVPs<a class="headerlink" href="#bvps" title="Permalink to this headline">#</a></h1>
+<h1><span class="section-number">7. </span>BVPs<a class="headerlink" href="#bvps" title="Permalink to this headline">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">include</span><span class="p">(</span><span class="s">&quot;smij-functions.jl&quot;</span><span class="p">);</span><span class="w"></span>
@@ -515,7 +520,7 @@ Stacktrace:
 </div>
 </div>
 <section id="p13-solve-linear-bvp-u-xx-exp-4x-u-1-u-1-0">
-<h2><span class="section-number">8.1. </span>p13: solve linear BVP <span class="math notranslate nohighlight">\(u_{xx} = \exp(4x),\; u(-1)=u(1)=0\)</span><a class="headerlink" href="#p13-solve-linear-bvp-u-xx-exp-4x-u-1-u-1-0" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">7.1. </span>p13: solve linear BVP <span class="math notranslate nohighlight">\(u_{xx} = \exp(4x),\; u(-1)=u(1)=0\)</span><a class="headerlink" href="#p13-solve-linear-bvp-u-xx-exp-4x-u-1-u-1-0" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">N</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="w"></span>
@@ -583,7 +588,7 @@ Stacktrace:
 </div>
 </section>
 <section id="p14-solve-nonlinear-bvp-u-xx-exp-u-u-1-u-1-0">
-<h2><span class="section-number">8.2. </span>p14: solve nonlinear BVP <span class="math notranslate nohighlight">\(u_{xx} = \exp(u),\; u(-1)=u(1)=0\)</span><a class="headerlink" href="#p14-solve-nonlinear-bvp-u-xx-exp-u-u-1-u-1-0" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">7.2. </span>p14: solve nonlinear BVP <span class="math notranslate nohighlight">\(u_{xx} = \exp(u),\; u(-1)=u(1)=0\)</span><a class="headerlink" href="#p14-solve-nonlinear-bvp-u-xx-exp-u-u-1-u-1-0" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">N</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="w"></span>
@@ -644,7 +649,7 @@ Stacktrace:
 </div>
 </section>
 <section id="p15-solve-eigenvalue-bvp-u-xx-lambda-u-u-1-u-1-0">
-<h2><span class="section-number">8.3. </span>p15: solve eigenvalue BVP <span class="math notranslate nohighlight">\(u_{xx} = \lambda u, \; u(-1)=u(1)=0\)</span><a class="headerlink" href="#p15-solve-eigenvalue-bvp-u-xx-lambda-u-u-1-u-1-0" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">7.3. </span>p15: solve eigenvalue BVP <span class="math notranslate nohighlight">\(u_{xx} = \lambda u, \; u(-1)=u(1)=0\)</span><a class="headerlink" href="#p15-solve-eigenvalue-bvp-u-xx-lambda-u-u-1-u-1-0" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">N</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">36</span><span class="w"></span>
@@ -715,7 +720,7 @@ Stacktrace:
 </div>
 </section>
 <section id="p16-poisson-eq-on-1-1-1-1-with-u-0-on-boundary">
-<h2><span class="section-number">8.4. </span>p16: Poisson eq. on [-1,1]×[-1,1] with <span class="math notranslate nohighlight">\(u=0\)</span> on boundary<a class="headerlink" href="#p16-poisson-eq-on-1-1-1-1-with-u-0-on-boundary" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">7.4. </span>p16: Poisson eq. on [-1,1]×[-1,1] with <span class="math notranslate nohighlight">\(u=0\)</span> on boundary<a class="headerlink" href="#p16-poisson-eq-on-1-1-1-1-with-u-0-on-boundary" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">N</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">24</span><span class="w"></span>
@@ -809,7 +814,7 @@ Stacktrace:
 </section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="p17-helmholtz-eq-u-xx-u-yy-k-2-u-f">
-<h1><span class="section-number">9. </span>p17: Helmholtz eq. <span class="math notranslate nohighlight">\(u_{xx} + u_{yy} + k^2 u = f\)</span><a class="headerlink" href="#p17-helmholtz-eq-u-xx-u-yy-k-2-u-f" title="Permalink to this headline">#</a></h1>
+<h1><span class="section-number">8. </span>p17: Helmholtz eq. <span class="math notranslate nohighlight">\(u_{xx} + u_{yy} + k^2 u = f\)</span><a class="headerlink" href="#p17-helmholtz-eq-u-xx-u-yy-k-2-u-f" title="Permalink to this headline">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">N</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">24</span><span class="w"></span>
@@ -906,13 +911,13 @@ Stacktrace:
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">7. </span>Chebyshev diff mats</p>
+            <p class="prev-next-title"><span class="section-number">6. </span>Chebyshev diff mats</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="chapter08.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">10. </span>Chebyshev FFT</p>
+        <p class="prev-next-title"><span class="section-number">9. </span>Chebyshev FFT</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
