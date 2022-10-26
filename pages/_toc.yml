@@ -1,0 +1,15 @@
+format: jb-book
+root: index
+options:
+    numbered: 2
+chapters:
+  - file: chapter01
+  - file: chapter02
+  - file: chapter03
+  - file: chapter04
+  - file: chapter05
+  - file: chapter06
+  - file: chapter07
+  - file: chapter08
+  - file: chapter10
+

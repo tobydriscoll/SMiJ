@@ -1,0 +1,7 @@
+.DS_Store
+Manifest.toml
+Untitled.ipynb
+.ipynb_checkpoints
+*.mp4
+pages/_build
+
