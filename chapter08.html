@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>9. Chebyshev FFT &#8212; Spectral Methods in Julia</title>
+    <title>8. Chebyshev FFT &#8212; Spectral Methods in Julia</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -52,7 +52,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="10. Eigenvalues and pseudospectra" href="chapter09.html" />
+    <link rel="next" title="9. Eigenvalues and pseudospectra" href="chapter09.html" />
     <link rel="prev" title="7. BVPs" href="chapter07.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -146,17 +146,17 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   9. Chebyshev FFT
+   8. Chebyshev FFT
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="chapter09.html">
-   10. Eigenvalues and pseudospectra
+   9. Eigenvalues and pseudospectra
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="chapter10.html">
-   11. Time stability
+   10. Time stability
   </a>
  </li>
 </ul>
@@ -357,17 +357,17 @@ title="Print to PDF"
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#p18-chebyshev-differentiation-via-fft-compare-p11">
-   9.1. p18: Chebyshev differentiation via FFT (compare p11)
+   8.1. p18: Chebyshev differentiation via FFT (compare p11)
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#p19-2nd-order-wave-eq-on-chebyshev-grid-compare-p6">
-   9.2. p19: 2nd-order wave eq. on Chebyshev grid (compare p6)
+   8.2. p19: 2nd-order wave eq. on Chebyshev grid (compare p6)
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#p20-2nd-order-wave-eq-in-2d-via-fft-compare-p19">
-   9.3. p20: 2nd-order wave eq. in 2D via FFT (compare p19)
+   8.3. p20: 2nd-order wave eq. in 2D via FFT (compare p19)
   </a>
  </li>
 </ul>
@@ -391,17 +391,17 @@ title="Print to PDF"
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#p18-chebyshev-differentiation-via-fft-compare-p11">
-   9.1. p18: Chebyshev differentiation via FFT (compare p11)
+   8.1. p18: Chebyshev differentiation via FFT (compare p11)
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#p19-2nd-order-wave-eq-on-chebyshev-grid-compare-p6">
-   9.2. p19: 2nd-order wave eq. on Chebyshev grid (compare p6)
+   8.2. p19: 2nd-order wave eq. on Chebyshev grid (compare p6)
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#p20-2nd-order-wave-eq-in-2d-via-fft-compare-p19">
-   9.3. p20: 2nd-order wave eq. in 2D via FFT (compare p19)
+   8.3. p20: 2nd-order wave eq. in 2D via FFT (compare p19)
   </a>
  </li>
 </ul>
@@ -415,44 +415,16 @@ title="Print to PDF"
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="chebyshev-fft">
-<h1><span class="section-number">9. </span>Chebyshev FFT<a class="headerlink" href="#chebyshev-fft" title="Permalink to this headline">#</a></h1>
+<h1><span class="section-number">8. </span>Chebyshev FFT<a class="headerlink" href="#chebyshev-fft" title="Permalink to this headline">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">include</span><span class="p">(</span><span class="s">&quot;smij-functions.jl&quot;</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>LoadError: ArgumentError: Package FFTW [7a1cc6ca-52ef-59f5-83cd-3a7055c09341] is required but does not seem to be installed:
- - Run `Pkg.instantiate()` to install all recorded dependencies.
-
-in expression starting at /Users/driscoll/repos/SMiJ/pages/smij-functions.jl:1
-
-Stacktrace:
- [1] _require(pkg::Base.PkgId)
-   @ Base ./loading.jl:1306
- [2] _require_prelocked(uuidkey::Base.PkgId)
-   @ Base ./loading.jl:1200
- [3] macro expansion
-   @ ./loading.jl:1180 [inlined]
- [4] macro expansion
-   @ ./lock.jl:223 [inlined]
- [5] require(into::Module, mod::Symbol)
-   @ Base ./loading.jl:1144
- [6] include(fname::String)
-   @ Base.MainInclude ./client.jl:476
- [7] top-level scope
-   @ In[1]:1
- [8] eval
-   @ ./boot.jl:368 [inlined]
- [9] include_string(mapexpr::typeof(REPL.softscope), mod::Module, code::String, filename::String)
-   @ Base ./loading.jl:1428
-</pre></div>
-</div>
-</div>
 </div>
 <section id="p18-chebyshev-differentiation-via-fft-compare-p11">
-<h2><span class="section-number">9.1. </span>p18: Chebyshev differentiation via FFT (compare p11)<a class="headerlink" href="#p18-chebyshev-differentiation-via-fft-compare-p11" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">8.1. </span>p18: Chebyshev differentiation via FFT (compare p11)<a class="headerlink" href="#p18-chebyshev-differentiation-via-fft-compare-p11" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">exp</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">sin</span><span class="p">(</span><span class="mi">5</span><span class="n">x</span><span class="p">)</span><span class="w"> </span>
@@ -467,19 +439,6 @@ Stacktrace:
 <span class="w">    </span><span class="n">ee</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">polyinterp</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">error</span><span class="p">)</span><span class="o">.</span><span class="p">(</span><span class="n">xx</span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="n">push!</span><span class="p">(</span><span class="n">results</span><span class="p">,</span><span class="w"> </span><span class="p">(;</span><span class="n">x</span><span class="p">,</span><span class="n">v</span><span class="p">,</span><span class="n">error</span><span class="p">,</span><span class="n">ee</span><span class="p">))</span><span class="w"></span>
 <span class="k">end</span><span class="w"></span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="ne">UndefVarError</span>: cheb not defined
-
-<span class="ne">Stacktrace</span>:
- <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">top</span><span class="o">-</span><span class="n">level</span> <span class="n">scope</span>
-   <span class="o">@</span> <span class="o">./</span><span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span><span class="mi">7</span>
- <span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="nb">eval</span>
-   <span class="o">@</span> <span class="o">./</span><span class="n">boot</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">368</span> <span class="p">[</span><span class="n">inlined</span><span class="p">]</span>
- <span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="n">include_string</span><span class="p">(</span><span class="n">mapexpr</span><span class="p">::</span><span class="n">typeof</span><span class="p">(</span><span class="n">REPL</span><span class="o">.</span><span class="n">softscope</span><span class="p">),</span> <span class="n">mod</span><span class="p">::</span><span class="n">Module</span><span class="p">,</span> <span class="n">code</span><span class="p">::</span><span class="n">String</span><span class="p">,</span> <span class="n">filename</span><span class="p">::</span><span class="n">String</span><span class="p">)</span>
-   <span class="o">@</span> <span class="n">Base</span> <span class="o">./</span><span class="n">loading</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">1428</span>
 </pre></div>
 </div>
 </div>
@@ -502,32 +461,12 @@ Stacktrace:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>ArgumentError: Package CairoMakie [13f3f980-e62b-5c42-98c6-ff1f3baf88f0] is required but does not seem to be installed:
- - Run `Pkg.instantiate()` to install all recorded dependencies.
-
-
-Stacktrace:
- [1] _require(pkg::Base.PkgId)
-   @ Base ./loading.jl:1306
- [2] _require_prelocked(uuidkey::Base.PkgId)
-   @ Base ./loading.jl:1200
- [3] macro expansion
-   @ ./loading.jl:1180 [inlined]
- [4] macro expansion
-   @ ./lock.jl:223 [inlined]
- [5] require(into::Module, mod::Symbol)
-   @ Base ./loading.jl:1144
- [6] eval
-   @ ./boot.jl:368 [inlined]
- [7] include_string(mapexpr::typeof(REPL.softscope), mod::Module, code::String, filename::String)
-   @ Base ./loading.jl:1428
-</pre></div>
-</div>
+<img alt="_images/chapter08_4_0.png" src="_images/chapter08_4_0.png" />
 </div>
 </div>
 </section>
 <section id="p19-2nd-order-wave-eq-on-chebyshev-grid-compare-p6">
-<h2><span class="section-number">9.2. </span>p19: 2nd-order wave eq. on Chebyshev grid (compare p6)<a class="headerlink" href="#p19-2nd-order-wave-eq-on-chebyshev-grid-compare-p6" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">8.2. </span>p19: 2nd-order wave eq. on Chebyshev grid (compare p6)<a class="headerlink" href="#p19-2nd-order-wave-eq-on-chebyshev-grid-compare-p6" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="c"># Time-stepping by leap frog formula:</span><span class="w"></span>
@@ -555,19 +494,6 @@ Stacktrace:
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="ne">UndefVarError</span>: cheb not defined
-
-<span class="ne">Stacktrace</span>:
- <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">top</span><span class="o">-</span><span class="n">level</span> <span class="n">scope</span>
-   <span class="o">@</span> <span class="n">In</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span><span class="mi">3</span>
- <span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="nb">eval</span>
-   <span class="o">@</span> <span class="o">./</span><span class="n">boot</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">368</span> <span class="p">[</span><span class="n">inlined</span><span class="p">]</span>
- <span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="n">include_string</span><span class="p">(</span><span class="n">mapexpr</span><span class="p">::</span><span class="n">typeof</span><span class="p">(</span><span class="n">REPL</span><span class="o">.</span><span class="n">softscope</span><span class="p">),</span> <span class="n">mod</span><span class="p">::</span><span class="n">Module</span><span class="p">,</span> <span class="n">code</span><span class="p">::</span><span class="n">String</span><span class="p">,</span> <span class="n">filename</span><span class="p">::</span><span class="n">String</span><span class="p">)</span>
-   <span class="o">@</span> <span class="n">Base</span> <span class="o">./</span><span class="n">loading</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">1428</span>
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -587,27 +513,7 @@ Stacktrace:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>ArgumentError: Package PyFormattedStrings [5f89f4a4-a228-4886-b223-c468a82ed5b9] is required but does not seem to be installed:
- - Run `Pkg.instantiate()` to install all recorded dependencies.
-
-
-Stacktrace:
- [1] _require(pkg::Base.PkgId)
-   @ Base ./loading.jl:1306
- [2] _require_prelocked(uuidkey::Base.PkgId)
-   @ Base ./loading.jl:1200
- [3] macro expansion
-   @ ./loading.jl:1180 [inlined]
- [4] macro expansion
-   @ ./lock.jl:223 [inlined]
- [5] require(into::Module, mod::Symbol)
-   @ Base ./loading.jl:1144
- [6] eval
-   @ ./boot.jl:368 [inlined]
- [7] include_string(mapexpr::typeof(REPL.softscope), mod::Module, code::String, filename::String)
-   @ Base ./loading.jl:1428
-</pre></div>
-</div>
+<img alt="_images/chapter08_7_0.png" src="_images/chapter08_7_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -624,24 +530,11 @@ Stacktrace:
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="ne">UndefVarError</span>: Figure not defined
-
-<span class="ne">Stacktrace</span>:
- <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">top</span><span class="o">-</span><span class="n">level</span> <span class="n">scope</span>
-   <span class="o">@</span> <span class="n">In</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span><span class="mi">1</span>
- <span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="nb">eval</span>
-   <span class="o">@</span> <span class="o">./</span><span class="n">boot</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">368</span> <span class="p">[</span><span class="n">inlined</span><span class="p">]</span>
- <span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="n">include_string</span><span class="p">(</span><span class="n">mapexpr</span><span class="p">::</span><span class="n">typeof</span><span class="p">(</span><span class="n">REPL</span><span class="o">.</span><span class="n">softscope</span><span class="p">),</span> <span class="n">mod</span><span class="p">::</span><span class="n">Module</span><span class="p">,</span> <span class="n">code</span><span class="p">::</span><span class="n">String</span><span class="p">,</span> <span class="n">filename</span><span class="p">::</span><span class="n">String</span><span class="p">)</span>
-   <span class="o">@</span> <span class="n">Base</span> <span class="o">./</span><span class="n">loading</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">1428</span>
-</pre></div>
-</div>
-</div>
 </div>
 <p><video autoplay controls><source src="p19wave.mp4" type="video/mp4"></video></p>
 </section>
 <section id="p20-2nd-order-wave-eq-in-2d-via-fft-compare-p19">
-<h2><span class="section-number">9.3. </span>p20: 2nd-order wave eq. in 2D via FFT (compare p19)<a class="headerlink" href="#p20-2nd-order-wave-eq-in-2d-via-fft-compare-p19" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">8.3. </span>p20: 2nd-order wave eq. in 2D via FFT (compare p19)<a class="headerlink" href="#p20-2nd-order-wave-eq-in-2d-via-fft-compare-p19" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="c"># Grid and initial data:</span><span class="w"></span>
@@ -677,19 +570,6 @@ Stacktrace:
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="ne">UndefVarError</span>: cheb not defined
-
-<span class="ne">Stacktrace</span>:
- <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">top</span><span class="o">-</span><span class="n">level</span> <span class="n">scope</span>
-   <span class="o">@</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">]:</span><span class="mi">3</span>
- <span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="nb">eval</span>
-   <span class="o">@</span> <span class="o">./</span><span class="n">boot</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">368</span> <span class="p">[</span><span class="n">inlined</span><span class="p">]</span>
- <span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="n">include_string</span><span class="p">(</span><span class="n">mapexpr</span><span class="p">::</span><span class="n">typeof</span><span class="p">(</span><span class="n">REPL</span><span class="o">.</span><span class="n">softscope</span><span class="p">),</span> <span class="n">mod</span><span class="p">::</span><span class="n">Module</span><span class="p">,</span> <span class="n">code</span><span class="p">::</span><span class="n">String</span><span class="p">,</span> <span class="n">filename</span><span class="p">::</span><span class="n">String</span><span class="p">)</span>
-   <span class="o">@</span> <span class="n">Base</span> <span class="o">./</span><span class="n">loading</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">1428</span>
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -707,17 +587,7 @@ Stacktrace:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="ne">UndefVarError</span>: nsteps not defined
-
-<span class="ne">Stacktrace</span>:
- <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">top</span><span class="o">-</span><span class="n">level</span> <span class="n">scope</span>
-   <span class="o">@</span> <span class="n">In</span><span class="p">[</span><span class="mi">8</span><span class="p">]:</span><span class="mi">1</span>
- <span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="nb">eval</span>
-   <span class="o">@</span> <span class="o">./</span><span class="n">boot</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">368</span> <span class="p">[</span><span class="n">inlined</span><span class="p">]</span>
- <span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="n">include_string</span><span class="p">(</span><span class="n">mapexpr</span><span class="p">::</span><span class="n">typeof</span><span class="p">(</span><span class="n">REPL</span><span class="o">.</span><span class="n">softscope</span><span class="p">),</span> <span class="n">mod</span><span class="p">::</span><span class="n">Module</span><span class="p">,</span> <span class="n">code</span><span class="p">::</span><span class="n">String</span><span class="p">,</span> <span class="n">filename</span><span class="p">::</span><span class="n">String</span><span class="p">)</span>
-   <span class="o">@</span> <span class="n">Base</span> <span class="o">./</span><span class="n">loading</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">1428</span>
-</pre></div>
-</div>
+<img alt="_images/chapter08_11_0.png" src="_images/chapter08_11_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -735,19 +605,6 @@ Stacktrace:
 <span class="w">    </span><span class="n">index</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="w"></span>
 <span class="w">    </span><span class="n">ax</span><span class="o">.</span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sa">f</span><span class="s">&quot;t = {t[i]:.2f}&quot;</span><span class="w"></span>
 <span class="k">end</span><span class="p">;</span><span class="w"></span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="ne">UndefVarError</span>: Figure not defined
-
-<span class="ne">Stacktrace</span>:
- <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">top</span><span class="o">-</span><span class="n">level</span> <span class="n">scope</span>
-   <span class="o">@</span> <span class="n">In</span><span class="p">[</span><span class="mi">9</span><span class="p">]:</span><span class="mi">1</span>
- <span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="nb">eval</span>
-   <span class="o">@</span> <span class="o">./</span><span class="n">boot</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">368</span> <span class="p">[</span><span class="n">inlined</span><span class="p">]</span>
- <span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="n">include_string</span><span class="p">(</span><span class="n">mapexpr</span><span class="p">::</span><span class="n">typeof</span><span class="p">(</span><span class="n">REPL</span><span class="o">.</span><span class="n">softscope</span><span class="p">),</span> <span class="n">mod</span><span class="p">::</span><span class="n">Module</span><span class="p">,</span> <span class="n">code</span><span class="p">::</span><span class="n">String</span><span class="p">,</span> <span class="n">filename</span><span class="p">::</span><span class="n">String</span><span class="p">)</span>
-   <span class="o">@</span> <span class="n">Base</span> <span class="o">./</span><span class="n">loading</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">1428</span>
 </pre></div>
 </div>
 </div>
@@ -793,7 +650,7 @@ Stacktrace:
     <a class='right-next' id="next-link" href="chapter09.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">10. </span>Eigenvalues and pseudospectra</p>
+        <p class="prev-next-title"><span class="section-number">9. </span>Eigenvalues and pseudospectra</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

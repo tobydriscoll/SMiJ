@@ -146,17 +146,17 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="chapter08.html">
-   9. Chebyshev FFT
+   8. Chebyshev FFT
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="chapter09.html">
-   10. Eigenvalues and pseudospectra
+   9. Eigenvalues and pseudospectra
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="chapter10.html">
-   11. Time stability
+   10. Time stability
   </a>
  </li>
 </ul>
@@ -414,34 +414,6 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>LoadError: ArgumentError: Package FFTW [7a1cc6ca-52ef-59f5-83cd-3a7055c09341] is required but does not seem to be installed:
- - Run `Pkg.instantiate()` to install all recorded dependencies.
-
-in expression starting at /Users/driscoll/repos/SMiJ/pages/smij-functions.jl:1
-
-Stacktrace:
- [1] _require(pkg::Base.PkgId)
-   @ Base ./loading.jl:1306
- [2] _require_prelocked(uuidkey::Base.PkgId)
-   @ Base ./loading.jl:1200
- [3] macro expansion
-   @ ./loading.jl:1180 [inlined]
- [4] macro expansion
-   @ ./lock.jl:223 [inlined]
- [5] require(into::Module, mod::Symbol)
-   @ Base ./loading.jl:1144
- [6] include(fname::String)
-   @ Base.MainInclude ./client.jl:476
- [7] top-level scope
-   @ In[1]:1
- [8] eval
-   @ ./boot.jl:368 [inlined]
- [9] include_string(mapexpr::typeof(REPL.softscope), mod::Module, code::String, filename::String)
-   @ Base ./loading.jl:1428
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -457,19 +429,6 @@ Stacktrace:
 <span class="w">    </span><span class="n">ee</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">polyinterp</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">error</span><span class="p">)</span><span class="o">.</span><span class="p">(</span><span class="n">xx</span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="n">push!</span><span class="p">(</span><span class="n">results</span><span class="p">,</span><span class="w"> </span><span class="p">(;</span><span class="n">x</span><span class="p">,</span><span class="n">v</span><span class="p">,</span><span class="n">error</span><span class="p">,</span><span class="n">ee</span><span class="p">))</span><span class="w"></span>
 <span class="k">end</span><span class="w"></span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="ne">UndefVarError</span>: cheb not defined
-
-<span class="ne">Stacktrace</span>:
- <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">top</span><span class="o">-</span><span class="n">level</span> <span class="n">scope</span>
-   <span class="o">@</span> <span class="o">./</span><span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span><span class="mi">7</span>
- <span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="nb">eval</span>
-   <span class="o">@</span> <span class="o">./</span><span class="n">boot</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">368</span> <span class="p">[</span><span class="n">inlined</span><span class="p">]</span>
- <span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="n">include_string</span><span class="p">(</span><span class="n">mapexpr</span><span class="p">::</span><span class="n">typeof</span><span class="p">(</span><span class="n">REPL</span><span class="o">.</span><span class="n">softscope</span><span class="p">),</span> <span class="n">mod</span><span class="p">::</span><span class="n">Module</span><span class="p">,</span> <span class="n">code</span><span class="p">::</span><span class="n">String</span><span class="p">,</span> <span class="n">filename</span><span class="p">::</span><span class="n">String</span><span class="p">)</span>
-   <span class="o">@</span> <span class="n">Base</span> <span class="o">./</span><span class="n">loading</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">1428</span>
 </pre></div>
 </div>
 </div>
@@ -492,27 +451,7 @@ Stacktrace:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>ArgumentError: Package CairoMakie [13f3f980-e62b-5c42-98c6-ff1f3baf88f0] is required but does not seem to be installed:
- - Run `Pkg.instantiate()` to install all recorded dependencies.
-
-
-Stacktrace:
- [1] _require(pkg::Base.PkgId)
-   @ Base ./loading.jl:1306
- [2] _require_prelocked(uuidkey::Base.PkgId)
-   @ Base ./loading.jl:1200
- [3] macro expansion
-   @ ./loading.jl:1180 [inlined]
- [4] macro expansion
-   @ ./lock.jl:223 [inlined]
- [5] require(into::Module, mod::Symbol)
-   @ Base ./loading.jl:1144
- [6] eval
-   @ ./boot.jl:368 [inlined]
- [7] include_string(mapexpr::typeof(REPL.softscope), mod::Module, code::String, filename::String)
-   @ Base ./loading.jl:1428
-</pre></div>
-</div>
+<img alt="_images/chapter06_3_0.png" src="_images/chapter06_3_0.png" />
 </div>
 </div>
 </section>
@@ -545,20 +484,6 @@ Stacktrace:
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="ne">LoadError</span>: UndefVarError: @L_str not defined
-<span class="ow">in</span> <span class="n">expression</span> <span class="n">starting</span> <span class="n">at</span> <span class="n">In</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span><span class="mi">5</span>
-
-<span class="ne">Stacktrace</span>:
- <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">top</span><span class="o">-</span><span class="n">level</span> <span class="n">scope</span>
-   <span class="o">@</span> <span class="p">:</span><span class="mi">0</span>
- <span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="nb">eval</span>
-   <span class="o">@</span> <span class="o">./</span><span class="n">boot</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">368</span> <span class="p">[</span><span class="n">inlined</span><span class="p">]</span>
- <span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="n">include_string</span><span class="p">(</span><span class="n">mapexpr</span><span class="p">::</span><span class="n">typeof</span><span class="p">(</span><span class="n">REPL</span><span class="o">.</span><span class="n">softscope</span><span class="p">),</span> <span class="n">mod</span><span class="p">::</span><span class="n">Module</span><span class="p">,</span> <span class="n">code</span><span class="p">::</span><span class="n">String</span><span class="p">,</span> <span class="n">filename</span><span class="p">::</span><span class="n">String</span><span class="p">)</span>
-   <span class="o">@</span> <span class="n">Base</span> <span class="o">./</span><span class="n">loading</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">1428</span>
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -577,17 +502,7 @@ Stacktrace:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="ne">UndefVarError</span>: Figure not defined
-
-<span class="ne">Stacktrace</span>:
- <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">top</span><span class="o">-</span><span class="n">level</span> <span class="n">scope</span>
-   <span class="o">@</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span><span class="mi">1</span>
- <span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="nb">eval</span>
-   <span class="o">@</span> <span class="o">./</span><span class="n">boot</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">368</span> <span class="p">[</span><span class="n">inlined</span><span class="p">]</span>
- <span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="n">include_string</span><span class="p">(</span><span class="n">mapexpr</span><span class="p">::</span><span class="n">typeof</span><span class="p">(</span><span class="n">REPL</span><span class="o">.</span><span class="n">softscope</span><span class="p">),</span> <span class="n">mod</span><span class="p">::</span><span class="n">Module</span><span class="p">,</span> <span class="n">code</span><span class="p">::</span><span class="n">String</span><span class="p">,</span> <span class="n">filename</span><span class="p">::</span><span class="n">String</span><span class="p">)</span>
-   <span class="o">@</span> <span class="n">Base</span> <span class="o">./</span><span class="n">loading</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">1428</span>
-</pre></div>
-</div>
+<img alt="_images/chapter06_6_0.png" src="_images/chapter06_6_0.png" />
 </div>
 </div>
 </section>

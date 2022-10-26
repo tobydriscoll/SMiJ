@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>11. Time stability &#8212; Spectral Methods in Julia</title>
+    <title>10. Time stability &#8212; Spectral Methods in Julia</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -54,7 +54,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="10. Eigenvalues and pseudospectra" href="chapter09.html" />
+    <link rel="prev" title="9. Eigenvalues and pseudospectra" href="chapter09.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -147,17 +147,17 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="chapter08.html">
-   9. Chebyshev FFT
+   8. Chebyshev FFT
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="chapter09.html">
-   10. Eigenvalues and pseudospectra
+   9. Eigenvalues and pseudospectra
   </a>
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   11. Time stability
+   10. Time stability
   </a>
  </li>
 </ul>
@@ -358,21 +358,17 @@ title="Print to PDF"
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#p25-stability-regions-for-ode-formulas">
-   11.1. p25: stability regions for ODE formulas
+   10.1. p25: stability regions for ODE formulas
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#p26-eigenvalues-of-2nd-order-chebyshev-diff-matrix">
-   11.2. p26: eigenvalues of 2nd-order Chebyshev diff. matrix
+   10.2. p26: eigenvalues of 2nd-order Chebyshev diff. matrix
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#p27-solve-kdv-eq-u-t-uu-x-u-xxx-0-on">
-   11.3. p27: Solve KdV eq.
-   <span class="math notranslate nohighlight">
-    \(u_t + uu_x + u_{xxx} = 0\)
-   </span>
-   on [-π,π]
+  <a class="reference internal nav-link" href="#p27-solve-kdv-eq">
+   10.3. p27: Solve KdV eq.
   </a>
  </li>
 </ul>
@@ -396,21 +392,17 @@ title="Print to PDF"
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#p25-stability-regions-for-ode-formulas">
-   11.1. p25: stability regions for ODE formulas
+   10.1. p25: stability regions for ODE formulas
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#p26-eigenvalues-of-2nd-order-chebyshev-diff-matrix">
-   11.2. p26: eigenvalues of 2nd-order Chebyshev diff. matrix
+   10.2. p26: eigenvalues of 2nd-order Chebyshev diff. matrix
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#p27-solve-kdv-eq-u-t-uu-x-u-xxx-0-on">
-   11.3. p27: Solve KdV eq.
-   <span class="math notranslate nohighlight">
-    \(u_t + uu_x + u_{xxx} = 0\)
-   </span>
-   on [-π,π]
+  <a class="reference internal nav-link" href="#p27-solve-kdv-eq">
+   10.3. p27: Solve KdV eq.
   </a>
  </li>
 </ul>
@@ -424,44 +416,16 @@ title="Print to PDF"
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="time-stability">
-<h1><span class="section-number">11. </span>Time stability<a class="headerlink" href="#time-stability" title="Permalink to this headline">#</a></h1>
+<h1><span class="section-number">10. </span>Time stability<a class="headerlink" href="#time-stability" title="Permalink to this headline">#</a></h1>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">include</span><span class="p">(</span><span class="s">&quot;smij-functions.jl&quot;</span><span class="p">);</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>LoadError: ArgumentError: Package FFTW [7a1cc6ca-52ef-59f5-83cd-3a7055c09341] is required but does not seem to be installed:
- - Run `Pkg.instantiate()` to install all recorded dependencies.
-
-in expression starting at /Users/driscoll/repos/SMiJ/pages/smij-functions.jl:1
-
-Stacktrace:
- [1] _require(pkg::Base.PkgId)
-   @ Base ./loading.jl:1306
- [2] _require_prelocked(uuidkey::Base.PkgId)
-   @ Base ./loading.jl:1200
- [3] macro expansion
-   @ ./loading.jl:1180 [inlined]
- [4] macro expansion
-   @ ./lock.jl:223 [inlined]
- [5] require(into::Module, mod::Symbol)
-   @ Base ./loading.jl:1144
- [6] include(fname::String)
-   @ Base.MainInclude ./client.jl:476
- [7] top-level scope
-   @ In[1]:1
- [8] eval
-   @ ./boot.jl:368 [inlined]
- [9] include_string(mapexpr::typeof(REPL.softscope), mod::Module, code::String, filename::String)
-   @ Base ./loading.jl:1428
-</pre></div>
-</div>
-</div>
 </div>
 <section id="p25-stability-regions-for-ode-formulas">
-<h2><span class="section-number">11.1. </span>p25: stability regions for ODE formulas<a class="headerlink" href="#p25-stability-regions-for-ode-formulas" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">10.1. </span>p25: stability regions for ODE formulas<a class="headerlink" href="#p25-stability-regions-for-ode-formulas" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="k">using</span><span class="w"> </span><span class="n">Polynomials</span><span class="w"></span>
@@ -503,29 +467,6 @@ Stacktrace:
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>ArgumentError: Package Polynomials [f27b6e38-b328-58d1-80ce-0feddd5e7a45] is required but does not seem to be installed:
- - Run `Pkg.instantiate()` to install all recorded dependencies.
-
-
-Stacktrace:
- [1] _require(pkg::Base.PkgId)
-   @ Base ./loading.jl:1306
- [2] _require_prelocked(uuidkey::Base.PkgId)
-   @ Base ./loading.jl:1200
- [3] macro expansion
-   @ ./loading.jl:1180 [inlined]
- [4] macro expansion
-   @ ./lock.jl:223 [inlined]
- [5] require(into::Module, mod::Symbol)
-   @ Base ./loading.jl:1144
- [6] eval
-   @ ./boot.jl:368 [inlined]
- [7] include_string(mapexpr::typeof(REPL.softscope), mod::Module, code::String, filename::String)
-   @ Base ./loading.jl:1428
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -535,55 +476,36 @@ Stacktrace:
 <span class="n">colors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ColorSchemes</span><span class="o">.</span><span class="n">tol_bright</span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="mi">6</span><span class="p">]</span><span class="w"></span>
 
 <span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">    </span><span class="p">(</span><span class="n">ABregion</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="o">-</span><span class="mf">2.2</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="o">-</span><span class="mf">1.2</span><span class="p">,</span><span class="mf">1.2</span><span class="p">]),</span><span class="w"></span>
-<span class="w">    </span><span class="p">(</span><span class="n">AMregion</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="o">:</span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="o">-</span><span class="mf">6.3</span><span class="p">,</span><span class="mf">0.3</span><span class="p">,</span><span class="o">-</span><span class="mf">3.3</span><span class="p">,</span><span class="mf">3.3</span><span class="p">]),</span><span class="w"></span>
-<span class="w">    </span><span class="p">(</span><span class="n">BDregion</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="o">-</span><span class="mi">12</span><span class="p">,</span><span class="mi">32</span><span class="p">,</span><span class="o">-</span><span class="mi">22</span><span class="p">,</span><span class="mi">22</span><span class="p">]),</span><span class="w"></span>
-<span class="w">    </span><span class="p">(</span><span class="n">RKregion</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span><span class="w"></span>
+<span class="w">    </span><span class="p">(</span><span class="n">ABregion</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="o">-</span><span class="mf">2.2</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="o">-</span><span class="mf">1.2</span><span class="p">,</span><span class="mf">1.2</span><span class="p">],</span><span class="w"> </span><span class="s">&quot;Adams-Bashforth&quot;</span><span class="p">),</span><span class="w"></span>
+<span class="w">    </span><span class="p">(</span><span class="n">AMregion</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="o">:</span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="o">-</span><span class="mf">6.3</span><span class="p">,</span><span class="mf">0.3</span><span class="p">,</span><span class="o">-</span><span class="mf">3.3</span><span class="p">,</span><span class="mf">3.3</span><span class="p">],</span><span class="w"> </span><span class="s">&quot;Adams-Moulton&quot;</span><span class="p">),</span><span class="w"></span>
+<span class="w">    </span><span class="p">(</span><span class="n">BDregion</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="o">-</span><span class="mi">12</span><span class="p">,</span><span class="mi">32</span><span class="p">,</span><span class="o">-</span><span class="mi">22</span><span class="p">,</span><span class="mi">22</span><span class="p">],</span><span class="w"> </span><span class="s">&quot;Backward diffentiation (exteriors)&quot;</span><span class="p">),</span><span class="w"></span>
+<span class="w">    </span><span class="p">(</span><span class="n">RKregion</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span><span class="w"> </span><span class="s">&quot;Runge-Kutta&quot;</span><span class="p">)</span><span class="w"></span>
 <span class="p">]</span><span class="w"></span>
 
 <span class="n">fig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Figure</span><span class="p">()</span><span class="w"></span>
 <span class="n">ax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vec</span><span class="p">([</span><span class="n">Axis</span><span class="p">(</span><span class="n">fig</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="n">aspect</span><span class="o">=</span><span class="n">DataAspect</span><span class="p">())</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="mi">2</span><span class="p">])</span><span class="w"></span>
-<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">ax</span><span class="p">,(</span><span class="n">kind</span><span class="p">,</span><span class="n">orders</span><span class="p">,</span><span class="n">limits</span><span class="p">))</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">zip</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">data</span><span class="p">)</span><span class="w"></span>
+<span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">ax</span><span class="p">,(</span><span class="n">kind</span><span class="p">,</span><span class="n">orders</span><span class="p">,</span><span class="n">limits</span><span class="p">,</span><span class="n">title</span><span class="p">))</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">zip</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">data</span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">order</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">orders</span><span class="w"></span>
 <span class="w">        </span><span class="n">w</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kind</span><span class="p">(</span><span class="n">order</span><span class="p">)</span><span class="w"></span>
 <span class="w">        </span><span class="n">lines!</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">real</span><span class="p">(</span><span class="n">w</span><span class="p">),</span><span class="n">imag</span><span class="p">(</span><span class="n">w</span><span class="p">),</span><span class="w"> </span><span class="n">label</span><span class="o">=</span><span class="s">&quot;</span><span class="si">$order</span><span class="s">&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">order</span><span class="p">])</span><span class="w"></span>
 <span class="w">        </span><span class="n">limits!</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="n">limits</span><span class="o">...</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="n">ax</span><span class="o">.</span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">title</span><span class="w"></span>
 <span class="w">        </span><span class="n">vlines!</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="ss">:black</span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="k">end</span><span class="w"></span>
 <span class="k">end</span><span class="w"></span>
 
-<span class="n">Legend</span><span class="p">(</span><span class="n">fig</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span><span class="n">ax</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span><span class="w"></span>
+<span class="n">Legend</span><span class="p">(</span><span class="n">fig</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span><span class="w"> </span><span class="n">ax</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span><span class="w"> </span><span class="s">&quot;order&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">framevisible</span><span class="o">=</span><span class="nb">false</span><span class="p">)</span><span class="w"></span>
 <span class="n">fig</span><span class="w"></span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>ArgumentError: Package CairoMakie [13f3f980-e62b-5c42-98c6-ff1f3baf88f0] is required but does not seem to be installed:
- - Run `Pkg.instantiate()` to install all recorded dependencies.
-
-
-Stacktrace:
- [1] _require(pkg::Base.PkgId)
-   @ Base ./loading.jl:1306
- [2] _require_prelocked(uuidkey::Base.PkgId)
-   @ Base ./loading.jl:1200
- [3] macro expansion
-   @ ./loading.jl:1180 [inlined]
- [4] macro expansion
-   @ ./lock.jl:223 [inlined]
- [5] require(into::Module, mod::Symbol)
-   @ Base ./loading.jl:1144
- [6] eval
-   @ ./boot.jl:368 [inlined]
- [7] include_string(mapexpr::typeof(REPL.softscope), mod::Module, code::String, filename::String)
-   @ Base ./loading.jl:1428
-</pre></div>
-</div>
+<img alt="_images/chapter10_4_0.png" src="_images/chapter10_4_0.png" />
 </div>
 </div>
 </section>
 <section id="p26-eigenvalues-of-2nd-order-chebyshev-diff-matrix">
-<h2><span class="section-number">11.2. </span>p26: eigenvalues of 2nd-order Chebyshev diff. matrix<a class="headerlink" href="#p26-eigenvalues-of-2nd-order-chebyshev-diff-matrix" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">10.2. </span>p26: eigenvalues of 2nd-order Chebyshev diff. matrix<a class="headerlink" href="#p26-eigenvalues-of-2nd-order-chebyshev-diff-matrix" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">N</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">60</span><span class="w"></span>
@@ -595,19 +517,6 @@ Stacktrace:
 <span class="n">vN4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">V</span><span class="p">[</span><span class="o">:</span><span class="p">,</span><span class="n">N</span><span class="w"> </span><span class="o">÷</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">];</span><span class="w"> </span><span class="mi">0</span><span class="p">]</span><span class="w"></span>
 <span class="n">vvN4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">polyinterp</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">vN4</span><span class="p">)</span><span class="o">.</span><span class="p">(</span><span class="n">xx</span><span class="p">)</span><span class="w"></span>
 <span class="n">vN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">V</span><span class="p">[</span><span class="o">:</span><span class="p">,</span><span class="w"> </span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">];</span><span class="w"> </span><span class="mi">0</span><span class="p">];</span><span class="w"></span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="ne">UndefVarError</span>: cheb not defined
-
-<span class="ne">Stacktrace</span>:
- <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">top</span><span class="o">-</span><span class="n">level</span> <span class="n">scope</span>
-   <span class="o">@</span> <span class="n">In</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span><span class="mi">2</span>
- <span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="nb">eval</span>
-   <span class="o">@</span> <span class="o">./</span><span class="n">boot</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">368</span> <span class="p">[</span><span class="n">inlined</span><span class="p">]</span>
- <span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="n">include_string</span><span class="p">(</span><span class="n">mapexpr</span><span class="p">::</span><span class="n">typeof</span><span class="p">(</span><span class="n">REPL</span><span class="o">.</span><span class="n">softscope</span><span class="p">),</span> <span class="n">mod</span><span class="p">::</span><span class="n">Module</span><span class="p">,</span> <span class="n">code</span><span class="p">::</span><span class="n">String</span><span class="p">,</span> <span class="n">filename</span><span class="p">::</span><span class="n">String</span><span class="p">)</span>
-   <span class="o">@</span> <span class="n">Base</span> <span class="o">./</span><span class="n">loading</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">1428</span>
 </pre></div>
 </div>
 </div>
@@ -638,32 +547,14 @@ Stacktrace:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>ArgumentError: Package PyFormattedStrings [5f89f4a4-a228-4886-b223-c468a82ed5b9] is required but does not seem to be installed:
- - Run `Pkg.instantiate()` to install all recorded dependencies.
-
-
-Stacktrace:
- [1] _require(pkg::Base.PkgId)
-   @ Base ./loading.jl:1306
- [2] _require_prelocked(uuidkey::Base.PkgId)
-   @ Base ./loading.jl:1200
- [3] macro expansion
-   @ ./loading.jl:1180 [inlined]
- [4] macro expansion
-   @ ./lock.jl:223 [inlined]
- [5] require(into::Module, mod::Symbol)
-   @ Base ./loading.jl:1144
- [6] eval
-   @ ./boot.jl:368 [inlined]
- [7] include_string(mapexpr::typeof(REPL.softscope), mod::Module, code::String, filename::String)
-   @ Base ./loading.jl:1428
-</pre></div>
-</div>
+<img alt="_images/chapter10_7_0.png" src="_images/chapter10_7_0.png" />
 </div>
 </div>
 </section>
-<section id="p27-solve-kdv-eq-u-t-uu-x-u-xxx-0-on">
-<h2><span class="section-number">11.3. </span>p27: Solve KdV eq. <span class="math notranslate nohighlight">\(u_t + uu_x + u_{xxx} = 0\)</span> on [-π,π]<a class="headerlink" href="#p27-solve-kdv-eq-u-t-uu-x-u-xxx-0-on" title="Permalink to this headline">#</a></h2>
+<section id="p27-solve-kdv-eq">
+<h2><span class="section-number">10.3. </span>p27: Solve KdV eq.<a class="headerlink" href="#p27-solve-kdv-eq" title="Permalink to this headline">#</a></h2>
+<div class="math notranslate nohighlight">
+\[u_t + uu_x + u_{xxx} = 0, \quad  x \in [-\pi,\pi]\]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="c"># Set up grid and two-soliton initial data:</span><span class="w"></span>
@@ -699,19 +590,6 @@ Stacktrace:
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="ne">UndefVarError</span>: fft not defined
-
-<span class="ne">Stacktrace</span>:
- <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">top</span><span class="o">-</span><span class="n">level</span> <span class="n">scope</span>
-   <span class="o">@</span> <span class="n">In</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span><span class="mi">7</span>
- <span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="nb">eval</span>
-   <span class="o">@</span> <span class="o">./</span><span class="n">boot</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">368</span> <span class="p">[</span><span class="n">inlined</span><span class="p">]</span>
- <span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="n">include_string</span><span class="p">(</span><span class="n">mapexpr</span><span class="p">::</span><span class="n">typeof</span><span class="p">(</span><span class="n">REPL</span><span class="o">.</span><span class="n">softscope</span><span class="p">),</span> <span class="n">mod</span><span class="p">::</span><span class="n">Module</span><span class="p">,</span> <span class="n">code</span><span class="p">::</span><span class="n">String</span><span class="p">,</span> <span class="n">filename</span><span class="p">::</span><span class="n">String</span><span class="p">)</span>
-   <span class="o">@</span> <span class="n">Base</span> <span class="o">./</span><span class="n">loading</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">1428</span>
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -729,17 +607,7 @@ Stacktrace:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="ne">UndefVarError</span>: Figure not defined
-
-<span class="ne">Stacktrace</span>:
- <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">top</span><span class="o">-</span><span class="n">level</span> <span class="n">scope</span>
-   <span class="o">@</span> <span class="n">In</span><span class="p">[</span><span class="mi">7</span><span class="p">]:</span><span class="mi">1</span>
- <span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="nb">eval</span>
-   <span class="o">@</span> <span class="o">./</span><span class="n">boot</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">368</span> <span class="p">[</span><span class="n">inlined</span><span class="p">]</span>
- <span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="n">include_string</span><span class="p">(</span><span class="n">mapexpr</span><span class="p">::</span><span class="n">typeof</span><span class="p">(</span><span class="n">REPL</span><span class="o">.</span><span class="n">softscope</span><span class="p">),</span> <span class="n">mod</span><span class="p">::</span><span class="n">Module</span><span class="p">,</span> <span class="n">code</span><span class="p">::</span><span class="n">String</span><span class="p">,</span> <span class="n">filename</span><span class="p">::</span><span class="n">String</span><span class="p">)</span>
-   <span class="o">@</span> <span class="n">Base</span> <span class="o">./</span><span class="n">loading</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">1428</span>
-</pre></div>
-</div>
+<img alt="_images/chapter10_10_0.png" src="_images/chapter10_10_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -755,19 +623,6 @@ Stacktrace:
 <span class="w">    </span><span class="n">index</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="w"></span>
 <span class="w">    </span><span class="n">ax</span><span class="o">.</span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sa">f</span><span class="s">&quot;t = {t[i]:.5f}&quot;</span><span class="w"></span>
 <span class="k">end</span><span class="p">;</span><span class="w"></span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="ne">UndefVarError</span>: Figure not defined
-
-<span class="ne">Stacktrace</span>:
- <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">top</span><span class="o">-</span><span class="n">level</span> <span class="n">scope</span>
-   <span class="o">@</span> <span class="n">In</span><span class="p">[</span><span class="mi">8</span><span class="p">]:</span><span class="mi">1</span>
- <span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="nb">eval</span>
-   <span class="o">@</span> <span class="o">./</span><span class="n">boot</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">368</span> <span class="p">[</span><span class="n">inlined</span><span class="p">]</span>
- <span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="n">include_string</span><span class="p">(</span><span class="n">mapexpr</span><span class="p">::</span><span class="n">typeof</span><span class="p">(</span><span class="n">REPL</span><span class="o">.</span><span class="n">softscope</span><span class="p">),</span> <span class="n">mod</span><span class="p">::</span><span class="n">Module</span><span class="p">,</span> <span class="n">code</span><span class="p">::</span><span class="n">String</span><span class="p">,</span> <span class="n">filename</span><span class="p">::</span><span class="n">String</span><span class="p">)</span>
-   <span class="o">@</span> <span class="n">Base</span> <span class="o">./</span><span class="n">loading</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">1428</span>
 </pre></div>
 </div>
 </div>
@@ -807,7 +662,7 @@ Stacktrace:
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">10. </span>Eigenvalues and pseudospectra</p>
+            <p class="prev-next-title"><span class="section-number">9. </span>Eigenvalues and pseudospectra</p>
         </div>
     </a>
 </div>

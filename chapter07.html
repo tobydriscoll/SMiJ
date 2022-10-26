@@ -54,7 +54,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="9. Chebyshev FFT" href="chapter08.html" />
+    <link rel="next" title="8. Chebyshev FFT" href="chapter08.html" />
     <link rel="prev" title="6. Chebyshev diff mats" href="chapter06.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -148,17 +148,17 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="chapter08.html">
-   9. Chebyshev FFT
+   8. Chebyshev FFT
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="chapter09.html">
-   10. Eigenvalues and pseudospectra
+   9. Eigenvalues and pseudospectra
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="chapter10.html">
-   11. Time stability
+   10. Time stability
   </a>
  </li>
 </ul>
@@ -357,52 +357,33 @@ title="Print to PDF"
     </div>
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   7. BVPs
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#p13-solve-linear-bvp">
+   7.1. p13: solve linear BVP
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#p13-solve-linear-bvp-u-xx-exp-4x-u-1-u-1-0">
-     7.1. p13: solve linear BVP
-     <span class="math notranslate nohighlight">
-      \(u_{xx} = \exp(4x),\; u(-1)=u(1)=0\)
-     </span>
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#p14-solve-nonlinear-bvp-u-xx-exp-u-u-1-u-1-0">
-     7.2. p14: solve nonlinear BVP
-     <span class="math notranslate nohighlight">
-      \(u_{xx} = \exp(u),\; u(-1)=u(1)=0\)
-     </span>
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#p15-solve-eigenvalue-bvp-u-xx-lambda-u-u-1-u-1-0">
-     7.3. p15: solve eigenvalue BVP
-     <span class="math notranslate nohighlight">
-      \(u_{xx} = \lambda u, \; u(-1)=u(1)=0\)
-     </span>
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#p16-poisson-eq-on-1-1-1-1-with-u-0-on-boundary">
-     7.4. p16: Poisson eq. on [-1,1]×[-1,1] with
-     <span class="math notranslate nohighlight">
-      \(u=0\)
-     </span>
-     on boundary
-    </a>
-   </li>
-  </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#p17-helmholtz-eq-u-xx-u-yy-k-2-u-f">
-   8. p17: Helmholtz eq.
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#p14-solve-nonlinear-bvp">
+   7.2. p14: solve nonlinear BVP
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#p15-solve-eigenvalue-bvp">
+   7.3. p15: solve eigenvalue BVP
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#p16-poisson-eq-on-1-1-1-1-with-u-0-on-boundary">
+   7.4. p16: Poisson eq. on [-1,1]×[-1,1] with
    <span class="math notranslate nohighlight">
-    \(u_{xx} + u_{yy} + k^2 u = f\)
+    \(u=0\)
    </span>
+   on boundary
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#p17-helmholtz-eq">
+   7.5. p17: Helmholtz eq.
   </a>
  </li>
 </ul>
@@ -424,52 +405,33 @@ title="Print to PDF"
                         </div>
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   7. BVPs
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#p13-solve-linear-bvp">
+   7.1. p13: solve linear BVP
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#p13-solve-linear-bvp-u-xx-exp-4x-u-1-u-1-0">
-     7.1. p13: solve linear BVP
-     <span class="math notranslate nohighlight">
-      \(u_{xx} = \exp(4x),\; u(-1)=u(1)=0\)
-     </span>
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#p14-solve-nonlinear-bvp-u-xx-exp-u-u-1-u-1-0">
-     7.2. p14: solve nonlinear BVP
-     <span class="math notranslate nohighlight">
-      \(u_{xx} = \exp(u),\; u(-1)=u(1)=0\)
-     </span>
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#p15-solve-eigenvalue-bvp-u-xx-lambda-u-u-1-u-1-0">
-     7.3. p15: solve eigenvalue BVP
-     <span class="math notranslate nohighlight">
-      \(u_{xx} = \lambda u, \; u(-1)=u(1)=0\)
-     </span>
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#p16-poisson-eq-on-1-1-1-1-with-u-0-on-boundary">
-     7.4. p16: Poisson eq. on [-1,1]×[-1,1] with
-     <span class="math notranslate nohighlight">
-      \(u=0\)
-     </span>
-     on boundary
-    </a>
-   </li>
-  </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#p17-helmholtz-eq-u-xx-u-yy-k-2-u-f">
-   8. p17: Helmholtz eq.
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#p14-solve-nonlinear-bvp">
+   7.2. p14: solve nonlinear BVP
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#p15-solve-eigenvalue-bvp">
+   7.3. p15: solve eigenvalue BVP
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#p16-poisson-eq-on-1-1-1-1-with-u-0-on-boundary">
+   7.4. p16: Poisson eq. on [-1,1]×[-1,1] with
    <span class="math notranslate nohighlight">
-    \(u_{xx} + u_{yy} + k^2 u = f\)
+    \(u=0\)
    </span>
+   on boundary
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#p17-helmholtz-eq">
+   7.5. p17: Helmholtz eq.
   </a>
  </li>
 </ul>
@@ -490,37 +452,11 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>LoadError: ArgumentError: Package FFTW [7a1cc6ca-52ef-59f5-83cd-3a7055c09341] is required but does not seem to be installed:
- - Run `Pkg.instantiate()` to install all recorded dependencies.
-
-in expression starting at /Users/driscoll/repos/SMiJ/pages/smij-functions.jl:1
-
-Stacktrace:
- [1] _require(pkg::Base.PkgId)
-   @ Base ./loading.jl:1306
- [2] _require_prelocked(uuidkey::Base.PkgId)
-   @ Base ./loading.jl:1200
- [3] macro expansion
-   @ ./loading.jl:1180 [inlined]
- [4] macro expansion
-   @ ./lock.jl:223 [inlined]
- [5] require(into::Module, mod::Symbol)
-   @ Base ./loading.jl:1144
- [6] include(fname::String)
-   @ Base.MainInclude ./client.jl:476
- [7] top-level scope
-   @ In[1]:1
- [8] eval
-   @ ./boot.jl:368 [inlined]
- [9] include_string(mapexpr::typeof(REPL.softscope), mod::Module, code::String, filename::String)
-   @ Base ./loading.jl:1428
-</pre></div>
 </div>
-</div>
-</div>
-<section id="p13-solve-linear-bvp-u-xx-exp-4x-u-1-u-1-0">
-<h2><span class="section-number">7.1. </span>p13: solve linear BVP <span class="math notranslate nohighlight">\(u_{xx} = \exp(4x),\; u(-1)=u(1)=0\)</span><a class="headerlink" href="#p13-solve-linear-bvp-u-xx-exp-4x-u-1-u-1-0" title="Permalink to this headline">#</a></h2>
+<section id="p13-solve-linear-bvp">
+<h2><span class="section-number">7.1. </span>p13: solve linear BVP<a class="headerlink" href="#p13-solve-linear-bvp" title="Permalink to this headline">#</a></h2>
+<div class="math notranslate nohighlight">
+\[u_{xx} = \exp(4x),\; u(-1)=u(1)=0\]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">N</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="w"></span>
@@ -537,15 +473,7 @@ Stacktrace:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="ne">UndefVarError</span>: cheb not defined
-
-<span class="ne">Stacktrace</span>:
- <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">top</span><span class="o">-</span><span class="n">level</span> <span class="n">scope</span>
-   <span class="o">@</span> <span class="n">In</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span><span class="mi">2</span>
- <span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="nb">eval</span>
-   <span class="o">@</span> <span class="o">./</span><span class="n">boot</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">368</span> <span class="p">[</span><span class="n">inlined</span><span class="p">]</span>
- <span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="n">include_string</span><span class="p">(</span><span class="n">mapexpr</span><span class="p">::</span><span class="n">typeof</span><span class="p">(</span><span class="n">REPL</span><span class="o">.</span><span class="n">softscope</span><span class="p">),</span> <span class="n">mod</span><span class="p">::</span><span class="n">Module</span><span class="p">,</span> <span class="n">code</span><span class="p">::</span><span class="n">String</span><span class="p">,</span> <span class="n">filename</span><span class="p">::</span><span class="n">String</span><span class="p">)</span>
-   <span class="o">@</span> <span class="n">Base</span> <span class="o">./</span><span class="n">loading</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">1428</span>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.2609691069087603e-10
 </pre></div>
 </div>
 </div>
@@ -563,32 +491,14 @@ Stacktrace:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>ArgumentError: Package CairoMakie [13f3f980-e62b-5c42-98c6-ff1f3baf88f0] is required but does not seem to be installed:
- - Run `Pkg.instantiate()` to install all recorded dependencies.
-
-
-Stacktrace:
- [1] _require(pkg::Base.PkgId)
-   @ Base ./loading.jl:1306
- [2] _require_prelocked(uuidkey::Base.PkgId)
-   @ Base ./loading.jl:1200
- [3] macro expansion
-   @ ./loading.jl:1180 [inlined]
- [4] macro expansion
-   @ ./lock.jl:223 [inlined]
- [5] require(into::Module, mod::Symbol)
-   @ Base ./loading.jl:1144
- [6] eval
-   @ ./boot.jl:368 [inlined]
- [7] include_string(mapexpr::typeof(REPL.softscope), mod::Module, code::String, filename::String)
-   @ Base ./loading.jl:1428
-</pre></div>
-</div>
+<img alt="_images/chapter07_4_0.png" src="_images/chapter07_4_0.png" />
 </div>
 </div>
 </section>
-<section id="p14-solve-nonlinear-bvp-u-xx-exp-u-u-1-u-1-0">
-<h2><span class="section-number">7.2. </span>p14: solve nonlinear BVP <span class="math notranslate nohighlight">\(u_{xx} = \exp(u),\; u(-1)=u(1)=0\)</span><a class="headerlink" href="#p14-solve-nonlinear-bvp-u-xx-exp-u-u-1-u-1-0" title="Permalink to this headline">#</a></h2>
+<section id="p14-solve-nonlinear-bvp">
+<h2><span class="section-number">7.2. </span>p14: solve nonlinear BVP<a class="headerlink" href="#p14-solve-nonlinear-bvp" title="Permalink to this headline">#</a></h2>
+<div class="math notranslate nohighlight">
+\[u_{xx} = \exp(u),\; u(-1)=u(1)=0\]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">N</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="w"></span>
@@ -609,19 +519,6 @@ Stacktrace:
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="ne">UndefVarError</span>: cheb not defined
-
-<span class="ne">Stacktrace</span>:
- <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">top</span><span class="o">-</span><span class="n">level</span> <span class="n">scope</span>
-   <span class="o">@</span> <span class="n">In</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span><span class="mi">2</span>
- <span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="nb">eval</span>
-   <span class="o">@</span> <span class="o">./</span><span class="n">boot</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">368</span> <span class="p">[</span><span class="n">inlined</span><span class="p">]</span>
- <span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="n">include_string</span><span class="p">(</span><span class="n">mapexpr</span><span class="p">::</span><span class="n">typeof</span><span class="p">(</span><span class="n">REPL</span><span class="o">.</span><span class="n">softscope</span><span class="p">),</span> <span class="n">mod</span><span class="p">::</span><span class="n">Module</span><span class="p">,</span> <span class="n">code</span><span class="p">::</span><span class="n">String</span><span class="p">,</span> <span class="n">filename</span><span class="p">::</span><span class="n">String</span><span class="p">)</span>
-   <span class="o">@</span> <span class="n">Base</span> <span class="o">./</span><span class="n">loading</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">1428</span>
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -634,22 +531,14 @@ Stacktrace:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="ne">UndefVarError</span>: Figure not defined
-
-<span class="ne">Stacktrace</span>:
- <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">top</span><span class="o">-</span><span class="n">level</span> <span class="n">scope</span>
-   <span class="o">@</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span><span class="mi">1</span>
- <span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="nb">eval</span>
-   <span class="o">@</span> <span class="o">./</span><span class="n">boot</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">368</span> <span class="p">[</span><span class="n">inlined</span><span class="p">]</span>
- <span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="n">include_string</span><span class="p">(</span><span class="n">mapexpr</span><span class="p">::</span><span class="n">typeof</span><span class="p">(</span><span class="n">REPL</span><span class="o">.</span><span class="n">softscope</span><span class="p">),</span> <span class="n">mod</span><span class="p">::</span><span class="n">Module</span><span class="p">,</span> <span class="n">code</span><span class="p">::</span><span class="n">String</span><span class="p">,</span> <span class="n">filename</span><span class="p">::</span><span class="n">String</span><span class="p">)</span>
-   <span class="o">@</span> <span class="n">Base</span> <span class="o">./</span><span class="n">loading</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">1428</span>
-</pre></div>
-</div>
+<img alt="_images/chapter07_7_0.png" src="_images/chapter07_7_0.png" />
 </div>
 </div>
 </section>
-<section id="p15-solve-eigenvalue-bvp-u-xx-lambda-u-u-1-u-1-0">
-<h2><span class="section-number">7.3. </span>p15: solve eigenvalue BVP <span class="math notranslate nohighlight">\(u_{xx} = \lambda u, \; u(-1)=u(1)=0\)</span><a class="headerlink" href="#p15-solve-eigenvalue-bvp-u-xx-lambda-u-u-1-u-1-0" title="Permalink to this headline">#</a></h2>
+<section id="p15-solve-eigenvalue-bvp">
+<h2><span class="section-number">7.3. </span>p15: solve eigenvalue BVP<a class="headerlink" href="#p15-solve-eigenvalue-bvp" title="Permalink to this headline">#</a></h2>
+<div class="math notranslate nohighlight">
+\[u_{xx} = \lambda u, \; u(-1)=u(1)=0\]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">N</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">36</span><span class="w"></span>
@@ -666,19 +555,6 @@ Stacktrace:
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="ne">UndefVarError</span>: cheb not defined
-
-<span class="ne">Stacktrace</span>:
- <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">top</span><span class="o">-</span><span class="n">level</span> <span class="n">scope</span>
-   <span class="o">@</span> <span class="n">In</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span><span class="mi">2</span>
- <span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="nb">eval</span>
-   <span class="o">@</span> <span class="o">./</span><span class="n">boot</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">368</span> <span class="p">[</span><span class="n">inlined</span><span class="p">]</span>
- <span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="n">include_string</span><span class="p">(</span><span class="n">mapexpr</span><span class="p">::</span><span class="n">typeof</span><span class="p">(</span><span class="n">REPL</span><span class="o">.</span><span class="n">softscope</span><span class="p">),</span> <span class="n">mod</span><span class="p">::</span><span class="n">Module</span><span class="p">,</span> <span class="n">code</span><span class="p">::</span><span class="n">String</span><span class="p">,</span> <span class="n">filename</span><span class="p">::</span><span class="n">String</span><span class="p">)</span>
-   <span class="o">@</span> <span class="n">Base</span> <span class="o">./</span><span class="n">loading</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">1428</span>
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -687,7 +563,7 @@ Stacktrace:
 <span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">r</span><span class="p">)</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">enumerate</span><span class="p">(</span><span class="n">results</span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="n">ax</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Axis</span><span class="p">(</span><span class="n">fig</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">])</span><span class="w"></span>
 <span class="w">    </span><span class="n">scatter!</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="o">.</span><span class="n">u</span><span class="p">,</span><span class="w"> </span><span class="n">markersize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span><span class="w"></span>
-<span class="w">    </span><span class="n">line</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lines!</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="o">.</span><span class="n">uu</span><span class="p">,</span><span class="n">linealpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">line</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lines!</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="o">.</span><span class="n">uu</span><span class="p">,</span><span class="w"> </span><span class="n">linealpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="n">color</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">line</span><span class="o">.</span><span class="n">color</span><span class="p">[]</span><span class="w"></span>
 <span class="w">    </span><span class="n">line</span><span class="o">.</span><span class="n">color</span><span class="p">[]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Colors</span><span class="o">.</span><span class="n">RGBA</span><span class="p">(</span><span class="n">color</span><span class="o">.</span><span class="n">r</span><span class="p">,</span><span class="n">color</span><span class="o">.</span><span class="n">g</span><span class="p">,</span><span class="n">color</span><span class="o">.</span><span class="n">b</span><span class="p">,</span><span class="mf">0.4</span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="n">hidespines!</span><span class="p">(</span><span class="n">ax</span><span class="p">);</span><span class="w"> </span><span class="n">hidedecorations!</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span><span class="w"></span>
@@ -700,22 +576,7 @@ Stacktrace:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>ArgumentError: Package Makie not found in current path.
-- Run `import Pkg; Pkg.add(&quot;Makie&quot;)` to install the Makie package.
-
-Stacktrace:
- [1] macro expansion
-   @ ./loading.jl:1163 [inlined]
- [2] macro expansion
-   @ ./lock.jl:223 [inlined]
- [3] require(into::Module, mod::Symbol)
-   @ Base ./loading.jl:1144
- [4] eval
-   @ ./boot.jl:368 [inlined]
- [5] include_string(mapexpr::typeof(REPL.softscope), mod::Module, code::String, filename::String)
-   @ Base ./loading.jl:1428
-</pre></div>
-</div>
+<img alt="_images/chapter07_10_0.png" src="_images/chapter07_10_0.png" />
 </div>
 </div>
 </section>
@@ -744,19 +605,6 @@ Stacktrace:
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="ne">UndefVarError</span>: cheb not defined
-
-<span class="ne">Stacktrace</span>:
- <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">top</span><span class="o">-</span><span class="n">level</span> <span class="n">scope</span>
-   <span class="o">@</span> <span class="n">In</span><span class="p">[</span><span class="mi">8</span><span class="p">]:</span><span class="mi">4</span>
- <span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="nb">eval</span>
-   <span class="o">@</span> <span class="o">./</span><span class="n">boot</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">368</span> <span class="p">[</span><span class="n">inlined</span><span class="p">]</span>
- <span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="n">include_string</span><span class="p">(</span><span class="n">mapexpr</span><span class="p">::</span><span class="n">typeof</span><span class="p">(</span><span class="n">REPL</span><span class="o">.</span><span class="n">softscope</span><span class="p">),</span> <span class="n">mod</span><span class="p">::</span><span class="n">Module</span><span class="p">,</span> <span class="n">code</span><span class="p">::</span><span class="n">String</span><span class="p">,</span> <span class="n">filename</span><span class="p">::</span><span class="n">String</span><span class="p">)</span>
-   <span class="o">@</span> <span class="n">Base</span> <span class="o">./</span><span class="n">loading</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">1428</span>
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -771,17 +619,7 @@ Stacktrace:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="ne">UndefVarError</span>: Figure not defined
-
-<span class="ne">Stacktrace</span>:
- <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">top</span><span class="o">-</span><span class="n">level</span> <span class="n">scope</span>
-   <span class="o">@</span> <span class="n">In</span><span class="p">[</span><span class="mi">9</span><span class="p">]:</span><span class="mi">2</span>
- <span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="nb">eval</span>
-   <span class="o">@</span> <span class="o">./</span><span class="n">boot</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">368</span> <span class="p">[</span><span class="n">inlined</span><span class="p">]</span>
- <span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="n">include_string</span><span class="p">(</span><span class="n">mapexpr</span><span class="p">::</span><span class="n">typeof</span><span class="p">(</span><span class="n">REPL</span><span class="o">.</span><span class="n">softscope</span><span class="p">),</span> <span class="n">mod</span><span class="p">::</span><span class="n">Module</span><span class="p">,</span> <span class="n">code</span><span class="p">::</span><span class="n">String</span><span class="p">,</span> <span class="n">filename</span><span class="p">::</span><span class="n">String</span><span class="p">)</span>
-   <span class="o">@</span> <span class="n">Base</span> <span class="o">./</span><span class="n">loading</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">1428</span>
-</pre></div>
-</div>
+<img alt="_images/chapter07_13_0.png" src="_images/chapter07_13_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -798,23 +636,14 @@ Stacktrace:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="ne">UndefVarError</span>: Figure not defined
-
-<span class="ne">Stacktrace</span>:
- <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">top</span><span class="o">-</span><span class="n">level</span> <span class="n">scope</span>
-   <span class="o">@</span> <span class="n">In</span><span class="p">[</span><span class="mi">10</span><span class="p">]:</span><span class="mi">2</span>
- <span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="nb">eval</span>
-   <span class="o">@</span> <span class="o">./</span><span class="n">boot</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">368</span> <span class="p">[</span><span class="n">inlined</span><span class="p">]</span>
- <span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="n">include_string</span><span class="p">(</span><span class="n">mapexpr</span><span class="p">::</span><span class="n">typeof</span><span class="p">(</span><span class="n">REPL</span><span class="o">.</span><span class="n">softscope</span><span class="p">),</span> <span class="n">mod</span><span class="p">::</span><span class="n">Module</span><span class="p">,</span> <span class="n">code</span><span class="p">::</span><span class="n">String</span><span class="p">,</span> <span class="n">filename</span><span class="p">::</span><span class="n">String</span><span class="p">)</span>
-   <span class="o">@</span> <span class="n">Base</span> <span class="o">./</span><span class="n">loading</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">1428</span>
-</pre></div>
-</div>
+<img alt="_images/chapter07_14_0.png" src="_images/chapter07_14_0.png" />
 </div>
 </div>
 </section>
-</section>
-<section class="tex2jax_ignore mathjax_ignore" id="p17-helmholtz-eq-u-xx-u-yy-k-2-u-f">
-<h1><span class="section-number">8. </span>p17: Helmholtz eq. <span class="math notranslate nohighlight">\(u_{xx} + u_{yy} + k^2 u = f\)</span><a class="headerlink" href="#p17-helmholtz-eq-u-xx-u-yy-k-2-u-f" title="Permalink to this headline">#</a></h1>
+<section id="p17-helmholtz-eq">
+<h2><span class="section-number">7.5. </span>p17: Helmholtz eq.<a class="headerlink" href="#p17-helmholtz-eq" title="Permalink to this headline">#</a></h2>
+<div class="math notranslate nohighlight">
+\[u_{xx} + u_{yy} + k^2 u = f\]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-julia notranslate"><div class="highlight"><pre><span></span><span class="n">N</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">24</span><span class="w"></span>
@@ -837,15 +666,7 @@ Stacktrace:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="ne">UndefVarError</span>: cheb not defined
-
-<span class="ne">Stacktrace</span>:
- <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">top</span><span class="o">-</span><span class="n">level</span> <span class="n">scope</span>
-   <span class="o">@</span> <span class="n">In</span><span class="p">[</span><span class="mi">11</span><span class="p">]:</span><span class="mi">4</span>
- <span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="nb">eval</span>
-   <span class="o">@</span> <span class="o">./</span><span class="n">boot</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">368</span> <span class="p">[</span><span class="n">inlined</span><span class="p">]</span>
- <span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="n">include_string</span><span class="p">(</span><span class="n">mapexpr</span><span class="p">::</span><span class="n">typeof</span><span class="p">(</span><span class="n">REPL</span><span class="o">.</span><span class="n">softscope</span><span class="p">),</span> <span class="n">mod</span><span class="p">::</span><span class="n">Module</span><span class="p">,</span> <span class="n">code</span><span class="p">::</span><span class="n">String</span><span class="p">,</span> <span class="n">filename</span><span class="p">::</span><span class="n">String</span><span class="p">)</span>
-   <span class="o">@</span> <span class="n">Base</span> <span class="o">./</span><span class="n">loading</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">1428</span>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.01172257000265279
 </pre></div>
 </div>
 </div>
@@ -865,19 +686,10 @@ Stacktrace:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="ne">UndefVarError</span>: Figure not defined
-
-<span class="ne">Stacktrace</span>:
- <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="n">top</span><span class="o">-</span><span class="n">level</span> <span class="n">scope</span>
-   <span class="o">@</span> <span class="n">In</span><span class="p">[</span><span class="mi">12</span><span class="p">]:</span><span class="mi">1</span>
- <span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="nb">eval</span>
-   <span class="o">@</span> <span class="o">./</span><span class="n">boot</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">368</span> <span class="p">[</span><span class="n">inlined</span><span class="p">]</span>
- <span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="n">include_string</span><span class="p">(</span><span class="n">mapexpr</span><span class="p">::</span><span class="n">typeof</span><span class="p">(</span><span class="n">REPL</span><span class="o">.</span><span class="n">softscope</span><span class="p">),</span> <span class="n">mod</span><span class="p">::</span><span class="n">Module</span><span class="p">,</span> <span class="n">code</span><span class="p">::</span><span class="n">String</span><span class="p">,</span> <span class="n">filename</span><span class="p">::</span><span class="n">String</span><span class="p">)</span>
-   <span class="o">@</span> <span class="n">Base</span> <span class="o">./</span><span class="n">loading</span><span class="o">.</span><span class="n">jl</span><span class="p">:</span><span class="mi">1428</span>
-</pre></div>
+<img alt="_images/chapter07_17_0.png" src="_images/chapter07_17_0.png" />
 </div>
 </div>
-</div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -917,7 +729,7 @@ Stacktrace:
     <a class='right-next' id="next-link" href="chapter08.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">9. </span>Chebyshev FFT</p>
+        <p class="prev-next-title"><span class="section-number">8. </span>Chebyshev FFT</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
