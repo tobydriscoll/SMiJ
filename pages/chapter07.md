@@ -149,7 +149,7 @@ text!(0.4, -0.3, 0.3, text=latexstring("u(2^{-1/2},\\,2^{-1/2}) = "*val))
 fig
 ```
 
-# p17: Helmholtz eq. $u_{xx} + u_{yy} + k^2 u = f$
+## p17: Helmholtz eq. $u_{xx} + u_{yy} + k^2 u = f$
 
 ```{code-cell}
 N = 24
