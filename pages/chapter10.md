@@ -67,24 +67,25 @@ using Makie.ColorSchemes
 colors = ColorSchemes.tol_bright[1:6]
 
 data = [
-    (ABregion, 1:3, [-2.2,0.2,-1.2,1.2]),
-    (AMregion, 3:6, [-6.3,0.3,-3.3,3.3]),
-    (BDregion, 1:6, [-12,32,-22,22]),
-    (RKregion, 1:4, [-5,1,-3,3])
+    (ABregion, 1:3, [-2.2,0.2,-1.2,1.2], "Adams-Bashforth"),
+    (AMregion, 3:6, [-6.3,0.3,-3.3,3.3], "Adams-Moulton"),
+    (BDregion, 1:6, [-12,32,-22,22], "Backward differentiation (exteriors)"),
+    (RKregion, 1:4, [-5,1,-3,3], "Runge-Kutta")
 ]
 
 fig = Figure()
 ax = vec([Axis(fig[j,i], aspect=DataAspect()) for i in 1:2, j in 1:2])
-for (ax,(kind,orders,limits)) in zip(ax,data)
+for (ax,(kind,orders,limits,title)) in zip(ax,data)
     for order in orders
         w = kind(order)
         lines!(ax,real(w),imag(w), label="$order", color=colors[order])
         limits!(ax,limits...)
+        ax.title = title
         vlines!(ax,0, color=:black)
     end
 end
 
-Legend(fig[1,3],ax[3])
+Legend(fig[1,3], ax[3], "order", framevisible=false)
 fig
 ```
 
@@ -125,7 +126,9 @@ scatter!(x[2:N], abs.(vN[2:N]), markersize=8)
 fig
 ```
 
-## p27: Solve KdV eq. $u_t + uu_x + u_{xxx} = 0$ on [-π,π] 
+## p27: Solve KdV eq. 
+
+$$u_t + uu_x + u_{xxx} = 0, \quad  x \in [-\pi,\pi]$$ 
 
 ```{code-cell}
 # Set up grid and two-soliton initial data:

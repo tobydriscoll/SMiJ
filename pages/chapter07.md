@@ -19,7 +19,9 @@ kernelspec:
 include("smij-functions.jl");
 ```
 
-## p13: solve linear BVP $u_{xx} = \exp(4x),\; u(-1)=u(1)=0$
+## p13: solve linear BVP 
+
+$$u_{xx} = \exp(4x),\; u(-1)=u(1)=0$$
 
 ```{code-cell}
 N = 16
@@ -44,7 +46,9 @@ lines!(xx, uu)
 fig
 ```
 
-## p14: solve nonlinear BVP $u_{xx} = \exp(u),\; u(-1)=u(1)=0$
+## p14: solve nonlinear BVP 
+
+$$u_{xx} = \exp(u),\; u(-1)=u(1)=0$$
 
 ```{code-cell}
 N = 16
@@ -72,7 +76,9 @@ lines!(xx, uu)
 fig
 ```
 
-## p15: solve eigenvalue BVP $u_{xx} = \lambda u, \; u(-1)=u(1)=0$
+## p15: solve eigenvalue BVP 
+
+$$u_{xx} = \lambda u, \; u(-1)=u(1)=0$$
 
 ```{code-cell}
 N = 36
@@ -94,7 +100,7 @@ fig = Figure()
 for (i,r) in enumerate(results)
     ax = Axis(fig[i, 1])
     scatter!(x, r.u, markersize=8)
-    line = lines!(xx, r.uu,linealpha=0.5)
+    line = lines!(xx, r.uu, linealpha=0.5)
     color = line.color[]
     line.color[] = Colors.RGBA(color.r,color.g,color.b,0.4)
     hidespines!(ax); hidedecorations!(ax)
@@ -149,7 +155,9 @@ text!(0.4, -0.3, 0.3, text=latexstring("u(2^{-1/2},\\,2^{-1/2}) = "*val))
 fig
 ```
 
-## p17: Helmholtz eq. $u_{xx} + u_{yy} + k^2 u = f$
+## p17: Helmholtz eq. 
+
+$$u_{xx} + u_{yy} + k^2 u = f$$
 
 ```{code-cell}
 N = 24
