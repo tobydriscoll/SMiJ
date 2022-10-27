@@ -1,5 +1,26 @@
 using LinearAlgebra,FFTW
 
+function trig(N)
+    @assert(iseven(N), "N must be even")
+    h = 2π / N
+    x = h * (1:N)
+    entry1(k) = k==0 ? 0.0 : 0.5 * (-1)^k * cot(k * h / 2)
+    D = [ entry1(mod(i-j, N)) for i in 1:N, j in 1:N ]
+    entry2(k) = k==0 ? -π^2 / 3h^2 - 1/6 : -0.5 * (-1)^k / sin(h * k / 2)^2
+    D² = [entry2(mod(i-j, N)) for i in 1:N, j in 1:N]  
+    return x,D,D² 
+end
+
+function triginterp(v)
+    N = length(v)
+    @assert(iseven(N), "length of data must be even")
+    S(x) = mod(x,2π)==0 ? 1 : sin(N*x/2) / (N * tan(x/2)) 
+    x = 2π/N * (1:N)
+    return function(t)
+        sum( v[j]*S(t-x[j]) for j in eachindex(v) )
+    end
+end
+
 """
     polyinterp(x, y)
 
