@@ -1,0 +1,114 @@
+# See docs at: https://mystmd.org/guide/frontmatter
+version: 1
+project:
+  exclude: pages
+  id: 49d774e7-b7e0-430a-99b6-e37a6b35b24c
+  title: "Spectral Methods in Julia"
+  # description:
+  # keywords: []
+  # authors:
+    # - name: Tobin A. Driscoll
+      # email: driscoll@udel.edu
+  github: https://github.com/tobydriscoll/SpectralMethodsTrefethen.jl
+  # To autogenerate a Table of Contents, run "myst init --write-toc"
+  exports:
+    - format: typst
+      template: lapreprint-typst
+      output: exports/SMiJ.pdf
+    - format: tex
+      template: plain_latex_book
+      output: exports/SMiJ.tex
+  numbering:
+    code: false
+    equations: false
+    title: false
+    headings: false
+    # heading_1: false
+    # heading_2: false
+    # heading_3: false
+  abbreviations:
+    SMiM: Spectral Methods in MATLAB
+    IVP: initial-value problem
+    BVP: boundary-value problem
+    TPBVP: two-point boundary-value problem
+    ONC: matrix with orthonormal columns
+    SVD: singular value decomposition
+    EVD: eigenvalue decomposition
+    SPD: symmetric positive definite
+    HPD: hermitian positive definite
+    PDE: partial differential equation
+    ODE: ordinary differential equation
+  math:
+    '\float': '\mathbb{F}'
+    '\real': '\mathbb{R}'
+    '\complex': '\mathbb{C}'
+    '\nat': '\mathbb{N}'
+    '\integer': '\mathbb{Z}'
+    '\rmn' : '\mathbb{R}^{#1 \times #2}'
+    '\dd' : '\frac{d #1}{d #2}'
+    '\ddd' : '\frac{d^2 #1}{d #2^2}'
+    '\pp' : '\frac{\partial #1}{\partial #2}'
+    '\ppp' : '\frac{\partial^2 #1}{\partial #2^2}'
+    '\ppdd' : '\frac{\partial^2 #1}{\partial #2 \partial #3}'
+    '\abs' : '\left\lvert #1 \right\rvert'
+    '\norm' : '\left\lVert #1 \right\rVert'
+    '\twonorm' : '\norm{#1}_2'
+    '\onenorm' : '\norm{#1}_1'
+    '\infnorm' : '\norm{#1}_\infty'
+    '\anynorm' : '\norm{#1}_#2'
+    '\innerprod' : '\langle #1,#2 \rangle'
+    '\pr' : '^{(#1)}'
+    '\kron' : '#1 \otimes #2'
+    '\eye' : '\mathbf{e}_#1'
+    '\meye' : '\mathbf{I}'
+    '\Qhat' : '\hat{\mathbf{Q}}'
+    '\Rhat' : '\hat{\mathbf{R}}'
+    '\bfalpha': '\mathbf{alpha}'
+    '\bfdelta': '\mathbf{delta}'
+    '\bfzero': '\boldsymbol{0}'
+    '\macheps': '\epsilon_\text{mach}'
+    '\fl': '\operatorname{fl}'
+    '\diag': '\operatorname{diag}'
+    '\ign': '\operatorname{sign}'
+    '\Re': '\operatorname{Re}'
+    '\Im': '\operatorname{Im}'
+    '\ee': '\times 10^'
+    '\lnorm': '\|'
+    '\rnorm': '\|'
+    '\floor': '\lfloor#1\rfloor'
+    '\cI': '\mathcal{I}'
+    '\mtx': '\operatorname{mtx}'
+    '\myvec': '\operatorname{vec}'
+    '\argmin': '\operatorname{argmin}'
+  toc:
+    - file: home.md
+    # - file: usage.md
+    # - title: Preface
+    #   children:
+    #     - file: frontmatter/preface-original.md
+    #     - file: frontmatter/preface.md
+    - file: chapter1.md
+    - file: chapter2.md
+    - file: chapter3.md
+    - file: chapter4.md
+    - file: chapter5.md
+    - file: chapter6.md
+    - file: chapter7.md
+    - file: chapter8.md
+    - file: chapter9.md
+    - file: glossary.md
+site:
+  title: "Spectral Methods in MATLAB...in Julia"
+  template: book-theme
+  # actions:
+  #   - title: Support us
+  #     url: https://buymeacoffee.com/tobydriscoll
+  #   - title: Suggestion box
+  #     url: https://github.com/fncbook/fnc/issues/new/choose
+  # options:
+  #   favicon: _static/favicon.png
+  #   logo: _static/FNClogo.png
+  #   analytics_plausible: fncbook.com # Domain(s) to track
+  style: style.css
+  # domains:
+  #   - www.fncbook.com

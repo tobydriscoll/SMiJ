@@ -4,4 +4,5 @@ Untitled.ipynb
 .ipynb_checkpoints
 *.mp4
 pages/_build
-
+_build
+profile.pb.gz
