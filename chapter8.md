@@ -24,30 +24,6 @@ I have structured my implementation of `chebfft` to take advantage of the factor
 The `similar` function creates an uninitialized array with the same size and element type as the given array. We have to be careful here not to specify either a real or complex array, since we want the result to have the same type as the input. We could get a valid result using `w = copy(v)`, but that causes an unnecessary copy of the data.
 ::::
 
-<!--
-This gives us a reason to use another major Julia feature known as {term}`multiple dispatch`. Put simply, the idea is that a function can have multiple methods, and the method that gets called depends on the types of the arguments at runtime. Our goal here is to have different methods for real and complex data. This intention is stated in the function signatures:
-
-```julia
-function chebfft(v::AbstractVector{<:Real}, N::Integer)
-function chebfft(v::AbstractVector{<:Complex}, N::Integer)
-```
-
-The `::` notation indicates a type annotation. As we have seen up to this point, type annotations are optional in Julia, but we need them here on the first argument to specify the types for multiple dispatch. The `<:` symbol means "subtype of", so `AbstractVector{<:Real}` means "any abstract vector whose element type is a subtype of `Real`". 
-
-:::{caution}
-The type system can be subtle and confusing at times. Consider:
-
-```{code-cell}
-v = [1.0, 2.0, 3.0]
-println("type of v is ", typeof(v))
-println("v isa AbstractVector{Float64}? ", v isa AbstractVector{Float64})
-println("Is Float64 a subtype of Real? ", Float64 <: Real)
-println("Is v an AbstractVector{Real}? ", v isa AbstractVector{Real})
-println("Is v an AbstractVector{<:Real}? ", v isa AbstractVector{<:Real})
-```
-:::
--->
-
 ## Program p18
 
 ```{code-cell}
