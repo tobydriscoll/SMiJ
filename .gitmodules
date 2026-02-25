@@ -1,0 +1,3 @@
+[submodule "SpectralMethodsTrefethen"]
+	path = SpectralMethodsTrefethen
+	url = https://github.com/tobydriscoll/SpectralMethodsTrefethen.git
