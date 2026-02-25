@@ -70,9 +70,8 @@ I made a change compared to [Output 11](#output11). For the right-hand column, I
 :label: p19
 using CairoMakie, LaTeXStrings, FFTW, SpectralMethodsTrefethen
 "p19 - 2nd-order wave eq. on Chebyshev grid (compare p6)"
-function p19(N=80, tmax=4)
+function p19(N=80, tmax=4, Δt=8/N^2)
     _, x = cheb(N)
-    Δt = 8 / N^2
     v = @. exp(-200x^2)
     vold = @. exp(-200 * (x - Δt)^2)
 
@@ -165,10 +164,9 @@ Your eye tells you that this solution is underresolved, but spectral methods are
 using CairoMakie, LaTeXStrings, Printf
 using FFTW, SpectralMethodsTrefethen
 "p20anim - 2nd-order wave eq. in 2D via FFT (compare p19)"
-function p20anim(N = 24, tmax = 1)
+function p20anim(N=24, tmax=1, Δt=6/N^2)
     # Grid and initial data:
     x = y = cheb(N)[2]
-    Δt = 6 / N^2
     DCT(v) = FFTW.r2r(v, FFTW.REDFT00)
     DST(v) = FFTW.r2r(v, FFTW.RODFT00)
     function fftderiv2(v)
@@ -232,7 +230,7 @@ p20anim(32, 3)
 (output20anim)=
 ![](p20anim.mp4)
 
-I went straight to the animation this time. I chose to break out the FFT differentiation into its own function, `fftderiv2`. It's patterened after the `chebfft` function, but it returns the second derivative—except at the boundaries, where it returns zero. This ensures that the solution remains constant on the boundary during the time stepping. Note that the second derivative in $\theta$ is a cosine series again, so the DCT is needed to invert its transform. 
+I went straight to the animation this time. I chose to break out the FFT differentiation into its own function, `fftderiv2`. It's patterned after the `chebfft` function, but it returns the second derivative—except at the boundaries, where it returns zero. This ensures that the solution remains constant on the boundary during the time stepping. Note that the second derivative in $\theta$ is a cosine series again, so the DCT is needed to invert its transform. 
 
 This 1-D function is then mapped to slices along each dimension in order to get the second partials needed for the wave equation. Technically, a true 2-D FFT from `FFTW` would be more efficient than repeated applications of 1-D FFTs. But the efficiency difference is unimportant unless $N$ is quite large, and the extra complication to the code is not worthwhile here.
 
@@ -249,5 +247,5 @@ However, this would make both variables aliases of the same array! We need two s
 ::::{note} Color range
 :icon: false
 :class: dropdown
-The color range for the heatmap is set to $[-0.75, 0.75].$ Hence, values greater or less than these values map to the extreme colors in the colormap. While this makes the plot of the initial condition less visually informative, the amplitude of the solution diminishes quickly, and we get more color during most of the animationthan we would by using the range $[-1, 1]$.
+The color range for the heatmap is set to $[-0.75, 0.75].$ Hence, values greater or less than these values map to the extreme colors in the colormap. While this makes the plot of the initial condition less visually informative, the amplitude of the solution diminishes quickly, and we get more color during most of the animation than we would by using the range $[-1, 1]$.
 ::::

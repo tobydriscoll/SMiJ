@@ -1,6 +1,6 @@
 using CairoMakie, LaTeXStrings, FFTW
 "p6 - variable coefficient wave equation"
-function p6(N, tmax)
+function p6(N=128, tmax=8, Δt=π/2N)
     # Grid, variable coefficient, and initial data:
     h = 2π / N
     x = h * (1:N)
@@ -11,21 +11,20 @@ function p6(N, tmax)
         return irfft(ŵ, N)
     end
 
-    dt = h / 4
     c = @. 0.2 + sin(x - 1)^2
     v = @. exp(-100 * (x - 1) .^ 2)
-    vold = @. exp(-100 * (x - 0.2dt - 1)^2)
+    vold = @. exp(-100 * (x - 0.2Δt - 1)^2)
 
     # Time-stepping by leap frog formula:
     tplot = 0.15
-    plotgap = round(Int, tplot / dt)
-    dt = tplot / plotgap
-    ntime = round(Int, tmax / dt)
+    plotgap = round(Int, tplot / Δt)
+    Δt = tplot / plotgap
+    ntime = round(Int, tmax / Δt)
     data = [v zeros(N, ntime)]
-    t = dt * (0:ntime)
+    t = Δt * (0:ntime)
     for i = 1:ntime
         w = fftderiv(v)
-        vnew = vold - 2dt * c .* w
+        vnew = vold - 2Δt * c .* w
         data[:, i+1] = vnew
         vold, v = v, vnew
     end
@@ -34,5 +33,3 @@ function p6(N, tmax)
         colormap=:viridis,
         axis=(xlabel=L"x", xticks=MultiplesTicks(5, π, "π"), ylabel=L"t"))
 end
-
-p6(128, 8)

@@ -213,9 +213,7 @@ When you see an `InexactError`, it may be the result of a numeric type that can'
 :tags: [remove-output]
 :class: numbered
 :label: p6
-using CairoMakie, LaTeXStrings, FFTW
-"p6 - variable coefficient wave equation"
-function p6(N, tmax)
+function p6(N=128, tmax=8, Δt=π/2N)
     # Grid, variable coefficient, and initial data:
     h = 2π / N
     x = h * (1:N)
@@ -226,7 +224,6 @@ function p6(N, tmax)
         return irfft(ŵ, N)
     end
 
-    Δt = h / 4
     c = @. 0.2 + sin(x - 1)^2
     v = @. exp(-100 * (x - 1) .^ 2)
     vold = @. exp(-100 * (x - 0.2Δt - 1)^2)
@@ -255,7 +252,7 @@ end
 
 ```{code-cell}
 :label: output6
-p6(128, 8)
+p6()
 ```
 
 Our first PDE solution!
@@ -313,7 +310,7 @@ One advantage I have here over a printed book is the use of animations. Accordin
 :label: p6anim
 using CairoMakie, LaTeXStrings, FFTW
 "p6anim - variable coefficient wave equation"
-function p6anim(N, tmax)
+function p6anim(N=128, tmax=8, Δt=π/2N)
     h = 2π / N
     x = h * (1:N)
     function fftderiv(v)
@@ -323,7 +320,6 @@ function p6anim(N, tmax)
         return irfft(ŵ, N)
     end
 
-    Δt = h / 4
     c = @. 0.2 + sin(x - 1)^2
 
     # Time-stepping by leap frog formula:
@@ -335,7 +331,7 @@ function p6anim(N, tmax)
     vold = @. exp(-100 * (x - 0.2Δt - 1)^2)
     fig = lines(x, v;
         axis=(; xlabel=L"x", xticks=MultiplesTicks(5, π, "π"), title))
-    anim = record(fig, "p6anim.mp4"; framerate=60) do io
+    anim = record(fig, "p6anim-$N-$tmax.mp4"; framerate=60) do io
         recordframe!(io)
         for n in 1:ntime
             w = fftderiv(v[])
@@ -358,7 +354,7 @@ p6anim(128, 12);
 ```
 
 (output6anim)=
-![](p6anim.mp4)
+![](p6anim-128-12.mp4)
 
 Before digging into the code, look at what the original [Output 6](#output6) was hiding! While the solution in *SMiM* looks virtually perfect, we see in the animation (as well as the heatmap, if you look closely) that the solution has small but significant flaws. The culprit is the leapfrog time-stepping: at second order, it's much less accurate than the Fourier differentiation in space. Moreover, its numerical error propagates without dissipation. Many other time-stepping methods introduce some artificial dissipation, which would make the solution look a lot better—but not necessarily more accurate.
 

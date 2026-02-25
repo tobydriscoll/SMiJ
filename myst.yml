@@ -96,6 +96,7 @@ project:
     - file: chapter7.md
     - file: chapter8.md
     - file: chapter9.md
+    - file: chapter10.md
     - file: glossary.md
 site:
   title: "Spectral Methods in MATLAB...in Julia"
