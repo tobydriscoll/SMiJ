@@ -9,34 +9,18 @@ kernelspec:
 
 ## Program p13
 
-```{code-cell}
-:tags: [remove-output]
-:class: numbered
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p13.jl
 :label: p13
-using CairoMakie, Printf, LinearAlgebra, SpectralMethodsTrefethen
-"p13 - solve linear BVP u_xx = exp(4x), u(-1) = u(1) = 0"
-function p13(N = 16)
-    D, x = cheb(N)
-    D² = D^2
-    D² = D²[2:N, 2:N]                    # boundary conditions
-    rhs = @. exp(4x[2:N])
-    v = D² \ rhs                         # Poisson eq. solved here
-    v = [0; v; 0]
-    xx = range(-1, 1, 801)
-    u = chebinterp(v)                    # interpolate grid data
-    exact(x) = @. (exp(4x) - sinh(4) * x - cosh(4)) / 16;
-    maxerr = maximum(abs, u.(xx) - exact.(xx))
-    title = @sprintf("max err = %.3g", maxerr)
-    fig = lines(-1..1, u; axis=(; title, xlabel=L"x", ylabel=L"u(x)"))
-    scatter!(x, v)
-    fig
-end
-```
+:linenos: true
+:language: julia
+:filename: p13
+:::
 
 ### Output 13
 
 ```{code-cell}
 :label: output13
+using SpectralMethodsTrefethen
 p13()
 ```
 
@@ -116,36 +100,12 @@ With `baryinterp` in hand, we can specialize it to the Chebyshev case, where we 
 
 ## Program p14
 
-```{code-cell}
-:tags: [remove-output]
-:class: numbered
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p14.jl
 :label: p14
-using CairoMakie, LaTeXStrings, SpectralMethodsTrefethen
-"""
-p14 - solve nonlinear BVP u_xx = exp(u), u(-1) = u(1) = 0 (compare p13)
-"""
-function p14(N = 16)
-    D, x = cheb(N)
-    D² = (D^2)[2:N, 2:N]
-    v = zeros(N-1)
-    it = 0
-    while true              # fixed-point iteration
-        vnew = D² \ exp.(v)
-        change = maximum(abs, vnew - v)
-        v = vnew
-        it += 1
-        (change < 1e-15 || it > 99) && break
-    end
-    v = [0; v; 0]
-    p = chebinterp(v)
-    fig = Figure()
-    title = "no. steps = $it,  u(0) = $(p(0))"
-    ax = Axis(fig[1, 1]; title, xlabel=L"x", ylabel=L"u(x)")
-    scatter!(ax, x, v)
-    lines!(ax, -1..1, p)
-    return fig
-end
-```
+:linenos: true
+:language: julia
+:filename: p14
+:::
 
 ### Output 14
 
@@ -158,34 +118,13 @@ I use `chebinterp` to get the value of the solution at $x=0$, rather than indexi
 
 ## Program p15
 
-```{code-cell}
-:tags: [remove-output]
-:class: numbered
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p15.jl
 :label: p15
-using CairoMakie, Printf
-using SpectralMethodsTrefethen, LinearAlgebra
-"p15 - solve eigenvalue BVP u_xx = λ u, u(-1) = u(1) = 0"
-function p15(N = 36)
-    D, x = cheb(N)
-    D² = (D^2)[2:N, 2:N]
-    λ, V = eigen(-D²)
-    fig = Figure(size=(600, 600))
-    ax = [Axis(fig[i, 1], limits=(-1, 1, -0.64, 0.64)) for i in 1:6]
-    for (mode, ax) in zip(5:5:30, ax)        # plot 6 eigenvectors
-        v = [0; V[:, mode]; 0]
-        scatter!(ax, x, v)
-        u = chebinterp(v)
-        lines!(ax, -1..1, u)
-        eig = "eig $mode = $(-λ[mode] * 4/π^2) π²/4"
-        text!(ax, 0, 0.45; text=eig, fontsize=12, align=(:center, :baseline))
-        PPW = @sprintf("%.1f", 4N / (π * mode))
-        text!(ax, 0.7, 0.45; text="$PPW  ppw", fontsize=12, align=(:left, :baseline))
-    end
-    hidespines!.(ax)
-    hidedecorations!.(ax)
-    return fig
-end
-```
+:linenos: true
+:language: julia
+:filename: p15
+:::
+
 
 ### Output 15
 
@@ -220,47 +159,12 @@ The `hidespines!` and `hidedecorations!` functions in line 17 are used to hide t
 
 ## Program p16
 
-```{code-cell}
-:tags: [remove-output]
-:class: numbered
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p16.jl
 :label: p16
-using CairoMakie, Printf, LaTeXStrings
-using LinearAlgebra, SpectralMethodsTrefethen
-"p16 - Poisson eq. on [-1,1] x [-1,1] with u = 0 on boundary"
-function p16(N = 24)
-    # Set up grids and tensor product Laplacian and solve for u:
-    D, x = cheb(N)
-    y = x
-    f(x, y) = 10sin(8x * (y - 1))
-    F = [f(x, y) for x in x[2:N], y in y[2:N]]
-    D² = (D^2)[2:N, 2:N]
-    Δ = kron(I(N-1), D²) + kron(D², I(N-1))    # Laplacian
-
-    fig = Figure(size=(640, 800))
-    ax1 = Axis(fig[1, 1]; title="Nonzeros in the Laplacian", 
-      aspect=1, yreversed=true)
-    spy!(ax1, Δ)
-    @time v = Δ \ vec(F)    # solve problem and watch the clock
-
-    # Reshape long 1D results onto 2D grid (reversing to usual direction):
-    V = zeros(N+1, N+1)
-    V[2:N, 2:N] .= reshape(v, N-1, N-1)
-    icen = div(3N, 4) + 1
-    value = V[icen, icen]
-
-    # Interpolate to finer grid and plot:
-    xx = yy = range(-1, 1, 201)
-    UU = interp2dgrid(V, chebinterp, chebinterp, xx, yy)
-    M = maximum(abs, UU)
-    ax2 = Axis3(fig[2, 1]; title="Solution of Poisson equation",
-      xlabel=L"x", ylabel=L"y", zlabel=L"u(x,y)")
-    surface!(ax2, xx, yy, UU; colormap=:redsblues, colorrange=(-M, M))
-    str = latexstring("u(2^{-1/2},2^{-1/2}) = $(@sprintf("%0.11f", value))")
-    text!(ax2, -1, 1, 1.4M; text=str, align=(:left, :top))
-    rowsize!(fig.layout, 1, Relative(0.35))
-    return fig
-end
-```
+:linenos: true
+:language: julia
+:filename: p16
+:::
 
 ### Output 16
 
@@ -409,44 +313,12 @@ The first call to `mapslices` applies the first interpolation method to each col
 
 ## Program p17
 
-```{code-cell}
-:tags: [remove-output]
-:class: numbered
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p17.jl
 :label: p17
-using CairoMakie, Printf, LaTeXStrings
-using LinearAlgebra, SpectralMethodsTrefethen
-"""
-p17 - Helmholtz eq. u_xx + u_yy + k²u = f on [-1,1] x [-1,1] (compare p16)
-"""
-function p17(N = 24, k = 9)
-    # Set up spectral grid and tensor product Helmholtz operator:
-    D,x = cheb(N)
-    y = x
-    F = [ exp(-10*((y - 1)^2 + (x - 0.5)^2)) for x in x[2:N], y in y[2:N] ]
-    D² = (D^2)[2:N,2:N]
-    L = kron(I(N-1), D²) + kron(D², I(N-1)) + k^2 * I    # Helmholtz
-
-    # Solve for u, reshape to 2D grid, and plot:
-    v = L \ vec(F)
-    V = zeros(N+1, N+1)
-    V[2:N, 2:N] = reshape(v, N-1, N-1)
-    xx = yy = range(-1, 1, 201)
-    UU = interp2dgrid(V, chebinterp, chebinterp, xx, yy)
-
-    fig = Figure(size=(600, 800))
-    ax1 = Axis3(fig[1, 1]; title="Solution of Helmholtz equation",
-      xlabel=L"x", ylabel=L"y", zlabel=L"u(x,y)")
-    M = maximum(abs, UU)
-    surface!(ax1, xx, yy, UU; colormap=:redsblues, colorrange=(-M, M))
-    icen = div(N, 2) + 1
-    text!(ax1, -1, 1, M; text="u(0, 0) = $(@sprintf("%0.11f", V[icen, icen]))")
-    ax2 = Axis(fig[2, 1]; xlabel=L"x", ylabel=L"y", aspect=1)
-    contour!(ax2, xx, yy, UU; levels=range(-M, M, 11), colormap=:redsblues)
-    lines!(ax2, [-1, -1, 1, 1, -1], [-1, 1, 1, -1, -1], color=:black, linewidth=2)
-    hidedecorations!(ax2; label=false, ticks=false)
-    return fig
-end
-```
+:linenos: true
+:language: julia
+:filename: p17
+:::
 
 ### Output 17
 

@@ -9,46 +9,20 @@ kernelspec:
 
 ## Program p1
 
-```{code-cell}
-:tags: [remove-output]
-:class: numbered
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p1.jl
 :label: p1
-# p1 - convergence of fourth-order finite differences
-using CairoMakie, LaTeXStrings
-using ToeplitzMatrices
-# For various N, set up grid in [-π, π] and function u(x):
-N = [2^j for j in 3:12]
-errors = []
-for N in N
-    h = 2π / N
-    x = [-π + j * h for j in 1:N]
-    u = @. exp(sin(x)^2)
-    uprime = @. 2sin(x) * cos(x) * u
-
-    # Construct sparse fourth-order differentiation matrix:
-    col = zeros(N)
-    col[[2, 3, N-1, N]] = [-2/3, 1/12, -1/12, 2/3] / h
-    D = Toeplitz(col, -col)
-
-    # Compute max of abs(D*u - uprime):
-    error = maximum(abs, D * u - uprime)
-    push!(errors, error)
-end
-
-fig = Figure()
-ax = Axis(fig[1, 1]; title="Convergence of fourth-order finite differences",
-    xscale=log10, yscale=log10, xlabel=L"N", ylabel="error")
-scatter!(ax, N, errors)
-lines!(ax, N, 1 ./ N .^ 4; linestyle=:dash, color=:gray)
-text!(ax, 105, 1e-8; text=L"N^{-4}")
-```
+:linenos: true
+:language: julia
+:filename: p1
+:::
 
 ### Output 1
 
-```{code-cell}
+:::{code-cell}
 :label: output1
-fig
-```
+using SpectralMethodsTrefethen
+p1()
+:::
 
 There is so much to cover as we get started! These explanations are wordy, because I'm trying to be transparent, but you don't necessarily have to absorb everything at once in order to understand what's happening. I've summarized the main takeaway at the beginning of each note.
 
@@ -95,6 +69,7 @@ The syntax `a:b` creates a range of values from `a` to `b`, inclusive of both en
 Arrays are a major part of Julia. The array type is called `Array`, and it is parameterized by the type of its entries and the number of dimensions:
 
 ```{code-cell}
+N = [2^j for j in 3:12]
 typeof(N)
 ```
 
@@ -214,6 +189,7 @@ Things can be array-like without being literal arrays in memory. Most of the tim
 Line 16 creates the finite-difference matrix `D` by calling the `Toeplitz` function. Every row in a Toeplitz matrix is a circularly shifted version of the one above it, and so the matrix is fully specified by its first column and first row:
 
 ```{code-cell}
+using ToeplitzMatrices
 col = [0; -2; 6; zeros(3); -6; 2]
 A = Toeplitz(col, -col)
 ```
@@ -297,42 +273,20 @@ Having `fig` as the result of a line causes the figure to be displayed. This has
 
 ## Program p2
 
-```{code-cell}
-:tags: [remove-output]
-:class: numbered
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p2.jl
 :label: p2
-# p2 - convergence of periodic spectral method (compare p1)
-using CairoMakie, LaTeXStrings, ToeplitzMatrices
-# For various N (even), set up grid as before:
-N = 2:2:100
-errors = zeros(size(N))
-for (k, N) in enumerate(N)
-    h = 2π / N
-    x = [-π + j * h for j in 1:N]
-    u = @. exp(sin(x))
-    uprime = @. cos(x) * u
+:linenos: true
+:language: julia
+:filename: p2
+:::
 
-    # Construct spectral differentiation matrix:
-    col = [0.5 * (-1)^i * cot(i * h / 2) for i in 1:N-1]
-    D = Toeplitz([0; col], [0; reverse(col)])
-
-    # Compute max(abs(D*u - uprime)):
-    error = maximum(abs, D * u - uprime)
-    errors[k] = error
-end
-
-fig = Figure()
-ax = Axis(fig[1, 1]; title="Convergence of spectral differentiation",
-    xscale=log10, yscale=log10, xlabel=L"N", ylabel="error")
-scatter!(ax, N, errors)
-```
 
 ### Output 2
 
-```{code-cell}
+:::{code-cell}
 :label: output2
-fig
-```
+p2()
+:::
 
 ::::{note} enumerate
 :class: dropdown
@@ -356,9 +310,9 @@ The main functional difference between a vector and a tuple is that a vector is 
 :class: dropdown
 :icon: false
 
-```{important}
+:::{important}
 Row dimension is the first dimension. Separate columns with spaces and rows with semicolons.
-```
+:::
 
 The syntax `[0; col]` in line 11 is worth a mention. Inside square brackets, commas separate entries of a vector. Because the elements of a vector can be anything, including other vectors, this implies that we cannot use commas to splice scalars and vectors into a single vector the way we do with scalars alone:
 

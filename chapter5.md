@@ -9,38 +9,18 @@ kernelspec:
 
 ## Program p9
 
-```{code-cell}
-:tags: [remove-output]
-:class: numbered
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p9.jl
 :label: p9
-using CairoMakie, Printf, Polynomials, SpectralMethodsTrefethen
-"p9 - polynomial interpolation in equispaced and Chebyshev pts"
-function p9(N = 16)
-    xx = range(-1, 1, 801)
-    fig = Figure(size=(640, 300))
-    cases = [
-        ("equispaced points", [-1 + 2n / N for n in 0:N]),
-        ("Chebyshev points", [cospi(n / N) for n in 0:N]),
-    ]
-    f(x) = 1 / (1 + 16x^2)
-    for (i, (title, x)) in enumerate(cases)
-        v = f.(x)
-        ax = Axis(fig[1, i]; title, limits=(nothing, (-1, 1.5)))
-        scatter!(ax, x, v)
-        u = fit(Polynomial, x, v)       # interpolation
-        uu = u.(xx)                     # evaluation of interpolant
-        lines!(ax, xx, uu)
-        maxerr = @sprintf("%.5g", maximum(abs, uu - f.(xx)))
-        text!(ax, 0, -0.5; text="max error = $maxerr", align=(:center, :bottom))
-    end
-    return fig
-end
-```
+:linenos: true
+:language: julia
+:filename: p9
+:::
 
 ### Output 9
 
 ```{code-cell}
 :label: output9
+using SpectralMethodsTrefethen
 p9()
 ```
 
@@ -62,6 +42,7 @@ The [Polynomials](https://juliamath.github.io/Polynomials.jl/stable/) package pr
 Unlike in MATLAB, Polynomials expects coefficients to be given in order of increasing degree:
 
 ```{code-cell}
+using Polynomials
 Polynomial([1, 0, -2.5, 5])
 ```
 :::
@@ -85,36 +66,12 @@ In line 13 we see an axis being created with `limits=(nothing, (-1, 1.5))`. This
 
 ## Program p10
 
-```{code-cell}
-:class: numbered
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p10.jl
 :label: p10
-using CairoMakie, Polynomials
-"p10 - polynomials and corresponding equipotential curves"
-function p10(N = 16)
-    fig = Figure()
-    cases = (
-        ("equispaced points", [-1 + 2n / N for n in 0:N]),
-        ("Chebyshev points", [cospi(n / N) for n in 0:N]),
-    )
-    for (i, (title, x)) in enumerate(cases)
-        p = fromroots(x)
-
-        # Plot p(x) over [-1,1]:
-        scatter(fig[i, 1], x, zeros(size(x)), axis=(;title))
-        lines!(fig[i, 1], -1..1, x -> p(x))
-
-        # Plot equipotential curves:
-        xx, yy = -1.3:0.02:1.3, -1:0.02:1
-        pp = [p(x + im * y) for x in xx, y in yy]
-        zz = @. log10(max(abs(pp), 1e-16))
-        ax = Axis(fig[i, 2]; title, aspect=DataAspect())
-        contour!(ax, xx, yy, zz; levels=-4:0, linewidth=2,
-            colormap=:atlantic)
-        scatter!(ax, x, zeros(size(x)); color=:black)
-    end
-    return fig
-end
-```
+:linenos: true
+:language: julia
+:filename: p10
+:::
 
 ### Output 10
 

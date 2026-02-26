@@ -9,49 +9,18 @@ kernelspec:
 
 ## Program p7
 
-```{code-cell}
-:tags: [remove-output]
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p7.jl
 :label: p7
-:class: numbered
-using CairoMakie, LaTeXStrings
-using ToeplitzMatrices, ForwardDiff
-"p7 - accuracy of periodic spectral differentiation"
-function p7(Nmax = 50)
-    # Compute derivatives for various values of N:
-    N = 6:2:Nmax
-    funs = [x -> abs(sin(x))^3            x -> exp(-sin(x / 2)^(-2));
-            x -> 1 / (1 + sin(x / 2)^2)   x -> sin(10x)]
-    E = zeros(2, 2, length(N))
-    for (k, N) in enumerate(N)
-        h = 2π / N
-        x = h * (1:N)
-        col = [0.5 * (-1)^j * cot(j * h / 2) for j in 1:N-1]
-        D = Toeplitz([0; col], [0; reverse(col)])
-        for (i, f) in pairs(funs)
-            v = f.(x)
-            vprime = ForwardDiff.derivative.(f, x)
-            E[i, k] = maximum(abs, D * v - vprime)
-        end
-    end
-
-    # Plot results:
-    titles = [L"|\sin(x)|^3" L"\exp(-\sin^{-2}(x/2))"; L"1/(1+\sin^2(x/2))" L"\sin(10x)"]
-    fig = Figure()
-    ax = [Axis(fig[i, j]; title=titles[i, j], yscale=log10) for i in 1:2, j in 1:2]
-    linkaxes!(ax...)
-    for (i, ax) in pairs(ax)
-        scatterlines!(ax, N, E[i, :])
-    end
-    ax[1, 1].ylabel = ax[2, 1].ylabel = "error"
-    ax[2, 1].xlabel = ax[2, 2].xlabel = L"N"
-    return fig
-end
-```
+:linenos: true
+:language: julia
+:filename: p7
+:::
 
 ### Output 7
 
 ```{code-cell}
 :label: output7
+using SpectralMethodsTrefethen
 p7()
 ```
 
@@ -144,27 +113,12 @@ In each of lines 30 and 31 you can see two equals signs. This is a chained assig
 
 ## Program p8
 
-```{code-cell}
-:tags: [remove-output]
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p8.jl
 :label: p8
-:class: numbered
-using LinearAlgebra, ToeplitzMatrices
-"p8 - eigenvalues of harmonic oscillator -u′′ + x² u on 𝐑"
-function p8(L = 8)                         # domain is [-L, L], periodic
-    for N in 6:6:36
-        h = 2π / N
-        x = h * (1:N)
-        x = L * (x .- π) / π
-        column = [-π^2 / 3h^2 - 1/6; [-0.5 * (-1)^j / sin(h * j / 2)^2 for j in 1:N-1]]
-        D² = (π / L)^2 * Toeplitz(column, column)    # 2nd-order differentiation
-        λ = eigvals(-D² + Diagonal(x.^2))
-        @show N
-        println.(λ[1:4])
-        println()
-    end
-    return nothing
-end
-```
+:linenos: true
+:language: julia
+:filename: p8
+:::
 
 ### Output 8
 
@@ -191,6 +145,7 @@ If you want to use the Unicode character λ, remember that the English spelling 
 The `Diagonal` constructor creates a special type of matrix that stores only the diagonal elements:
 
 ```{code-cell}
+using LinearAlgebra
 Diagonal(1.0:5)
 ```
 

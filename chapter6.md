@@ -77,37 +77,18 @@ Coders in MATLAB and Python are (rightly) taught to avoid loops, but in Julia, l
 
 ## Program p11
 
-```{code-cell}
-:tags: [remove-output]
-:class: numbered
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p11.jl
 :label: p11
-using CairoMakie, LaTeXStrings
-using SpectralMethodsTrefethen, ForwardDiff
-"p11 - Chebyshev differentation of a smooth function"
-function p11()
-    f(x) = exp(x) * sin(5x)
-    df_dx(x) = ForwardDiff.derivative(f, x)
-    fig = Figure()
-    for (i, N) in enumerate([10, 20])
-        D, x = cheb(N)
-        v = f.(x)
-
-        Axis(fig[i, 1]; title=latexstring("\$u(x),\\,  N=$N\$"))
-        scatter!(fig[i, 1], x, v)
-        lines!(fig[i, 1], -1..1, f)
-
-        error = D * v - df_dx.(x)
-        Axis(fig[i, 2]; title=latexstring("error in \$u'(x),\\,  N=$N\$"))
-        scatterlines!(fig[i, 2], x, error; linestyle=:dot)
-    end
-    return fig
-end
-```
+:linenos: true
+:language: julia
+:filename: p11
+:::
 
 ### Output 11
 
 ```{code-cell}
 :label: output11
+using SpectralMethodsTrefethen
 p11()
 ```
 
@@ -115,40 +96,12 @@ There are no new Julia tricks here, but there is a stylistic change from the ori
 
 ## Program p12
 
-```{code-cell}
-:tags: [remove-output]
-:class: numbered
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p12.jl
 :label: p12
-using CairoMakie, LaTeXStrings, SpectralMethodsTrefethen
-"p12 - accuracy of Chebyshev spectral differentiation (compare p7)"
-function p12(Nmax = 50)
-    # Compute derivatives for various values of N:
-    # 3rd deriv in BV, C^∞; analytic, polynomial
-    funs = [x -> abs(x)^3            x -> exp(-x^(-2));
-            x -> 1 / (1 + x^2)       x -> x^10]
-    E = zeros(2, 2, Nmax)
-    for N in 1:Nmax
-        D, x = cheb(N)
-        for (i, f) in pairs(funs)
-            v = f.(x)
-            df_dx = ForwardDiff.derivative.(f, x)
-            E[i, N] = maximum(abs, D * v - df_dx)
-        end
-    end
-
-    # Plot results:
-    fig = Figure()
-    titles = [L"|x|^3"  L"\exp(-x^2)"; L"1/(1+x^2)"  L"x^{10}"]
-    ax = [Axis(fig[i, j]; title=titles[i, j], yscale=log10) for i in 1:2, j in 1:2]
-    linkaxes!(ax...)
-    for (i, ax) in pairs(ax)
-        scatterlines!(ax, 1:Nmax, E[i, :])
-    end
-    ax[1, 1].ylabel = ax[2, 1].ylabel = "error"
-    ax[2, 1].xlabel = ax[2, 2].xlabel = L"N"
-    return fig
-end
-```
+:linenos: true
+:language: julia
+:filename: p12
+:::
 
 ### Output 12
 

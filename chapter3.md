@@ -9,45 +9,19 @@ kernelspec:
 
 ## Program p4
 
-```{code-cell}
-:tags: [remove-output]
-:class: numbered
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p4.jl
 :label: p4
-# p4 - periodic spectral differentiation
-using CairoMakie, Printf, ToeplitzMatrices
-# Set up grid and differentiation matrix:
-N = 24
-h = 2π / N
-x = h * (1:N)
-col = [0.5 * (-1)^j * cot(j * h / 2) for j in 1:N-1]
-D = Toeplitz([0; col], [0; reverse(col)])
-
-fig = Figure()
-xticks = MultiplesTicks(5, π, "π")
-
-# Differentiation of a hat function:
-v = @. max(0, 1 - abs(x - π) / 2)
-Axis(fig[1, 1]; title="function", xticks)
-scatterlines!(fig[1, 1], x, v)
-Axis(fig[1, 2]; title="spectral derivative", xticks)
-scatterlines!(fig[1, 2], x, D * v)
-
-# Differentiation of exp(sin(x)):
-v = @. exp(sin(x))
-vprime = @. cos(x) * v
-Axis(fig[2, 1]; xticks)
-scatterlines!(fig[2, 1], x, v)
-Axis(fig[2, 2]; xticks)
-scatterlines!(fig[2, 2], x, D * v)
-str = @sprintf("max error = %0.4e", maximum(abs, D * v - vprime))
-text!(fig[2, 2], 2.2, 1, text=str, fontsize=12, align=(:left, :bottom))
-```
+:linenos: true
+:language: julia
+:filename: p4
+:::
 
 ### Output 4
 
 ```{code-cell}
 :label: output4
-fig
+using SpectralMethodsTrefethen
+p4()
 ```
 
 ::::{note} Formatting strings
@@ -98,51 +72,18 @@ In line 28, the `align` keyword is given a tuple of two values whose names each 
 
 ## Program p5
 
-```{code-cell}
-:tags: [remove-output]
-:class: numbered
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p5.jl
 :label: p5
-# p5 - repetition of p4 via FFT (real data only)
-using CairoMakie, Printf, FFTW
-# Differentiation of a hat function:
-N = 24
-h = 2π / N
-x = h * (1:N)
-function fftderiv(v)
-    N = length(v)
-    v̂ = rfft(v)
-    ŵ = im * [0:N/2-1; 0] .* v̂
-    return irfft(ŵ, N)
-end
-
-fig = Figure()
-xticks = MultiplesTicks(5, π, "π")
-
-# Differentiation of a hat function:
-v = @. max(0, 1 - abs(x - π) / 2)
-w = fftderiv(v)
-Axis(fig[1, 1]; title="function", xticks)
-scatterlines!(fig[1, 1], x, v)
-Axis(fig[1, 2]; title="spectral derivative", xticks)
-scatterlines!(fig[1, 2], x, w)
-
-# Differentiation of exp(sin(x)):
-v = @. exp(sin(x))
-vprime = @. cos(x) * v
-w = fftderiv(v)
-Axis(fig[2, 1]; xticks)
-scatterlines!(fig[2, 1], x, v)
-Axis(fig[2, 2]; xticks)
-scatterlines!(fig[2, 2], x, w)
-str = @sprintf("max error = %0.4e", maximum(abs, w - vprime))
-text!(fig[2, 2], 2.2, 1, text=str, fontsize=12, align=(:left, :bottom))
-```
+:linenos: true
+:language: julia
+:filename: p5
+:::
 
 ### Output 5
 
 ```{code-cell}
 :label: output5
-fig
+p5()
 ```
 
 ::::{note} FFTW
@@ -209,44 +150,12 @@ When you see an `InexactError`, it may be the result of a numeric type that can'
 
 ## Program p6
 
-```{code-cell}
-:tags: [remove-output]
-:class: numbered
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p6.jl
 :label: p6
-function p6(N=128, tmax=8, Δt=π/2N)
-    # Grid, variable coefficient, and initial data:
-    h = 2π / N
-    x = h * (1:N)
-    function fftderiv(v)
-        N = length(v)
-        v̂ = rfft(v)
-        ŵ = im * [0:N/2-1; 0] .* v̂
-        return irfft(ŵ, N)
-    end
-
-    c = @. 0.2 + sin(x - 1)^2
-    v = @. exp(-100 * (x - 1) .^ 2)
-    vold = @. exp(-100 * (x - 0.2Δt - 1)^2)
-
-    # Time-stepping by leap frog formula:
-    tplot = 0.15
-    plotgap = round(Int, tplot / Δt)
-    Δt = tplot / plotgap
-    ntime = round(Int, tmax / Δt)
-    data = [v zeros(N, ntime)]
-    t = Δt * (0:ntime)
-    for i = 1:ntime
-        w = fftderiv(v)
-        vnew = vold - 2Δt * c .* w
-        data[:, i+1] = vnew
-        vold, v = v, vnew
-    end
-    # Plot results:
-    return heatmap(x, t[1:plotgap:end], data[:, 1:plotgap:end];
-        colormap=:viridis,
-        axis=(xlabel=L"x", xticks=MultiplesTicks(5, π, "π"), ylabel=L"t"))
-end
-```
+:linenos: true
+:language: julia
+:filename: p6
+:::
 
 ### Output 6
 
@@ -304,47 +213,12 @@ In line 24, I use square brackets to construct an array, with horizontal concate
 
 One advantage I have here over a printed book is the use of animations. Accordingly, here is an alternative version of [Program 6](#p6) that produces an animation of the solution as it evolves in time.
 
-```{code-cell}
-:tags: [remove-output]
-:class: numbered
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p6anim.jl
 :label: p6anim
-using CairoMakie, LaTeXStrings, FFTW
-"p6anim - variable coefficient wave equation"
-function p6anim(N=128, tmax=8, Δt=π/2N)
-    h = 2π / N
-    x = h * (1:N)
-    function fftderiv(v)
-        N = length(v)
-        v̂ = rfft(v)
-        ŵ = im * [0:N/2-1; 0] .* v̂
-        return irfft(ŵ, N)
-    end
-
-    c = @. 0.2 + sin(x - 1)^2
-
-    # Time-stepping by leap frog formula:
-    ntime = ceil(Int, tmax / Δt)
-    Δt = tmax / ntime
-    time = Observable(0.0)
-    v = Observable(@. exp(-100 * (x - 1) .^ 2))
-    title = @lift latexstring(@sprintf("\$t = %0.2f\$", $time))
-    vold = @. exp(-100 * (x - 0.2Δt - 1)^2)
-    fig = lines(x, v;
-        axis=(; xlabel=L"x", xticks=MultiplesTicks(5, π, "π"), title))
-    anim = record(fig, "p6anim-$N-$tmax.mp4"; framerate=60) do io
-        recordframe!(io)
-        for n in 1:ntime
-            w = fftderiv(v[])
-            vnew = vold - 2Δt * c .* w
-            vold = v[]
-            time[] = n * Δt
-            v[] = vnew
-            recordframe!(io)
-        end
-    end
-    return anim
-end
-```
+:linenos: true
+:language: julia
+:filename: p6anim
+:::
 
 ### Output 6-anim
 

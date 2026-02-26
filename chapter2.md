@@ -7,38 +7,19 @@ kernelspec:
   name: julia-1.11
 ---
 ## Program p3
-
-```{code-cell}
-:tags: [remove-output]
-:class: numbered
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p3.jl
 :label: p3
-# p3 - band-limited interpolation
-using CairoMakie
-h = 1
-xmax = 10
-x = -xmax:h:xmax                     # computational grid
-xx = -xmax-h/20:h/10:xmax+h/20       # plotting grid
-sinc(t) = iszero(t) ? 1.0 : sinpi(t / h) / (π * t / h)
-funs = [
-    x -> float(x==0),
-    x -> float(abs(x) <= 3),
-    x -> max(0, 1 - abs(x)/3)
-    ]
-fig = Figure()
-for (i, f) in enumerate(funs)
-    v = f.(x)
-    ax = Axis(fig[i, 1], yticks=[0, 1], limits=(-xmax, xmax, -0.5, 1.5))
-    scatter!(ax, x, v)
-    p = sum( v[j] * sinc.(xx .- x[j]) for j in eachindex(x) )
-    lines!(ax, xx, p)
-end
-```
+:linenos: true
+:language: julia
+:filename: p3
+:::
 
 ### Output 3
 
 ```{code-cell}
 :label: output3
-fig
+using SpectralMethodsTrefethen
+p3()
 ```
 
 ::::{note} Function definition
@@ -130,7 +111,9 @@ end
 function eval2(f) 
     return [sum(f(x[j]) * sinc(xx - x[j]) for j in eachindex(x)) for xx in xx]
 end
-f = funs[2]
+x = -10:10
+xx = -10-1/20:1/10:10+1/20
+f = x -> float(abs(x) <= 3)
 difference = maximum(abs, eval1(f) - eval2(f))
 ```
 

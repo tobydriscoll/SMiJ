@@ -7,7 +7,7 @@ kernelspec:
   name: julia-1.11
 ---
 
-##  chebfft
+## chebfft
 
 :::{literalinclude} SpectralMethodsTrefethen/src/chebfft.jl
 :label: chebfft
@@ -26,37 +26,18 @@ The `similar` function creates an uninitialized array with the same size and ele
 
 ## Program p18
 
-```{code-cell}
-:tags: [remove-output]
-:class: numbered
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p18.jl
 :label: p18
-using CairoMakie, LaTeXStrings, SpectralMethodsTrefethen, ForwardDiff
-"p18 - Chebyshev differentiation via FFT (compare p11)"
-function p18()
-    f(x) = exp(x) * sin(5x)
-    fprime(x) = ForwardDiff.derivative(f, x)
-    fig = Figure()
-    for (i, N) in enumerate([10, 20])
-        _, x = cheb(N)
-        v = f.(x)
-
-        Axis(fig[i, 1]; title=latexstring("\$u(x),\\,  N=$N\$"))
-        scatter!(fig[i, 1], x, v)
-        lines!(fig[i, 1], -1..1, f)
-
-        error = chebfft(v) - fprime.(x)
-        Axis(fig[i, 2]; title=latexstring("error in \$u'(x),\\,  N=$N\$"))
-        scatter!(fig[i, 2], x, error)
-        lines!(fig[i, 2], -1..1, chebinterp(error))
-    end
-    return fig
-end
-```
+:linenos: true
+:language: julia
+:filename: p18
+:::
 
 ### Output 18
 
 ```{code-cell}
 :label: output18
+using SpectralMethodsTrefethen
 p18()
 ```
 
@@ -64,38 +45,12 @@ I made a change compared to [Output 11](#output11). For the right-hand column, I
 
 ## Program p19
 
-```{code-cell}
-:tags: [remove-output]
-:class: numbered
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p19.jl
 :label: p19
-using CairoMakie, LaTeXStrings, FFTW, SpectralMethodsTrefethen
-"p19 - 2nd-order wave eq. on Chebyshev grid (compare p6)"
-function p19(N=80, tmax=4, Δt=8/N^2)
-    _, x = cheb(N)
-    v = @. exp(-200x^2)
-    vold = @. exp(-200 * (x - Δt)^2)
-
-    # Time-stepping by leap frog formula:
-    tplot = 0.025
-    plotgap = round(Int, tplot / Δt)
-    Δt = tplot / plotgap
-    ntime = round(Int, tmax / Δt)
-    data = hcat(v, zeros(N+1, ntime))
-    t = Δt * (0:ntime)
-    for i = 1:ntime
-        w = chebfft(chebfft(v))
-        w[[1, N+1]] .= 0
-        vnew = 2v - vold + Δt^2 * w
-        data[:, i+1] = vnew
-        vold, v = v, vnew
-    end
-
-    # Plot results:
-    return heatmap(x, t[1:plotgap:end], data[:, 1:plotgap:end];
-        colormap=:redsblues, colorrange=(-1, 1),
-        axis=(xlabel=L"x", ylabel=L"t"))
-end
-```
+:linenos: true
+:language: julia
+:filename: p19
+:::
 
 ### Output 19
 
@@ -106,42 +61,12 @@ p19()
 
 The reds–blues colormap makes it perfectly clear that the bump inverts whenever it reflects from a boundary. The animation is fun as well:
 
-```{code-cell}
-:tags: [remove-output]
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p19anim.jl
 :label: p19anim
-using CairoMakie, Printf, LaTeXStrings
-using FFTW, SpectralMethodsTrefethen
-"p19anim - 2nd-order wave eq. on Chebyshev grid (compare p6)"
-function p19anim(N=80, tmax=4)
-    _, x = cheb(N)
-    Δt = 8 / N^2
-
-    tplot = 0.005
-    plotgap = round(Int, tplot / Δt)
-    Δt = tplot / plotgap
-    ntime = round(Int, tmax / Δt)
-
-    # Time-stepping by leap frog formula:
-    time = Observable(0.0)
-    title = @lift latexstring(@sprintf("\$t = %0.2f\$", $time))
-    v = Observable(@. exp(-200x^2))
-    vold = @. exp(-200 * (x - Δt)^2)
-    fig = lines(x, v; axis=(; xlabel=L"x", title, limits=(-1, 1, -1, 1)))
-    anim = record(fig, "p19anim.mp4"; framerate=60) do io
-        recordframe!(io)
-        for n in 1:ntime
-            w = chebfft(chebfft(v[]))
-            w[[1, N+1]] .= 0
-            vnew = 2v[] - vold + Δt^2 * w
-            vold = v[]
-            v[] = vnew
-            time[] = n * Δt
-            iszero(mod(n, plotgap)) && recordframe!(io)
-        end
-      end
-    return anim
-end
-```
+:linenos: true
+:language: julia
+:filename: p19anim
+:::
 
 ```{code-cell}
 :tags: [remove-output]
@@ -149,76 +74,20 @@ p19anim()
 ```
 
 (output19anim)=
-![](p19anim.mp4)
+![](p19anim-80-4.mp4)
 
 Compare this solution to [Output 6](#output6anim), where we had a variable speed on a periodic domain.
 
 Your eye tells you that this solution is underresolved, but spectral methods are meant to run at coarse resolutions. To smooth out the animation, it would be easy to use the Chebyshev interpolant on a finer plotting grid.
 
-## Program p20
+## Program p20-anim
 
-```{code-cell}
-:tags: [remove-output]
-:class: numbered
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p20anim.jl
 :label: p20anim
-using CairoMakie, LaTeXStrings, Printf
-using FFTW, SpectralMethodsTrefethen
-"p20anim - 2nd-order wave eq. in 2D via FFT (compare p19)"
-function p20anim(N=24, tmax=1, Δt=6/N^2)
-    # Grid and initial data:
-    x = y = cheb(N)[2]
-    DCT(v) = FFTW.r2r(v, FFTW.REDFT00)
-    DST(v) = FFTW.r2r(v, FFTW.RODFT00)
-    function fftderiv2(v)
-        N = length(v) - 1
-        x = [cospi(k / N) for k in 0:N]
-        v̂ = DCT(v)
-        dQ_dθ = DST(-(1:N-1) .* v̂[2:N]) / 2N    # omits n=0, n=N
-        d²Q_dθ² = DCT(-(0:N).^2 .* v̂) / 2N
-        w₂ = zero(v)    # return zero at boundaries
-        # Chain rule for θ -> x:
-        for n in 2:N
-            s² = 1 / (1 - x[n]^2)
-            s = sqrt(s²)
-            w₂[n] = s² * (d²Q_dθ²[n] - x[n] * dQ_dθ[n-1] * s)
-        end
-        return w₂
-    end
-
-    V = [exp(-40 * ((x - 0.4)^2 + y^2)) for x in x, y in y]
-    Vold = copy(V)
-    Vxx = similar(V)
-    Vyy = similar(V)
-
-    tplot = 1 / 60
-    plotgap = round(Int, tplot / Δt)
-    Δt = tplot / plotgap
-    ntime = round(Int, tmax / Δt)
-
-    # Time-stepping by leap frog formula:
-    time = Observable(0.0)
-    title = @lift latexstring(@sprintf("\$t = %0.2f\$", $time))
-    V = Observable(V)
-    xx = yy = range(-1, 1, 151)
-    VV = @lift interp2dgrid($V, chebinterp, chebinterp, xx, yy)
-    fig = Figure()
-    ax = Axis(fig[1, 1]; xlabel=L"x", ylabel=L"y", aspect=DataAspect(),
-                limits = (-1, 1, -1, 1), title)
-    heatmap!(ax, xx, yy, VV; colorrange=(-0.75, 0.75), colormap=:redsblues)
-    anim = record(fig, "p20anim.mp4"; framerate=30) do io
-        recordframe!(io)
-        for n in 1:ntime
-            Vxx = mapslices(fftderiv2, V[]; dims=[1])
-            Vyy = mapslices(fftderiv2, V[]; dims=[2])
-            Vnew = 2V[] - Vold + Δt^2 * (Vxx + Vyy)
-            time[] = n * Δt
-            Vold, V[] = V[], Vnew
-            iszero(mod(n, plotgap)) && recordframe!(io)
-        end
-    end
-    return anim
-end
-```
+:linenos: true
+:language: julia
+:filename: p20anim
+:::
 
 ### Output 20-anim
 
@@ -228,7 +97,7 @@ p20anim(32, 3)
 ```
 
 (output20anim)=
-![](p20anim.mp4)
+![](p20anim-32-3.mp4)
 
 I went straight to the animation this time. I chose to break out the FFT differentiation into its own function, `fftderiv2`. It's patterned after the `chebfft` function, but it returns the second derivative—except at the boundaries, where it returns zero. This ensures that the solution remains constant on the boundary during the time stepping. Note that the second derivative in $\theta$ is a cosine series again, so the DCT is needed to invert its transform. 
 
