@@ -97,19 +97,20 @@ These statements perform the same computation, but the former just runs a loop, 
 An alternative to line 18 is to sum over scalars and gather the results into a vector:
 
 ```julia
-p = [sum(f(x[j]) * sinc(xx - x[j]) for j in eachindex(x)) for xx in xx]
+p = [sum(v[j] * sinc(ξ - x[j]) for j in eachindex(x)) for ξ in xx]
 ```
 
 It's unclear which approach is more efficient. So let's test them with the aid of `BenchmarkTools`:
 
 ```{code-cell}
 using BenchmarkTools
-function eval1(f) 
+function eval1(f)
     v = f.(x)
     return sum( v[j] * sinc.(xx .- x[j]) for j in eachindex(x) )
 end
-function eval2(f) 
-    return [sum(f(x[j]) * sinc(xx - x[j]) for j in eachindex(x)) for xx in xx]
+function eval2(f)
+    v = f.(x)
+    return [sum(v[j] * sinc(ξ - x[j]) for j in eachindex(x)) for ξ in xx]
 end
 x = -10:10
 xx = -10-1/20:1/10:10+1/20

@@ -26,39 +26,67 @@ p7()
 
 Many more new goodies appear in [Program 7](#p7).
 
-::::{note} Range vs. vector
+::::{note} Abstract types
 :icon: false
 :class: dropdown
 
-A range in Julia is not the same as a vector:
+We've worked with Toeplitz matrices a few times. Here's a baby one.
 
-```{code-cell}
+:::{code-cell}
+using ToeplitzMatrices
+col = [0; -2; 6; zeros(3); -6; 2]
+A = Toeplitz(col, -col)
+:::
+
+You might be surprised that a `Toeplitz` matrix isn't actually a matrix!
+
+:::{code-cell}
+A isa Matrix
+:::
+
+However, it does behave like an array in many ways. For instance, we can get its size:
+
+:::{code-cell}
+size(A)
+:::
+
+We've multiplied Toeplitz matrices with vectors, too. Julia has a special way of indicating that an object is matrix-like, even when it is not truly represented by a contiguous block of memory:
+
+:::{code-cell}
+A isa AbstractMatrix
+:::
+
+Being typed as an `AbstractMatrix`, the object `A` promises that it can do the basic things a matrix should do. But behind the scenes, special algorithms can be used to save time and memory.
+
+A similar situation holds with ranges:
+
+:::{code-cell}
 N = 6:2:50
 println("N is a Vector? ", N isa Vector)
 println("N is an AbstractVector? ", N isa AbstractVector)
-```
+:::
 
 Thus, while we can read an element of the range, we can't overwrite one:
 
-```{code-cell}
+:::{code-cell}
 :tags: [raises-exception]
 @show N[4]
 N[1] = 2    # error, not allowed
-```
+:::
 
-If you want to convert a range into a proper vector, you can use `collect`. It also happens implicitly in some situations, like a vertical concatenation:
+If you want to convert a range into a proper vector, you can apply `collect` to it. Conversion also happens automatically in some situations, like a vertical concatenation:
 
-```{code-cell}
+:::{code-cell}
 println("collect(N) is a Vector? ", collect(N) isa Vector)
 @show [1; N];
-```
+:::
 
-Another such situation arises in line 28. Since exponentiating the range `(-15:5:0)` creates an output that is not evenly spaced, the result is a vector.
+Another such situation arises in line 28 of [Program 7](#p7). Since exponentiating the range `(-15:5:0)` creates an output that is not evenly spaced, the result is a vector.
 
-```{code-cell}
+:::{code-cell}
 println("10.0 ^ (-15:5:0) is a Vector? ", 10.0 .^ (-15:5:0) isa Vector)
 println("10 * (-15:5:0) is a Vector? ", 10 * (-15:5:0) isa Vector)
-```
+:::
 ::::
 
 ::::{note} `linkaxes!`
