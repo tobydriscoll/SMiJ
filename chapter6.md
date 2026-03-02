@@ -10,12 +10,15 @@ kernelspec:
 
 ## cheb
 
+(cheb)=
 ```{literalinclude} SpectralMethodsTrefethen/src/cheb.jl
 :label: cheb
 :filename: cheb
 :language: julia
 :linenos: true
 ```
+:::
+:::
 
 ::::{note} Short-circuit logic
 :icon: false

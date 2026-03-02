@@ -53,14 +53,17 @@ To test for a `NaN` value, you should use the `isnan` function.
 
 ::::
 
-
 ## clencurt
 
+(clencurt)=
 :::{literalinclude} SpectralMethodsTrefethen/src/clencurt.jl
 :label: clencurt
 :linenos: true
 :language: julia
 :filename: clencurt
+:::
+
+:::
 :::
 
 I've had some fun here by extending `clencurt` to work with floating-point types other than double precision, which is called `Float64` in Julia. Base Julia has some less-precise types, such as `Float32`, and some more-precise types, such as `BigFloat`, which is a variable-precision type. There are also add-on packages such as `DoubleFloats` and `MultiFloats` that can give higher fixed precision with greater speed than `BigFloat`. 
@@ -86,11 +89,15 @@ p30(clencurt)
 
 ## gauss
 
+(gauss)=
 :::{literalinclude} SpectralMethodsTrefethen/src/gauss.jl
 :label: gauss
 :linenos: true
 :language: julia
 :filename: gauss
+:::
+
+:::
 :::
 
 If we want to extend `gauss` to work in higher precision, we need an eigensolver that works with that type. Those exist, but the relative cost is much higher than for Clenshaw–Curtis.
