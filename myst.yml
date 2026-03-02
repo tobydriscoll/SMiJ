@@ -4,6 +4,7 @@ project:
   exclude: pages
   id: 49d774e7-b7e0-430a-99b6-e37a6b35b24c
   title: "Spectral Methods in Julia"
+  short-title: "SMiJ"
   # description:
   # keywords: []
   # authors:
@@ -105,6 +106,7 @@ project:
 site:
   title: "Spectral Methods in MATLAB...in Julia"
   template: book-theme
+  logo: logo.svg
   # actions:
   #   - title: Support us
   #     url: https://buymeacoffee.com/tobydriscoll
