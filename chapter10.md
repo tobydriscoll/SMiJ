@@ -50,6 +50,8 @@ p25()
 I rearranged the computations a bit. For the Adams methods, I've referred to the standard characteristic polynomials $\rho$ and $\sigma$, and for the Runge–Kutta methods, I've drawn more attention to the connection to the Maclaurin series of the exponential function. 
 
 ::::{note} `reim`
+:icon: false
+:class: dropdown
 I've used `reim(w)...` as a slight shorthand for `real(w), imag(w)`. The `reim` function returns a tuple of the real and imaginary parts of its argument, and the {term}`splatting` operator unpacks the tuple into separate arguments.
 
 A subtle point: the real part of a vector is a vector, so it's okay to use `real(w)`, though the broadcasted version `real.(w)` would also work. The same is true for `imag`. However, broadcasting `reim` returns a vector of tuples rather than a tuple of vectors and would not splat in a useful way here. In Makie, you could use `Point2.(reim.(w))` to get an equivalent plot. 
@@ -71,7 +73,17 @@ A subtle point: the real part of a vector is a vector, so it's okay to use `real
 p26()
 ``` 
 
-I didn't connect the markers in the third plot above because the eigenmode's behavior is a great deal more complicated than that suggests: it changes sign frequently, which would mean zooming to negative infinity and back on the log scale in the plot. 
+::::{note} asinh scaling
+:icon: false
+:class: dropdown
+The third plot is supposed to show values that oscillate around zero, but at magnitudes that are more logarithmic than they are linear. Makie offers [more than just linear and log scales](https://docs.makie.org/stable/reference/blocks/axis#yscale), and here I selected an inverse sinh scale:
+
+```{math}
+\tilde{y} = \frac{\mathrm{asinh} \left(y/a\right)}{\mathrm{asinh} \left(1/a\right)},
+```
+
+where $a$ is a parameter that controls the transition between linear and logarithmic behavior. The `Makie.AsinhScale` constructor takes this parameter as an argument.
+::::
 
 ## Program p27
 
@@ -91,6 +103,20 @@ p27()
 
 The heatmap in this case shows clearly the way the humps emerge from their interaction shifted from their original characteristic paths. That's a nonlinear effect in KdV.
 
+::::{note} Real FFT
+:icon: false
+:class: dropdown
+Because we use `rfft` and `irfft` for the Fourier transforms, we never have to explictly take the real part of the results, and we enjoy a factor of 2 speedup over a generic FFT.
+::::
+
+::::{note} Interpolated heatmap
+:icon: false
+:class: dropdown
+I used `interpolate=true` in the `heatmap` call to get a smoother-looking plot. I guess that's a bit hypocritical given my earlier stances on keeping spectral accuracy, but interpolating faithfully to 4th order in time is not easy here. 
+
+Simple fixed-time-step implementations of methods for IVPs are great to learn from, but they should not be used when solving challenging problems. Julia has the best collection of IVP solvers in the world, in the [DifferentialEquations](https://docs.sciml.ai/DiffEqDocs/stable/) package. Most of its sovlers automatically provide adaptive step size and interpolation in time. The package even offers [exponential Runge–Kutta methods](https://docs.sciml.ai/DiffEqDocs/stable/solvers/ode_solve/#exp_RK) ready to use.
+::::
+
 ## Program p27-anim
 
 :::{literalinclude} SpectralMethodsTrefethen/src/scripts/p27anim.jl
@@ -103,6 +129,7 @@ The heatmap in this case shows clearly the way the humps emerge from their inter
 ### Output 27-anim
 
 ```{code-cell}
+:tags: [remove-output]
 :label: output27anim
 p27anim()
 ```
