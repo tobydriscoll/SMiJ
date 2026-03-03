@@ -75,7 +75,7 @@ The `findfirst` function returns the index of the first element of an array that
 
 ### Output 23a
 
-Compare the outputs to [Output 16](#output16), which was a solution of a boundary-value problem rather than an eigenvalue problem. 
+Both versions of `p23` are so similar that I have put them into a single function with a keyword argument to control the perturbation.
 
 ```{code-cell}
 :label: output23a
@@ -89,7 +89,7 @@ p23()
 p23(perturb=true)
 ```
 
-Both versions of `p23` are so similar that I have put them into a single function with a keyword argument to control the perturbation.
+Compare the outputs to [Output 16](#output16), which was a solution of a boundary-value problem rather than an eigenvalue problem. 
 
 ::::{note} `contourf`
 :icon: false
@@ -101,4 +101,37 @@ The `contourf` function in Makie is used to create filled contour plots. The res
 :icon: false
 :class: dropdown
 Rather than adding the title at the time of axis creation, I have added it by assigning to the `.title` property of the axis after the fact.
+::::
+
+::::{note} Minimizing allocations
+:class: dropdown
+:icon: false
+
+Now that you are getting comfortable with basic Julia, it's time to look at one of the finer details. I have used `maximum` in many of the programs, including line 28 of [Program 23](#p23). The outcome of
+
+:::julia
+maximum(abs, UU)
+:::
+
+is the same as
+
+:::julia
+maximum(abs.(UU))
+:::
+
+But they are evaluated differently. The first version applies the `abs` function as a filter while iterating over the elements of the array. The second version creates a new array of the same size as `UU` to hold the absolute values, and then iterates through that array. 
+
+We can see the impact of this difference by using the `@benchmark` macro from the BenchmarkTools package. In absolute terms, the difference is small, but in relative terms, the difference is substantial:
+
+:::{code-cell}
+using BenchmarkTools
+A = randn(500, 500)
+@benchmark maximum(abs, $A)
+:::
+
+:::{code-cell}
+@benchmark maximum(abs.($A))
+:::
+
+Julia lets you achieve many things in multiple ways. Often, it doesn't matter much which you choose. But if a key section of code is taking more time than you like, Julia gives you the tools and fine-grained control to try alternatives.
 ::::

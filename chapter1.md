@@ -176,25 +176,6 @@ This is a way to assign values to specific entries of the vector `col`. The left
 [^begin]: While starting at index 1 is the behavior of standard arrays, there are packages that create array-like objects that can be indexed more arbitrarily. The absolute safest way to get the first index in general is to use the `begin` keyword. See also the help on `axes` and `eachindex`.
 ::::
 
-::::{note} Minimizing allocations
-:class: dropdown
-:icon: false
-
-:::{tip}
-When you have a need for speed, Julia gives you access to fine-grained control.
-:::
-
-Looking more closely at line 19, we see that the error is computed by taking the difference of two vectors, `D * u` and `uprime`, and then applying the `maximum` function to its entries while applying `abs`, the absolute value, as a filter. We would get the same result from
-
-```julia
-maximum(abs.(D * u - uprime)) 
-```
-
-However, the syntax in [Program 1](#p1) is slightly preferable, because it avoids the need to create an intermediate vector of absolute values.
-
-Julia often lets you achieve things in multiple ways. Often, it doesn't matter which you choose. But if a key section of code is taking more time than you like for manipulations like memory management that are not inherently needed, Julia gives you ways to try alternatives.
-::::
-
 ::::{note} Plotting
 :class: dropdown
 :icon: false
@@ -236,20 +217,21 @@ Having `fig` as the result of a line causes the figure to be displayed. This has
 p2()
 :::
 
+In line 20 of [Program 1](#p1), I used `push!` to append a new value to the end of the `errors` array on each iteration of the loop. Technically, this is a tiny bit wasteful, since we have to allocate new space each time through the loop. Since we know in advance that every iteration will contribute exactly one new value, a cleaner implementation is used in [Program 2](#p2): in line 6, all the space needed for the error vector is allocated before the loop starts.
+
+
 ::::{note} Mutating functions
 :class: dropdown
 :icon: false
 
-We've seen some functions, like `push!` and `scatter!`, whose names end with the bang character, `!`. This is a convention in Julia that the function could be {term}`mutating` its arguments—changing their values or states.
-
-In line 20 of [Program 1](#p1), for example, I used `push!` to append a new value to the end of the `errors` array on each iteration of the loop. Technically, this is a tiny bit wasteful, since we have to allocate new space each time through the loop. Since we know in advance that every iteration will contribute exactly one new value, a cleaner implementation is used in [Program 2](#p2). In line 6, all the space needed for the error vector is allocated before the loop starts.
+We've seen some functions, like `push!` and `scatter!`, whose names end with the bang character, `!`. This is a convention in Julia that the function could be {term}`mutating` its arguments—changing their values or states. Most plotting commands in Makie, for instance, have both a non-mutating version (e.g., `scatter`), which will create a new figure and axis, and a mutating version (e.g., `scatter!`), which will modify an existing axis. 
 ::::
 
 ::::{note} `enumerate`
 :class: dropdown
 :icon: false
 
-Since we abandoned the `push!` strategy to record the errors, we now need to keep track in the loop of the index `k` where the next error value should be stored. The `enumerate` function is a convenient way to get both the index and the value of each entry. The syntax `(k, N)` indicates a {term}`tuple` of two values. By putting the tuple on the left-hand side of an assignment, we {term}`destructure` the tuple on the right-hand side, as in the following:
+Since we abandoned the `push!` strategy to record the errors, we now need to track in the loop the index where the next error value is to be stored. The `enumerate` function is a convenient way to get both the index and the value of each entry in a collection. The syntax `(k, N)` indicates a {term}`tuple` of two values. By putting the tuple on the left-hand side of an assignment, we {term}`destructure` the tuple on the right-hand side, as in the following:
 
 ```{code-cell}
 a, b, c = (1, 2, 3)
