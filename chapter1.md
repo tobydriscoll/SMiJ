@@ -39,6 +39,7 @@ To avoid overwhelming you, I've boiled down the most important things you need t
 - Use a period to vectorize any function, i.e., apply it elementwise to an array.
 - Use `@.` to vectorize everything that follows.
 - Indexing starts at 1.[^begin] The last index is the keyword `end`.
+- Keyword function arguments come after positional ones.
 
 Some detailed explanations on each of these items follow.
 
@@ -138,7 +139,7 @@ Since `n` went out of scope at the end of the loop, it is undefined when the pri
 :class: dropdown
 :icon: false
 
-In line 9, we see a {term}`macro`, which is signaled by a name starting with the `@` character. A macro is a piece of code that runs at compile time and transforms the code that follows it. Here, the `@.` macro is a convenient way to {term}`vectorize` an expression.
+In line 9, we see a {term}`macro`, which is signaled by a name starting with the `@` character. A macro runs at compile time and transforms the code following it before it is ever executed. Here, the `@.` macro is a convenient way to {term}`vectorize` an expression.
 
 Mathematical functions such as `sin` and addition are intended to be applied to scalar values. In scientific computing, though, we often find ourselves wanting to apply a function to every element of a vector or other array. In MATLAB and NumPy, most predefined mathematical functions will accept an array as input and do exactly that. Julia does *not*, so the expressions `sin([0, π/2, π])` and `1 + [1, 2, 3]` give errors. This can be frustrating, though such errors may expose bugs.
 
@@ -176,15 +177,11 @@ This is a way to assign values to specific entries of the vector `col`. The left
 [^begin]: While starting at index 1 is the behavior of standard arrays, there are packages that create array-like objects that can be indexed more arbitrarily. The absolute safest way to get the first index in general is to use the `begin` keyword. See also the help on `axes` and `eachindex`.
 ::::
 
-::::{note} Plotting
+::::{note} Keyword arguments
 :class: dropdown
 :icon: false
 
-```{important}
-Keyword function arguments come after positional ones.
-```
-
-The rest of the program creates the plot. We use `Figure` to create a figure andthen  `Axis` to create a 2D axis set within it:
+Line 25 creates a 2-D Axis object for plotting:
 
 ```julia
 ax = Axis(fig[1, 1]; title="Convergence of fourth-order finite differences",
@@ -193,11 +190,9 @@ ax = Axis(fig[1, 1]; title="Convergence of fourth-order finite differences",
 
 We'll see later that indexing the figure object lets us create grid layouts. After the first argument, the semicolon indicates that the remaining arguments are given by keyword rather than position. (You can often use a comma instead, but the semicolon is never wrong.) Here, the keywords describe aspects of how the axis object is to look.
 
-The actual data plotting is done by `scatter!` (unconnected markers) and `lines!` (unmarked positions connected by line segments), which both mutate the axis object. Line 28 creates a text object that will be formatted by LaTeX thanks to the `L` before the opening quote.[^Lmacro]
+Finally, know that the label on the $x$ axis is formatted by LaTeX thanks to the `L` before the opening quote.[^Lmacro]
 
 [^Lmacro]: This is a shortcut for invoking a macro called `@L_str`. You may see other string macros too, like `r"` for regular expressions.
-
-Having `fig` as the result of a line causes the figure to be displayed. This has to be done every time you make changes to a figure.
 ::::
 
 ## Program p2
@@ -217,7 +212,7 @@ Having `fig` as the result of a line causes the figure to be displayed. This has
 p2()
 :::
 
-In line 20 of [Program 1](#p1), I used `push!` to append a new value to the end of the `errors` array on each iteration of the loop. Technically, this is a tiny bit wasteful, since we have to allocate new space each time through the loop. Since we know in advance that every iteration will contribute exactly one new value, a cleaner implementation is used in [Program 2](#p2): in line 6, all the space needed for the error vector is allocated before the loop starts.
+In line 20 of [Program 1](#p1), I used `push!` to append a new value to the end of the `errors` array on each iteration of the loop. Technically, this is a tiny bit wasteful, since we have to allocate new space each time through the loop. Since we know in advance that every iteration will contribute exactly one new value, a cleaner implementation is used in [Program 2](#p2); in line 6, all the space needed for the error vector is allocated before the loop starts.
 
 
 ::::{note} Mutating functions

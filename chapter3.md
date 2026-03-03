@@ -16,6 +16,8 @@ kernelspec:
 :filename: p4
 :::
 
+By now you should be seeing some familiar motifs in [Program 4](#p4). But there's new stuff to look at, too.
+
 ### Output 4
 
 ```{code-cell}
@@ -79,6 +81,8 @@ In line 28, the `align` keyword is given a tuple of two values whose names each 
 :filename: p5
 :::
 
+[Program 5](#p5) is our first look at the `FFTW` package. It provides `fft` and `ifft` that are equivalent to the functions in MATLAB. But it also provides additional tools for getting greater efficiency, when doing so is important. 
+
 ### Output 5
 
 ```{code-cell}
@@ -86,18 +90,18 @@ In line 28, the `align` keyword is given a tuple of two values whose names each 
 p5()
 ```
 
-::::{note} FFTW
+::::{note} Real FFT
 :icon: false
 :class: dropdown
 
-[Program 5](#p5) is our first look at the `FFTW` package. It provides `fft` and `ifft` that are equivalent to the functions in MATLAB. But it also provides additional tools for getting greater efficiency, when doing so is important. A common case is the transformation of real data, which makes the Fourier transform an even function. The functions `rfft` and `irfft` take advantage of this symmetry to reduce the number of operations by about a factor of two. Because there is ambiguity about even/odd cases, the inverse transform needs to be given the length of the original data, as in `irfft(ŵ, N)`.
+The Fourier transform of real data is an even function in wavenumber space. The functions `rfft` and `irfft` take advantage of this symmetry to reduce the number of operations by about a factor of two. Because of an ambiguity about even/odd cases, the inverse transform needs to be given the length of the original data, as in `irfft(ŵ, N)`.
 ::::
 
 ::::{note} FFT differentiation
 :icon: false
 :class: dropdown
 
-Unlike in the original book, I've chosen to put the operation of differentiation via FFT into a short function. Until recently, it was impossible to define a multiline function at an arbitrary point within a MATLAB script, so it was easier to simply repeat short motifs as needed. But it's better practice to use functions for this: it clarifies the purpose of the code, makes it more reusable, and eliminates bugs due to copy–paste errors or customizations. In Julia, this structure can also improve performance, for technical reasons.
+Unlike in *SMiM*, I've chosen to put the operation of differentiation via FFT into a short function starting at line 8. Until recently, it was impossible to define a multiline function at an arbitrary point within a MATLAB script, so it was easier to simply repeat short motifs as needed. But it's better practice to use functions for this: it clarifies the purpose of the code, makes it more reusable, and eliminates bugs due to copy–paste errors or customizations. In Julia, this structure can also improve performance.
 ::::
 
 ::::{note} Hat accent
@@ -228,7 +232,13 @@ The animation is created by a call to `record`. The only remaining quirk is that
 ::::{note} `latexstring`
 :icon: false
 :class: dropdown
-One more fine point in this code is the use of `latexstring` in line 21. This is another function from the `LaTeXStrings` package. We can't use the `L"` string macro here, because we need to LaTeX-ify a string whose value is unknown at compile time due to the interpolation of the time value. Note that the `\$` is needed in the string to get a literal dollar sign for LaTeX to process.
+One more fine point in this code is the use of `latexstring` in line 21. This is another function from the `LaTeXStrings` package. We can't use the `L"` string macro here, because we need to LaTeX-ify a string whose value is unknown at compile time due to the interpolation of the time value. Note that the `\$` is needed in the string to get a literal dollar sign to designate LaTeX math mode.
+::::
+
+::::{note} String interpolation
+:icon: false
+:class: dropdown
+In line 24, I create a file name with the string `"p6anim-$N-$tmax.mp4"`. The syntax `$(...)` is used to {term}`interpolate` the values of variables into a string. When the expression to be interpolated is just a variable name, you can omit the parentheses, as with `$N` and `$tmax`.
 ::::
 
 ::::{note} Output suppression

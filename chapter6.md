@@ -44,12 +44,6 @@ A similar trick works with the OR operator `||`, which skips the second clause i
 ```
 ::::
 
-::::{note} `cospi`
-:icon: false
-:class: dropdown
-The `cospi`, `sinpi`, and `tanpi` functions not only save a multiplication by $\pi$, but they can be more accurate, too, especially for large arguments.
-::::
-
 ::::{note} Minimizing allocations
 :icon: false
 :class: dropdown

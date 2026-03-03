@@ -25,7 +25,7 @@ p3()
 ::::{note} Function definition
 :icon: false
 :class: dropdown
-In line 7 we see one way to define a function, much like one would do it in writing, such as:
+In line 8 we see a new way to define a function, much like one would do it in writing. Another example:
 
 ```julia
 r(x) = 1 / (25x^2 + 1)
@@ -35,29 +35,17 @@ r(x) = 1 / (25x^2 + 1)
 Once a name is assigned to a function, it cannot be used as a variable name in the same scope.
 :::
 
-In lines 9–11, we see another way to define functions, with the anonymous (i.e., [lambda](wiki:Anonymous_function)) syntax
+In lines 10–12 I use an [anonymous function](wiki:Anonymous_function) (i.e., lambda) syntax
 
 ```julia
 x -> float(x==0)
 ```
 ::::
 
-::::{note} Numeric type conversion
-:icon: false
-:class: dropdown
-In lines 9 and 10 I use `float` to convert the logical results of type `Bool` to floating-point numbers. The explicit conversions aren't strictly necessary here, but they improve clarity. A more general syntax for type conversion is `convert(T, x)`, which converts `x` to type `T`. 
-::::
-
-::::{note} `max` vs. `maximum`
-:icon: false
-:class: dropdown
-From line 11, note that `max` chooses the largest of its arguments, unlike Chapter 1's use of `maximum`, which returns the largest element of an array.
-::::
-
 ::::{note} Ternary operator
 :icon: false
 :class: dropdown
-The {term}`ternary` operator
+The {term}`ternary` operator in line 8
 
 ```julia
 p ? A : B
@@ -66,22 +54,40 @@ p ? A : B
 evaluates to `A` if `p` is true; otherwise, `B`. This device is best used with short expressions, to keep the logic readable at a glance. Some style guides recommend against it entirely.
 ::::
 
+::::{note} `sinpi`
+:icon: false
+:class: dropdown
+The `sinpi`, `cospi`, and `tanpi` functions not only save a multiplication by $\pi$, but they can be more accurate, too.
+::::
+
+::::{note} Numeric type conversion
+:icon: false
+:class: dropdown
+In lines 10 and 11 I use `float` to convert the logical results of type `Bool` to floating-point numbers. The explicit conversions aren't strictly necessary here, but they improve clarity. A more general syntax for type conversion is `convert(T, x)`, which converts `x` to type `T`. 
+::::
+
+::::{note} `max` vs. `maximum`
+:icon: false
+:class: dropdown
+From line 12, note that `max` chooses the largest of its arguments. This differs from previously-seen `maximum`, which returns the largest element of an array.
+::::
+
 ::::{note} Subplots
 :icon: false
 :class: dropdown
-Line 16 shows how to use indexing of a figure object to create subplots. We'll be seeing a lot of that as we go.
+Line 17 shows how to use indexing of a figure object to create subplots. We'll be seeing a lot of that as we go. You can even have grids within subplot grids to construct [complicated layouts](https://docs.makie.org/stable/tutorials/layout-tutorial).
 ::::
 
 ::::{note} Generators
 :icon: false
 :class: dropdown
-Line 18 contains more than it might seem. The goal is to evaluate a truncation of the sum in (2.10),
+Line 19 contains more than it might seem. The goal is to evaluate a truncation of the sum in (2.10),
 
 ```{math}
 \sum_{m} v_m S_h(x - x_m),
 ```
 
-for all values of $x$ in the plotting range `xx`. The approach taken here is to evaluate each term at all values of $x$ and sum the resulting vectors. While the syntax resembles a {term}`comprehension`, it is instead a more primitive {term}`generator`. The distinction is clearer for a simple example:
+for all values of $x$ in the plotting range `xx`. The approach taken here is to evaluate each term at all values of $x$ and sum the resulting vectors. While the syntax resembles a {term}`comprehension`, it is instead a more primitive {term}`generator`. The distinction is clearer in a simple example:
 
 ```{code-cell}
 sum( 1/factorial(n) for n in 0:8 )      # generator
