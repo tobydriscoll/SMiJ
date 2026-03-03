@@ -28,6 +28,9 @@ mutating
 namespace
 : Compartmentalization of defined names and symbols into modules, in order to avoid conflicts.
 
+Observable
+: Wrapper type that allows dependent quantities to be recomputed when a value changes.
+
 short-circuiting
 : Terminating the evaluation of a logical AND `&&` or OR `||` as soon as its final result can be deduced.
 

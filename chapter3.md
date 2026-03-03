@@ -173,21 +173,6 @@ Our first PDE solution!
 You will certainly have noticed that the output of the program is not at all like Output 6 in *SMiM*. The `waterfall` plot in MATLAB is not easy to do compactly in Makie. Rather than try to reconstruct it, I have opted to use a `heatmap` instead, which conveys the result equally well, if a bit less lusciously.
 ::::
 
-::::{note} Function wrapper
-:icon: false
-:class: dropdown
-
-You probably wonder why I wrapped all the action into a function. The proximate answer is complicated as well as boring, and I go into it at [the end of this chapter](#why-function). But the broader answer is that Julia is oriented towards working with functions most of the time. Functions don't interfere with each others' values—except through mutation, which is supposed to be made transparent through the bang convention—or with global state. Julia's compiler is best at optimizing functions, too.
-
-The preference for functions is so significant that:
-
-:::{important}
- From this point onward, all the programs are written as functions.
-::: 
-
-The biggest downside to working this way is with debugging, which is one of Julia's weak points. At this writing, my recommendation is to use the [Infiltrator](https://github.com/JuliaDebug/Infiltrator.jl) package, which allows you to copy variables from a function's workspace into the global Main workspace for later inspection.
-::::
-
 ::::{note} Documentation string
 :icon: false
 :class: dropdown
@@ -235,9 +220,9 @@ Before digging into the code, look at what the original [Output 6](#output6) was
 ::::{note} Animation with Makie
 :icon: false
 :class: dropdown
-The animation mechanism in Makie is to define so-called Observable quantities whose changing values drive the animation. In [Program 6-anim](#p6anim), there are two Observable values: scalar `time` and the discrete solution `v`. Other variables whose values are derived from an Observable quantity should be defined using the `@lift` macro, as in line 21 to define `title`. Plot objects created using Observable values, or values lifted from them, will be updated whenever the underlying Observable is changed. Thus, our `lines` object in lines 23–24 depends both on `v` and on `title`, which in turn depends on `time`.
+The animation mechanism in Makie is to define so-called {term}`Observable` quantities whose changing values drive the animation. In [Program 6-anim](#p6anim), there are two Observable values: scalar `time` and the discrete solution `v`. Other variables whose values are derived from an Observable quantity should be defined using the `@lift` macro, as in line 21 to define `title`. Plot objects created using Observable values, or values lifted from them, will be updated whenever the underlying Observable is changed. Thus, our `lines` object in lines 23–24 depends both on `v` and on `title`, which in turn depends on `time`.
 
-The animation is created by a call to `record`. The only remaining quirk is that when you want to get or change the value of an Observable, you have to "dereference" it by adding empty square brackets to the name. You can see I have done this to every use of `v` and `time` within the recording loop.
+The animation is created by a call to `record`. The only remaining quirk is that when you want to get or change the value of an Observable, you have to dereference it by adding empty square brackets to the name. You can see I have done this to every use of `v` and `time` within the recording loop.
 ::::
 
 ::::{note} `latexstring`
@@ -251,16 +236,3 @@ One more fine point in this code is the use of `latexstring` in line 21. This is
 :class: dropdown
 In the call to `p6anim`, I have added a semicolon to suppress the output. If you use MATLAB, you know that any line that doesn't end with a semicolon will print the value of the expression. That's true when running Julia interactively—but only for the last value of a code block. Here, `p6anim` just returns a string with the name of the file that was created. I've suppressed that and then had the web page display the resulting animation.
 ::::
-
-(why-function)=
-## Why use a function?
-
-Remember that loops have locally scoped variables, except for variables that are already in the outer scope at the beginning of the loop.  The use of local variable scopes in loops (and other blocks) is rather uncommon. In other languages, including MATLAB, a reference to a variable inside a loop always refers to a value that is the same before, within, and after the loop. But in Julia, the behavior inside a loop depends on what has come before. In [Program 6](#p6), lines 16–17 define values for `v` and `vold`, so inside the time-stepping loop, those names should refer to the outer variables, *not* new local ones.
-
-However, for historical reasons, these rules change in exactly one case: at the global scope of an interactive session. If you were to copy the interior of the function and paste it into an interactive session, you would have to add the statement
-
-```julia
-global v, vold
-```
-
-within the loop to get the same behavior. This declaration woud not cause any problems to have in any case, but the code is just cleaner if we put everything into a function scope and avoid [the whole dumb mess](https://docs.julialang.org/en/v1/manual/variables-and-scoping/).
