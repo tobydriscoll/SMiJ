@@ -1,6 +1,6 @@
 ---
 title: Chapter 9
-subtitle: Programs p21, p22, p23
+subtitle: Programs p21, p22, p23, p24
 kernelspec:
   display_name: Julia 1
   language: julia
@@ -135,3 +135,19 @@ A = randn(500, 500)
 
 Julia lets you achieve many things in multiple ways. Often, it doesn't matter much which you choose. But if a key section of code is taking more time than you like, Julia gives you the tools and fine-grained control to try alternatives.
 ::::
+
+## Program 24
+
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p24.jl
+:label: p24
+:linenos: true
+:language: julia
+:filename: p24
+:::
+
+### Output 24
+
+```{code-cell}
+:label: output24
+p24()
+```

@@ -23,7 +23,7 @@ site:
 |6 | [Chebyshev Differentiation Matrices](chapter6.md) | [cheb](#cheb), [Program 11](#p11), [Program 12](#p12) |
 |7 | [Boundary Value Problems](chapter7.md) | [Program 13](#p13), [Program 14](#p14), [Program 15](#p15), [Program 16](#p16), [Program 17](#p17)|
 |8 | [Chebyshev Series and the FFT](chapter8.md) | [chebfft](#chebfft), [Program 18](#p18), [Program 19](#p19), [Program 20anim](#p20anim)|
-|9 | [Eigenvalues and Pseudospectra](chapter9.md) | [Program 21](#p21), [Program 22](#p22), [Program 23](#p23)|
+|9 | [Eigenvalues and Pseudospectra](chapter9.md) | [Program 21](#p21), [Program 22](#p22), [Program 23](#p23), [Program 24](#p24)|
 |10 | [Time-Stepping and Stability Regions](chapter10.md) | [Program 25](#p25), [Program 26](#p26), [Program 27](#p27) |
 |11 | [Polar Coordinates](chapter11.md) | [Program 28](#p28), [Program 29](#p29) |
 |12 | [Integrals and Quadrature Formulas](chapter12.md) | [clencurt](#clencurt), [gauss](#gauss), [Program 30](#p30), [Program 31](#p31) |
