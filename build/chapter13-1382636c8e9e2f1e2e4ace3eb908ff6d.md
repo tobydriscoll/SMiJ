@@ -1,0 +1,115 @@
+---
+title: Chapter 13
+subtitle: Programs p32, p33, p34, p35, p36, p37
+kernelspec:
+  display_name: Julia 1
+  language: julia
+  name: julia-1.11
+---
+
+## Program p32
+
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p32.jl
+:label: p32
+:linenos: true
+:language: julia
+:filename: p32
+:::
+
+### Output 32
+
+```{code-cell}
+:label: output32a
+using SpectralMethodsTrefethen
+p32()
+```
+
+Compare to [Output 13](#output13), which is the same ODE with homogeneous Dirichlet conditions. 
+
+There are alternatives to the mathematical trick used here. One is the approach in the upcoming [Program 33](#p33). Another is to modify the "boundary deletion" strategy we have used throughout the book. 
+
+:::{code-cell}
+:label: output32b
+using CairoMakie, Printf, SpectralMethodsTrefethen
+N = 16
+bc = [1, 0]
+D, x = cheb(N)
+v = zeros(N+1)
+idxb = [1, N+1]    # boundary indices
+v[idxb] = bc
+D² = D^2
+f = (@. exp(4x[2:N])) - D²[2:N, idxb] * bc    # modify RHS for the BCs
+Δ = D²[2:N, 2:N]    # delete boundary rows and columns
+v[2:N] = Δ \ f      # solve for interior values
+u = chebinterp(v)
+exact(x) = (exp(4 * x) - sinh(4) * x - cosh(4)) / 16 + (x + 1) / 2
+maxerr = maximum(abs(u(x) - exact(x)) for x in range(-1, 1, 801))
+println("max error is now: ", maxerr)
+:::
+
+## Program p33
+
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p33.jl
+:label: p33
+:linenos: true
+:language: julia
+:filename: p33
+:::
+
+### Output 33
+
+```{code-cell}
+:label: output33
+p33()
+```
+
+
+## Program p34anim
+
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p34anim.jl
+:label: p34anim
+:linenos: true
+:language: julia
+:filename: p34anim
+:::
+
+### Output 34anim
+
+```{code-cell}
+:label: output34anim
+p34anim()
+```
+
+## Program p35anim
+
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p35anim.jl
+:label: p35anim
+:linenos: true
+:language: julia
+:filename: p35anim
+:::
+
+### Output 35anim
+
+```{code-cell}
+:label: output35anim
+p35anim()
+```
+
+## Program p36
+
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p36.jl
+:label: p36
+:linenos: true
+:language: julia
+:filename: p36
+:::
+
+### Output 36
+
+```{code-cell}
+:label: output36
+p36()
+```
+
+

@@ -1,0 +1,36 @@
+/* Line numbering for code blocks with 'numbered' class */
+/* MyST generates: <div class="numbered"><pre><code><span>line</span>... */
+
+.numbered {
+    counter-reset: line-numbering;
+}
+
+.numbered pre {
+    padding-left: 0;
+}
+
+.numbered pre code {
+    display: block;
+    padding-left: 4.5em;
+}
+
+/* Each span represents a line of code */
+.numbered pre code > span {
+    display: block;
+    counter-increment: line-numbering;
+    position: relative;
+}
+
+/* Add line numbers before each span */
+.numbered pre code > span::before {
+    content: counter(line-numbering);
+    position: absolute;
+    left: -4.5em;
+    width: 3.5em;
+    text-align: right;
+    padding-right: 1em;
+    color: #999;
+    user-select: none;
+    background-color: #f5f5f5;
+    border-right: 1px solid #ddd;
+}

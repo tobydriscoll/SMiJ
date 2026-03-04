@@ -1,0 +1,249 @@
+---
+title: Chapter 3
+subtitle: Programs p4, p5, p6
+kernelspec:
+  display_name: Julia 1
+  language: julia
+  name: julia-1.11
+---
+
+## Program 4
+
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p4.jl
+:label: p4
+:linenos: true
+:language: julia
+:filename: p4
+:::
+
+By now you should be seeing some familiar motifs in [Program 4](#p4). But there's new stuff to look at, too.
+
+### Output 4
+
+```{code-cell}
+:label: output4
+using SpectralMethodsTrefethen
+p4()
+```
+
+::::{note} Formatting strings
+:icon: false
+:class: dropdown
+
+In [Program 4](#p4) we load a new package, `Printf`. It is part of the standard library, so it doesn't require installation. It provides the `@sprintf` macro, which enables C-style formatting of strings. You can see it in action in line 27, where `%0.4e` means to format the following number in scientific notation with four significant digits.
+::::
+
+::::{note} `reverse`
+:icon: false
+:class: dropdown
+In line 8 you see the use of `reverse` to reverse the order of a vector. You can specify one or more dimensions for reversing an array by using the `dims` keyword argument.
+::::
+
+::::{note} `MultiplesTicks`
+:icon: false
+:class: dropdown
+Line 11 shows off a Makie ability to create axes ticks that are multiples of any value. The call `MultiplesTicks(5, π, "π")` requests 5 ticks at multiples of $\pi$, and the tick labels will have `π` appended to them. This can be a nice refinement for plotting trigonometric functions. 
+::::
+
+::::{note} Keyword shorthand
+:icon: false
+:class: dropdown
+
+Remember that arguments after the semicolon must be keyword arguments. In the calls to `Axis`, such as:
+
+```julia
+Axis(fig[1, 1]; title="function", xticks)
+```
+
+The `xticks` by itself after the semicolon is shorthand for `xticks=xticks`. When there are many keyword arguments, this trick is a nice way to shorten function calls.
+::::
+
+::::{note} `scatterlines`
+:icon: false
+:class: dropdown
+
+Line 16 introduces `scatterlines!`, which combines a scatter plot (markers) with a lines plot (connecting segments).
+::::
+
+::::{note} Symbols
+:icon: false
+:class: dropdown
+
+In line 28, the `align` keyword is given a tuple of two values whose names each start with a colon, `:`. This is the syntax for creating a {term}`symbol`. You can think of a symbol as a non-numeric constant, or as a string that is not meant to be printed.
+::::
+
+## Program 5
+
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p5.jl
+:label: p5
+:linenos: true
+:language: julia
+:filename: p5
+:::
+
+[Program 5](#p5) is our first look at the `FFTW` package. It provides `fft` and `ifft` that are equivalent to the functions in MATLAB. But it also provides additional tools for getting greater efficiency, when doing so is important. 
+
+### Output 5
+
+```{code-cell}
+:label: output5
+p5()
+```
+
+::::{note} Real FFT
+:icon: false
+:class: dropdown
+
+The Fourier transform of real data is an even function in wavenumber space. The functions `rfft` and `irfft` take advantage of this symmetry to reduce the number of operations by about a factor of two. Because of an ambiguity about even/odd cases, the inverse transform needs to be given the length of the original data, as in `irfft(ŵ, N)`.
+::::
+
+::::{note} FFT differentiation
+:icon: false
+:class: dropdown
+
+Unlike in *SMiM*, I've chosen to put the operation of differentiation via FFT into a short function starting at line 8. Until recently, it was impossible to define a multiline function at an arbitrary point within a MATLAB script, so it was easier to simply repeat short motifs as needed. But it's better practice to use functions for this: it clarifies the purpose of the code, makes it more reusable, and eliminates bugs due to copy–paste errors or customizations. In Julia, this structure can also improve performance.
+::::
+
+::::{note} Hat accent
+:icon: false
+:class: dropdown
+
+In math, including *SMiM*, it's conventional to put a hat over the name of a function to indicate its Fourier transform. In Julia, you can type {kbd}`v\hat` {kbd}`TAB` to get `v̂`, for example. Note that the hat is just a character, and it doesn't have any special meaning to Julia.
+
+Such accents can be hard to read in some fonts, so this practice comes down to personal preference.
+::::
+
+::::{note} Imaginary unit
+:icon: false
+:class: dropdown
+
+In line 11 we see a reference to `im`, the imaginary unit. In Julia, `im` is a built-in constant with the value $\sqrt{-1}$. You can also write `1im` or `2im`, for example, to get $i$ or $2i$. Notice that just as Julia draws distinctions between integers and floating-point numbers, it also distinguishes between real and complex numbers:
+
+```{code-cell}
+println("Type of 1 is ", typeof(1))
+println("Type of 1.0 is ", typeof(1.0))
+println("Type of 1im is ", typeof(1im))
+println("Type of 1.0im is ", typeof(1.0im))
+```
+::::
+
+::::{note} Mixing numeric types
+:icon: false
+:class: dropdown
+
+Operations involving mixed numeric types try to promote the operands to a common type. This often goes without notice. But attempting a type incorrectly can produce errors:
+
+```{code-cell}
+:tags: [raises-exception]
+x = [1, 2, 3]
+x[2.0]    # error, can't use floating-point number as an index
+```
+
+So can trying to store a value into an array of a less-general type:
+
+```{code-cell}
+:tags: [raises-exception]
+z = [π, 2π, 3π]
+@. z *= 1im    # error, can't store complex in a real array
+```
+
+:::{tip}
+When you see an `InexactError`, it may be the result of a numeric type that can't be used in context without changing its value.
+:::
+::::
+
+## Program 6
+
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p6.jl
+:label: p6
+:linenos: true
+:language: julia
+:filename: p6
+:::
+
+### Output 6
+
+```{code-cell}
+:label: output6
+p6()
+```
+
+Our first PDE solution!
+
+::::{note} `heatmap`
+:icon: false
+:class: dropdown
+
+You will certainly have noticed that the output of the program is not at all like Output 6 in *SMiM*. The `waterfall` plot in MATLAB is not easy to do compactly in Makie. Rather than try to reconstruct it, I have opted to use a `heatmap` instead, which conveys the result equally well, if a bit less lusciously.
+::::
+
+::::{note} Documentation string
+:icon: false
+:class: dropdown
+
+Line 2 demonstrates a documentation string for a function. A string value immediately preceding a function keyword provides a string that is printed out at the prompt when you enter `?` followed by the function name.
+::::
+
+::::{note} `round`
+:icon: false
+:class: dropdown
+
+Note in lines 21 and 23 that the default output type of `round` is the same as the input type, so to use the result as an array index, we need to convert it to an integer with `round(Int, ...)`.
+::::
+
+::::{note} Horitontal concatenation
+:icon: false
+:class: dropdown
+
+In line 24, I use square brackets to construct an array, with horizontal concatenation implied by the space. In Julia, vectors are one-dimensional arrays, but when a vector is used in a matrix context, it is treated as a column vector. Thus, the result of `[v zeros(N, ntime)]` is an array whose first column is `v` and whose remaining `ntime` columns are zeros. You could also use `hcat` or `cat(.., dims=2)` for horizontal concatenation.
+::::
+
+## Animated alternative to Output 6
+
+One advantage I have here over a printed book is the use of animations. Accordingly, here is an alternative version of [Program 6](#p6) that produces an animation of the solution as it evolves in time.
+
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p6anim.jl
+:label: p6anim
+:linenos: true
+:language: julia
+:filename: p6anim
+:class: dropdown
+:::
+
+### Output 6-anim
+
+```{code-cell}
+:tags: [remove-output]
+p6anim(128, 12);
+```
+
+(output6anim)=
+![](p6anim-128-12.mp4)
+
+Before digging into the code, look at what the original [Output 6](#output6) was hiding! While the solution in *SMiM* looks virtually perfect, we see in the animation (as well as the heatmap, if you look closely) that the solution has small but significant flaws. The culprit is the leapfrog time-stepping: at second order, it's much less accurate than the Fourier differentiation in space. Moreover, its numerical error propagates without dissipation. Many other time-stepping methods introduce some artificial dissipation, which would make the solution look a lot better—but not necessarily more accurate.
+
+::::{note} Animation with Makie
+:icon: false
+:class: dropdown
+The animation mechanism in Makie is to define so-called {term}`Observable` quantities whose changing values drive the animation. In [Program 6-anim](#p6anim), there are two Observable values: scalar `time` and the discrete solution `v`. Other variables whose values are derived from an Observable quantity should be defined using the `@lift` macro, as in line 21 to define `title`. Plot objects created using Observable values, or values lifted from them, will be updated whenever the underlying Observable is changed. Thus, our `lines` object in lines 23–24 depends both on `v` and on `title`, which in turn depends on `time`.
+
+The animation is created by a call to `record`. The only remaining quirk is that when you want to get or change the value of an Observable, you have to dereference it by adding empty square brackets to the name. You can see I have done this to every use of `v` and `time` within the recording loop.
+::::
+
+::::{note} `latexstring`
+:icon: false
+:class: dropdown
+One more fine point in this code is the use of `latexstring` in line 21. This is another function from the `LaTeXStrings` package. We can't use the `L"` string macro here, because we need to LaTeX-ify a string whose value is unknown at compile time due to the interpolation of the time value. Note that the `\$` is needed in the string to get a literal dollar sign to designate LaTeX math mode.
+::::
+
+::::{note} String interpolation
+:icon: false
+:class: dropdown
+In line 24, I create a file name with the string `"p6anim-$N-$tmax.mp4"`. The syntax `$(...)` is used to {term}`interpolate` the values of variables into a string. When the expression to be interpolated is just a variable name, you can omit the parentheses, as with `$N` and `$tmax`.
+::::
+
+::::{note} Output suppression
+:icon: false
+:class: dropdown
+In the call to `p6anim`, I have added a semicolon to suppress the output. If you use MATLAB, you know that any line that doesn't end with a semicolon will print the value of the expression. That's true when running Julia interactively—but only for the last value of a code block. Here, `p6anim` just returns a string with the name of the file that was created. I've suppressed that and then had the web page display the resulting animation.
+::::

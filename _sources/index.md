@@ -1,1 +1,0 @@
-# Spectral Methods in Julia

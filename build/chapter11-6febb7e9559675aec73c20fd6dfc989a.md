@@ -1,0 +1,66 @@
+---
+title: Chapter 11
+subtitle: Programs p28, p29
+kernelspec:
+  display_name: Julia 1
+  language: julia
+  name: julia-1.11
+---
+
+## Program p28
+
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p28.jl
+:label: p28
+:linenos: true
+:language: julia
+:filename: p28
+:::
+
+### Output 28
+
+```{code-cell}
+:label: output28a
+using SpectralMethodsTrefethen
+p28()
+```
+
+I found the outputs for this chapter in *SMiM* to be a bit coarse-looking, so I have interpolated the results onto a finer polar grid. Now version b is picture-perfect:
+
+```{code-cell}
+:label: output28b
+p28(version=:b)
+```
+
+Compare this result to the [modes on a square domain](#output23a).
+
+::::{note} `mod1`
+:icon: false
+:class: dropdown
+The most noteworthy bit of the program is in the `getmode` subfunction. To set up for interpolation on the disk using our standard functions, we need to restore the compact polar representation to all four regions depicted in Figure 11.3 of the text—specifically, to recreate the data for $r<0$. The data matrix `V` has $\theta$ along $M$ rows and $r$ along $(N-1)/2$ columns. To find the data for extending a row, we have to look in the row that is $M/2$ rows away, where we treat the row index circularly.
+
+The `mod1` function is perfect for working with periodic 1-indexed arrays. It computes the index modulo $M$, but with the result in $0<m\le M$ instead of $0\le m<M$. Of course, we also have to reverse the order of the columns as we append to each row. Once that is taken care of, the `interp2dgrid` function doesn't care that our grid is polar—it just sees a rectangular grid with our Fourier setup in the row dimension and Chebyshev in the column dimension.
+::::
+
+## Program p29
+
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p29.jl
+:label: p29
+:linenos: true
+:language: julia
+:filename: p29
+:::
+
+### Output 29
+
+```{code-cell}
+:label: output29
+p29()
+``` 
+
+All the heavy lifting was done already for [Program 28](#p28). Note that here, as there, I chose to plot using the part of the data corresponding to $r \in [-1,1]$ and $\theta \in [0, \pi]$. This fixes the hole you can see in the mesh of Output 29 in *SMiM*.
+
+::::{note} `Colorbar`
+:icon: false
+:class: dropdown
+The [`Colorbar`](https://docs.makie.org/stable/reference/blocks/colorbar) function from Makie is used to add a colorbar to any part of the subplot grid you would like. Given the filled contour object we plotted, it uses the same colormap and color range.
+::::
