@@ -10,3 +10,7 @@ julia
 linenos
 uninitialized
 Toeplitz
+Printf
+cheb
+chebinterp
+println

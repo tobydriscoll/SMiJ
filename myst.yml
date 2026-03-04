@@ -25,20 +25,18 @@ project:
     title: false
     headings: false
     # heading_1: false
-    # heading_2: false
-    # heading_3: false
   abbreviations:
     SMiM: Spectral Methods in MATLAB
     IVP: initial-value problem
     BVP: boundary-value problem
     TPBVP: two-point boundary-value problem
-    ONC: matrix with orthonormal columns
     SVD: singular value decomposition
     EVD: eigenvalue decomposition
     SPD: symmetric positive definite
     HPD: hermitian positive definite
     PDE: partial differential equation
     ODE: ordinary differential equation
+    FFT: fast Fourier transform
   math:
     '\float': '\mathbb{F}'
     '\real': '\mathbb{R}'
@@ -60,13 +58,6 @@ project:
     '\innerprod' : '\langle #1,#2 \rangle'
     '\pr' : '^{(#1)}'
     '\kron' : '#1 \otimes #2'
-    '\eye' : '\mathbf{e}_#1'
-    '\meye' : '\mathbf{I}'
-    '\Qhat' : '\hat{\mathbf{Q}}'
-    '\Rhat' : '\hat{\mathbf{R}}'
-    '\bfalpha': '\mathbf{alpha}'
-    '\bfdelta': '\mathbf{delta}'
-    '\bfzero': '\boldsymbol{0}'
     '\macheps': '\epsilon_\text{mach}'
     '\fl': '\operatorname{fl}'
     '\diag': '\operatorname{diag}'
@@ -74,13 +65,7 @@ project:
     '\Re': '\operatorname{Re}'
     '\Im': '\operatorname{Im}'
     '\ee': '\times 10^'
-    '\lnorm': '\|'
-    '\rnorm': '\|'
     '\floor': '\lfloor#1\rfloor'
-    '\cI': '\mathcal{I}'
-    '\mtx': '\operatorname{mtx}'
-    '\myvec': '\operatorname{vec}'
-    '\argmin': '\operatorname{argmin}'
   toc:
     - file: home.md
     # - file: usage.md
@@ -104,7 +89,7 @@ project:
     - file: chapter14.md
     - file: glossary.md
 site:
-  title: "Spectral Methods in MATLAB...in Julia"
+  title: "Spectral Methods in Julia"
   template: book-theme
   logo: logo.svg
   # actions:
@@ -118,4 +103,3 @@ site:
   #   analytics_plausible: fncbook.com # Domain(s) to track
   style: style.css
   # domains:
-  #   - www.fncbook.com
