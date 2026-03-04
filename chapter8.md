@@ -17,9 +17,6 @@ kernelspec:
 :linenos: true
 :::
 
-:::
-:::
-
 I have structured my implementation of `chebfft` to take advantage of the factor of 4 efficiency mentioned in the text. The `FFTW` package gives us access to the discrete cosine and sine transforms, which I give the more convenient names `DCT` and `DST`. The DCT implicitly assumes even symmetry, which avoids the need to create an extended vector of the data. Once we differentiate cosines to get sines, we have an odd function, so the DST is the natural choice for the inverse transform; it expects us to omit the values we know to be zero at the endpoints. Everything else operates much like it does in the MATLAB code. 
 
 ::::{note} `similar`
