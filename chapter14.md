@@ -7,7 +7,7 @@ kernelspec:
   name: julia-1.11
 ---
 
-## Program p38
+## Program 38
 
 :::{literalinclude} SpectralMethodsTrefethen/src/scripts/p38.jl
 :label: p38
@@ -24,7 +24,7 @@ using SpectralMethodsTrefethen
 p38()
 :::
 
-## Program p39
+## Program 39
 
 :::{literalinclude} SpectralMethodsTrefethen/src/scripts/p39.jl
 :label: p39
@@ -40,7 +40,7 @@ p38()
 p39()
 :::
 
-## Program p40
+## Program 40
 
 :::{literalinclude} SpectralMethodsTrefethen/src/scripts/p40.jl
 :label: p40
@@ -56,7 +56,7 @@ p39()
 p40()
 :::
 
-## Program p40anim
+## Program 40anim
 
 :::{literalinclude} SpectralMethodsTrefethen/src/scripts/p40anim.jl
 :label: p40anim

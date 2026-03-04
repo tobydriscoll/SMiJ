@@ -6,13 +6,15 @@ kernelspec:
   language: julia
   name: julia-1.11
 ---
-## Program p3
+## Program 3
 :::{literalinclude} SpectralMethodsTrefethen/src/scripts/p3.jl
 :label: p3
 :linenos: true
 :language: julia
 :filename: p3
 :::
+
+Among other new elements, this is our first subplot grid.
 
 ### Output 3
 

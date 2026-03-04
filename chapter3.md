@@ -7,7 +7,7 @@ kernelspec:
   name: julia-1.11
 ---
 
-## Program p4
+## Program 4
 
 :::{literalinclude} SpectralMethodsTrefethen/src/scripts/p4.jl
 :label: p4
@@ -72,7 +72,7 @@ Line 16 introduces `scatterlines!`, which combines a scatter plot (markers) with
 In line 28, the `align` keyword is given a tuple of two values whose names each start with a colon, `:`. This is the syntax for creating a {term}`symbol`. You can think of a symbol as a non-numeric constant, or as a string that is not meant to be printed.
 ::::
 
-## Program p5
+## Program 5
 
 :::{literalinclude} SpectralMethodsTrefethen/src/scripts/p5.jl
 :label: p5
@@ -152,7 +152,7 @@ When you see an `InexactError`, it may be the result of a numeric type that can'
 :::
 ::::
 
-## Program p6
+## Program 6
 
 :::{literalinclude} SpectralMethodsTrefethen/src/scripts/p6.jl
 :label: p6
@@ -161,6 +161,8 @@ When you see an `InexactError`, it may be the result of a numeric type that can'
 :filename: p6
 :::
 
+Our first PDE solution! But the output here is a bit unlike Output 6 in *SMiM*.
+
 ### Output 6
 
 ```{code-cell}
@@ -168,14 +170,7 @@ When you see an `InexactError`, it may be the result of a numeric type that can'
 p6()
 ```
 
-Our first PDE solution!
-
-::::{note} `heatmap`
-:icon: false
-:class: dropdown
-
-You will certainly have noticed that the output of the program is not at all like Output 6 in *SMiM*. The `waterfall` plot in MATLAB is not easy to do compactly in Makie. Rather than try to reconstruct it, I have opted to use a `heatmap` instead, which conveys the result equally well, if a bit less lusciously.
-::::
+The `waterfall` plot in MATLAB is not natively in Makie. Rather than try to reconstruct it, I have opted to use a `heatmap` instead, which conveys the result equally well, if a bit less lusciously. In fact, you can more clearly see a flaw in the solution; more on that in the next section.
 
 ::::{note} Documentation string
 :icon: false
@@ -209,17 +204,19 @@ One advantage I have here over a printed book is the use of animations. Accordin
 :filename: p6anim
 :::
 
+The return value of this function is the file name of the resulting animation, which is a video file in MP4 format.
+
 ### Output 6-anim
 
 ```{code-cell}
 :tags: [remove-output]
-p6anim(128, 12);
+p6anim(128, 12)
 ```
 
 (output6anim)=
 ![](p6anim-128-12.mp4)
 
-Before digging into the code, look at what the original [Output 6](#output6) was hiding! While the solution in *SMiM* looks virtually perfect, we see in the animation (as well as the heatmap, if you look closely) that the solution has small but significant flaws. The culprit is the leapfrog time-stepping: at second order, it's much less accurate than the Fourier differentiation in space. Moreover, its numerical error propagates without dissipation. Many other time-stepping methods introduce some artificial dissipation, which would make the solution look a lot better—but not necessarily more accurate.
+Both [Output 6](#output6) and the animation show a small amount of energy traveling coherently in the wrong direction. I'll let you think about the source of that error. Leapfrog time-stepping is notable for propagation without numerical dissipation, so the error just goes on its merry way. Many other time-stepping methods introduce some artificial dissipation, which could make the solution better-looking—but not necessarily more accurate.
 
 ::::{note} Animation with Makie
 :icon: false
@@ -239,10 +236,4 @@ One more fine point in this code is the use of `latexstring` in line 21. This is
 :icon: false
 :class: dropdown
 In line 24, I create a file name with the string `"p6anim-$N-$tmax.mp4"`. The syntax `$(...)` is used to {term}`interpolate` the values of variables into a string. When the expression to be interpolated is just a variable name, you can omit the parentheses, as with `$N` and `$tmax`.
-::::
-
-::::{note} Output suppression
-:icon: false
-:class: dropdown
-In the call to `p6anim`, I have added a semicolon to suppress the output. If you use MATLAB, you know that any line that doesn't end with a semicolon will print the value of the expression. That's true when running Julia interactively—but only for the last value of a code block. Here, `p6anim` just returns a string with the name of the file that was created. I've suppressed that and then had the web page display the resulting animation.
 ::::

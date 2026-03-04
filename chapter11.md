@@ -7,7 +7,7 @@ kernelspec:
   name: julia-1.11
 ---
 
-## Program p28
+## Program 28
 
 :::{literalinclude} SpectralMethodsTrefethen/src/scripts/p28.jl
 :label: p28
@@ -41,7 +41,7 @@ The most noteworthy bit of the program is in the `getmode` subfunction. To set u
 The `mod1` function is perfect for working with periodic 1-indexed arrays. It computes the index modulo $M$, but with the result in $0<m\le M$ instead of $0\le m<M$. Of course, we also have to reverse the order of the columns as we append to each row. Once that is taken care of, the `interp2dgrid` function doesn't care that our grid is polar—it just sees a rectangular grid with our Fourier setup in the row dimension and Chebyshev in the column dimension.
 ::::
 
-## Program p29
+## Program 29
 
 :::{literalinclude} SpectralMethodsTrefethen/src/scripts/p29.jl
 :label: p29

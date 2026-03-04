@@ -11,14 +11,21 @@ kernelspec:
 ## cheb
 
 (cheb)=
-```{literalinclude} SpectralMethodsTrefethen/src/cheb.jl
+:::{literalinclude} SpectralMethodsTrefethen/src/cheb.jl
 :label: cheb
 :filename: cheb
 :language: julia
 :linenos: true
-```
 :::
+
+This is the first formal function in *SMiM*. There is an algorithmic difference in my implementation on line 7, which computes the Chebyshev points via
+
+:::{math}
+x_j = -\sin \left(\frac{k \pi}{2N}\right), \
+k = -N, -N+2, \ldots, N-2, N.
 :::
+
+This formula is a trivial trigonometric identity away from the standard cosine expression, but unlike that one, this one produces nodes that are perfectly symmetric around zero in floating-point arithmetic [](doi:10.1145/365723.365727).
 
 ::::{note} Short-circuit logic
 :icon: false
@@ -59,7 +66,7 @@ and the functionally equivalent line
 c[2:2:end] = -c[2:2:end]
 ```
 
-The former version implies a copy of the vector from the right-hand side to the left-hand side. But the second version implies an assigment to a subarray of the vector on the left-hand side, thus requiring extra allocation of temporary storage for the subarray.
+The former version implies a copy of the vector from the right-hand side to the left-hand side. But the second version implies an assignment to a subarray of the vector on the left-hand side, thus requiring extra allocation of temporary storage for the subarray.
 
 In fact, even the first version requires allocations (for the right-hand side) we don't need. The fastest version of this line is a loop:
 
@@ -72,7 +79,7 @@ end
 Coders in MATLAB and Python are (rightly) taught to avoid loops, but in Julia, loops carry no intrinsic penalty—sometimes, quite the opposite.
 ::::
 
-## Program p11
+## Program 11
 
 :::{literalinclude} SpectralMethodsTrefethen/src/scripts/p11.jl
 :label: p11
@@ -89,9 +96,9 @@ using SpectralMethodsTrefethen
 p11()
 ```
 
-There are no new Julia tricks here, but there is a stylistic change from the original `p11.m`. In both versions, the solid curves on the left column show the given exact function. In the right column, the original program connected the dots with solid lines again, but only as a visual guide—the lines don't mean anything, really. I've had students get confused on that point, so here, I've used a dotted line to conect the points, just to show that something is different.
+There are no new Julia tricks here, but there is a stylistic change from the original Output 11. In both versions, the solid curves on the left column show the given exact function. In the right column, the original program connected the dots with solid lines again, but only as a visual guide—the lines don't mean anything, really. I've had students get confused on that point, so here I've used a dotted line to connect the points, just to hint that something is different.
 
-## Program p12
+## Program 12
 
 :::{literalinclude} SpectralMethodsTrefethen/src/scripts/p12.jl
 :label: p12

@@ -7,7 +7,7 @@ kernelspec:
   name: julia-1.11
 ---
 
-## Program p32
+## Program 32
 
 :::{literalinclude} SpectralMethodsTrefethen/src/scripts/p32.jl
 :label: p32
@@ -47,7 +47,7 @@ maxerr = maximum(abs(u(x) - exact(x)) for x in range(-1, 1, 801))
 println("max error is now: ", maxerr)
 :::
 
-## Program p33
+## Program 33
 
 :::{literalinclude} SpectralMethodsTrefethen/src/scripts/p33.jl
 :label: p33
@@ -63,8 +63,7 @@ println("max error is now: ", maxerr)
 p33()
 :::
 
-
-## Program p34anim
+## Program 34anim
 
 :::{literalinclude} SpectralMethodsTrefethen/src/scripts/p34anim.jl
 :label: p34anim
@@ -80,7 +79,7 @@ p33()
 p34anim()
 :::
 
-## Program p35anim
+## Program 35anim
 
 :::{literalinclude} SpectralMethodsTrefethen/src/scripts/p35anim.jl
 :label: p35anim
@@ -96,7 +95,7 @@ p34anim()
 p35anim()
 :::
 
-## Program p36
+## Program 36
 
 :::{literalinclude} SpectralMethodsTrefethen/src/scripts/p36.jl
 :label: p36
@@ -112,7 +111,7 @@ p35anim()
 p36()
 :::
 
-## Program p37anim
+## Program 37anim
 
 :::{literalinclude} SpectralMethodsTrefethen/src/scripts/p37anim.jl
 :label: p37anim

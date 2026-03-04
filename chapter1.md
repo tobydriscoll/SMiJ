@@ -7,7 +7,7 @@ kernelspec:
   name: julia-1.11
 ---
 
-## Program p1
+## Program 1
 
 :::{literalinclude} SpectralMethodsTrefethen/src/scripts/p1.jl
 :label: p1
@@ -195,7 +195,7 @@ Finally, know that the label on the $x$ axis is formatted by LaTeX thanks to the
 [^Lmacro]: This is a shortcut for invoking a macro called `@L_str`. You may see other string macros too, like `r"` for regular expressions.
 ::::
 
-## Program p2
+## Program 2
 
 :::{literalinclude} SpectralMethodsTrefethen/src/scripts/p2.jl
 :label: p2

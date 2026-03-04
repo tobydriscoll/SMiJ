@@ -28,7 +28,7 @@ I have structured my implementation of `chebfft` to take advantage of the factor
 The `similar` function creates an uninitialized array with the same size and element type as the given array. We have to be careful here not to specify either a real or complex array, since we want the result to have the same type as the input. We could get a valid result using `w = copy(v)`, but that causes an unnecessary copy of the data.
 ::::
 
-## Program p18
+## Program 18
 
 :::{literalinclude} SpectralMethodsTrefethen/src/scripts/p18.jl
 :label: p18
@@ -47,7 +47,7 @@ p18()
 
 I made a change compared to [Output 11](#output11). For the right-hand column, I show the discrete error as markers as usual, but instead of connected them with straight lines, I use `chebinterp` to show the error as a continuous function. I like this here because it dispels the appearance that the discrete errors are local extrema.
 
-## Program p19
+## Program 19
 
 :::{literalinclude} SpectralMethodsTrefethen/src/scripts/p19.jl
 :label: p19
@@ -84,7 +84,7 @@ Compare this solution to [Output 6](#output6anim), where we had a variable speed
 
 Your eye tells you that this solution is underresolved, but spectral methods are meant to run at coarse resolutions. To smooth out the animation, it would be easy to use the Chebyshev interpolant on a finer plotting grid.
 
-## Program p20-anim
+## Program 20-anim
 
 :::{literalinclude} SpectralMethodsTrefethen/src/scripts/p20anim.jl
 :label: p20anim

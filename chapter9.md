@@ -7,7 +7,7 @@ kernelspec:
   name: julia-1.11
 ---
 
-## Program p21
+## Program 21
 
 :::{literalinclude} SpectralMethodsTrefethen/src/scripts/p21.jl
 :label: p21
@@ -30,7 +30,7 @@ p21()
 The `series` function in Makie is a generalization of `lines` that can handle multiple curves at once. They correspond to the rows of the `data` matrix, which are presented in two batches, even and odd, to use different line styles.
 ::::
 
-## Program p22
+## Program 22
 
 :::{literalinclude} SpectralMethodsTrefethen/src/scripts/p22.jl
 :label: p22
@@ -64,7 +64,7 @@ The [SpecialFunctions](https://specialfunctions.juliamath.org/stable/functions_o
 The `findfirst` function returns the index of the first element of an array that satisfies a given condition. The result is either `nothing`, if no elements satisfy the condition, or an integer index. I have used the syntax `>(0)` to create an anonymous function that tests whether its argument is greater than zero, shorthand for `x -> x > 0`. Finally, we want the 5th index of the result, so I add 4 since they are in sorted order.
 ::::
 
-## Program p23
+## Program 23
 
 :::{literalinclude} SpectralMethodsTrefethen/src/scripts/p23.jl
 :label: p23

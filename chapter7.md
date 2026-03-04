@@ -7,7 +7,7 @@ kernelspec:
   name: julia-1.11
 ---
 
-## Program p13
+## Program 13
 
 :::{literalinclude} SpectralMethodsTrefethen/src/scripts/p13.jl
 :label: p13
@@ -16,13 +16,15 @@ kernelspec:
 :filename: p13
 :::
 
+I have departed from the original `p13.m` in a significant way. Rather than using `polyfit` to interpolate the solution to a finer grid, I have used the barycentric interpolation formula presented in the exercises of Chapter 6. This is a much faster and stabler method, as Trefethen made clear in a [paper](doi:10.1137/S0036144502417715) published after *SMiM*.
+
 ### Output 13
 
-```{code-cell}
+:::{code-cell}
 :label: output13
 using SpectralMethodsTrefethen
 p13()
-```
+:::
 
 ::::{note} Superscript
 :icon: false
@@ -30,9 +32,7 @@ p13()
 Why not use a superscript for the second derivative matrix? You get it by typing {kbd}`D\^2`, then {kbd}`TAB`.
 ::::
 
-I have departed from the original `p13.m` in a significant way. Rather than using `polyfit` to interpolate the solution to a finer grid, I have used the barycentric interpolation formula presented in the exercises of Chapter 6. This is a much faster and stabler method, as Trefethen made clear in a [paper published after *SMiM*](doi:10.1137/S0036144502417715).
-
-Here is the implementation of general barycentric interpolation:
+Here is my implementation of general barycentric interpolation:
 
 :::{literalinclude} SpectralMethodsTrefethen/src/baryinterp.jl
 :label: baryinterp
@@ -41,7 +41,7 @@ Here is the implementation of general barycentric interpolation:
 :linenos: true
 :::
 
-The implementation is split into computation of the weights and application of the formula. This allows the caller to provide precomputed weights if they are available, which is the case for Chebyshev points. The rescaling in line 8 of `baryweights` is discussed in the paper I cited above.
+The implementation is split into computation of the weights and application of the formula. This allows the caller to provide precomputed weights if they are available, as is the case for Chebyshev points. (The rescaling in line 8 of `baryweights` is discussed in the paper I cited above.)
 
 ::::{note} Conditional generator
 :icon: false
@@ -80,11 +80,11 @@ The `dot` function in line 32 is defined in the `LinearAlgebra` package, and it 
 
 This is a good opportunity to point out a consequence of the fact that all vectors in Julia have a column orientation. It might surprise you that the following snippet fails:
 
-```{code-cell}
+:::{code-cell}
 :tags: [raises-exception]
 A = ones(3, 3)
 A[1, :] * A[:, 3]    # error, both operands are 3×1
-```
+:::
 
 Instead, you could use a conjugate transpose, `A[1, :]' * A[:, 3]`, or you could just use `dot`.
 ::::
@@ -98,7 +98,17 @@ With `baryinterp` in hand, we can specialize it to the Chebyshev case, where we 
 :linenos: true
 :::
 
-## Program p14
+:::{code-cell}
+using CairoMakie
+_, x = cheb(20)
+f(x) = sin(3exp(x))
+v = f.(x)
+fig = lines(-1..1, chebinterp(v))
+scatter!(x, v)
+fig
+:::
+
+## Program 14
 
 :::{literalinclude} SpectralMethodsTrefethen/src/scripts/p14.jl
 :label: p14
@@ -107,16 +117,16 @@ With `baryinterp` in hand, we can specialize it to the Chebyshev case, where we 
 :filename: p14
 :::
 
-### Output 14
-
-```{code-cell}
-:label: output14
-p14()
-```
-
 I use `chebinterp` to get the value of the solution at $x=0$, rather than indexing into the discrete solution directly. This would work just as well for odd values of $N$, where there is no node at $x=0$.
 
-## Program p15
+### Output 14
+
+:::{code-cell}
+:label: output14
+p14()
+:::
+
+## Program 15
 
 :::{literalinclude} SpectralMethodsTrefethen/src/scripts/p15.jl
 :label: p15
@@ -128,10 +138,10 @@ I use `chebinterp` to get the value of the solution at $x=0$, rather than indexi
 
 ### Output 15
 
-```{code-cell}
+:::{code-cell}
 :label: output15
 p15()
-```
+:::
 
 ::::{note} Eigenvalues and eigenvectors
 :icon: false
@@ -157,7 +167,7 @@ The `zip` function in line 10 allows us to loop over two identically sized colle
 The `hidespines!` and `hidedecorations!` functions in line 17 are used to hide the axes and ticks, which makes the plot look cleaner and matches the original style. Note that they are vectorized to be applied to all the axes at once, though we could have called them from within the loop instead.
 ::::
 
-## Program p16
+## Program 16
 
 :::{literalinclude} SpectralMethodsTrefethen/src/scripts/p16.jl
 :label: p16
@@ -168,10 +178,10 @@ The `hidespines!` and `hidedecorations!` functions in line 17 are used to hide t
 
 ### Output 16
 
-```{code-cell}
+:::{code-cell}
 :label: output16
 p16()
-```
+:::
 
 A lot is going on here! This is our first look at a problem with two space variables. My comments on the interpolation aspect of [Program 16](#p16) are given [in detail below](#interp2d), but first, here are notes on the rest of the program.
 
@@ -180,13 +190,13 @@ A lot is going on here! This is our first look at a problem with two space varia
 :class: dropdown
 The syntax in line 9 is comprehension with a nested loop in a comprehension. There's no need to repeat the `for` keyword. Like most things in a comprehension, the ordering is backwards from writing things out longhand: 
 
-```julia
+:::julia
 for (j, y) in enumerate(y[2:N])
     for (i, x) in enumerate(x[2:N])
         F[i, j] = f(x, y)
     end
 end
-```
+:::
 
 Thus, the *first* loop in the comprehension varies the most quickly.
 
@@ -234,19 +244,19 @@ We have two inverse types of reshaping in this program, to go between a matrix r
 
 Be advised that reshaping does not copy data on its own, so you can end up with two variables that point to the same data, as in this example:
 
-```{code-cell}
+:::{code-cell}
 a = ones(4 * 6 * 10)
 A = reshape(a, :, 6, 10)    # one dimension size can be left out
 a[31] = 0
 findfirst(iszero, A)
-```
+:::
 
 There is a more efficient but clunkier alternative to line 21:
 
-```julia
+:::julia
 vv = reshape(v, N-1, N-1)
 copyto!(V, CartesianIndices((2:N, 2:N)), vv, CartesianIndices((1:N-1, 1:N-1)));
-```
+:::
 ::::
 
 ::::{note} Integer division
@@ -274,44 +284,44 @@ I have chosen to use 2-D Chebyshev interpolation to get data on the plotting gri
 
 Suppose we have an interpolation method $F$ that turns values on a grid $x_1,\ldots,x_m$ into a function $f$,
 
-```{math}
+:::{math}
 f(\xi) = F(v_1, \ldots, v_m; \xi),
-```
+:::
 and another method $G$ that does the same for a grid $y_1,\ldots,y_n$,
 
-```{math}
+:::{math}
 g(\eta) = G(w_1, \ldots, w_n; \eta).
-```
+:::
 
-Then with a matrix of grid values, $v_{ij} = u(x_i, y_j)$, we can define a 2-D interpolant by a nested application of the 1-D methods:
+Then with a matrix of grid values, $V_{ij} = u(x_i, y_j)$, we can define a 2-D interpolant by a nested application of the 1-D methods:
 
-```{math}
+:::{math}
 \begin{aligned}
 u(\xi, \eta) &= G(w_1(\xi), \ldots, w_n(\xi); \eta),\\ 
- w_j(\xi) &= F(v_{1j}, \ldots, v_{mj}; \xi), \quad j = 1, \ldots, n.
+ w_j(\xi) &= F(V_{1j}, \ldots, V_{mj}; \xi), \quad j = 1, \ldots, n.
 \end{aligned}
-```
+:::
 Evaluation on a grid of values $\xi_1, \ldots, \xi_p$ and $\eta_1, \ldots, \eta_q$ leads to
 
-```{math}
+:::{math}
 \begin{aligned}
-W_{ij} = w_j(\xi_i) &= F(v_{1j}, \ldots, v_{mj}; \xi_i), \quad i = 1, \ldots, p,\\
+W_{ij} = w_j(\xi_i) &= F(V_{1j}, \ldots, V_{mj}; \xi_i), \quad i = 1, \ldots, p,\\
 U_{ij} = u(\xi_i, \eta_j) &= G(W_{i1}, \ldots, W_{in}; \eta_j), \quad j = 1, \ldots, q.
 \end{aligned}
-```
+:::
 
 Here is my compact implementation of this idea:
 
-```{literalinclude} SpectralMethodsTrefethen/src/interp2dgrid.jl
+:::{literalinclude} SpectralMethodsTrefethen/src/interp2dgrid.jl
 :label: interp2dgrid
 :filename: interp2dgrid
 :language: julia
 :linenos: true
-```
+:::
 
 The first call to `mapslices` applies the first interpolation method to each column of data, evaluating at the given values of $\xi$, to get the matrix $W$ defined above. The second call applies the second interpolation method to each row of $W$, evaluating at the given values of $\eta$, to get the final matrix $U$.
 
-## Program p17
+## Program 17
 
 :::{literalinclude} SpectralMethodsTrefethen/src/scripts/p17.jl
 :label: p17
@@ -320,11 +330,11 @@ The first call to `mapslices` applies the first interpolation method to each col
 :filename: p17
 :::
 
+Nothing new needed here; just relax and enjoy the view.
+
 ### Output 17
 
-```{code-cell}
+:::{code-cell}
 :label: output17
 p17()
-```
-
-Nothing new needed here; just enjoy the view.
+:::

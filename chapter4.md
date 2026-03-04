@@ -7,7 +7,7 @@ kernelspec:
   name: julia-1.11
 ---
 
-## Program p7
+## Program 7
 
 :::{literalinclude} SpectralMethodsTrefethen/src/scripts/p7.jl
 :label: p7
@@ -16,15 +16,22 @@ kernelspec:
 :filename: p7
 :::
 
+One of my favorite perks in Makie is the `linkaxes!` function, which tells Makie to give all the linked axes the same limits. That's used to great effect in the output (like in the original), where it's instantly clear how much slower convergence is in the top two cases:
+
 ### Output 7
 
-```{code-cell}
+:::{code-cell}
 :label: output7
 using SpectralMethodsTrefethen
-p7()
-```
+fig = p7()
+:::
 
-Many more new goodies appear in [Program 7](#p7).
+That visual story is missing if you let each individual plot choose its own limits, as in the following:
+
+:::{code-cell}
+map(a -> empty!(a.yaxislinks), fig.content)
+fig
+::::
 
 ::::{note} Abstract types
 :icon: false
@@ -89,17 +96,11 @@ println("10 * (-15:5:0) is a Vector? ", 10 * (-15:5:0) isa Vector)
 :::
 ::::
 
-::::{note} `linkaxes!`
-:icon: false
-:class: dropdown
-
-Line 26 uses `linkaxes!` to link the axes of all four subplots. This means that they will all have the same $x$ and $y$ limits, without the need to specify those limits explicitly.
-::::
-
 ::::{note} Splatting
 :icon: false
 :class: dropdown
-Also in line 26, we see the syntax `ax...`, which is called {term}`splatting`. This is a convenient way to indicate that all the entries of an iterable object are to be included as function arguments. ::::
+In the call to `linkaxes!` on line 26, we see the syntax `ax...`, which is called {term}`splatting`. This is a convenient way to indicate that all the entries of an iterable object are to be included as function arguments. 
+::::
 
 ::::{note} `pairs`
 :icon: false
@@ -111,9 +112,9 @@ In lines 15 and 27 we have loops set up using `pairs`, like
 for (i, f) in pairs(funs)
 ```
 
-The `pairs` function is similar to `enumerate`, in that it returns an iterable for both the index and the value of each element of an array. However, `pairs` uses an index that is native to its argument, whereas `enumerate` always returns a range starting at 1. 
+The `pairs` function is similar to `enumerate`, in that it returns a joint iterable for the indexes and values of an array. However, `pairs` uses an index that is native to its argument, whereas `enumerate` always returns a range starting at 1. 
 
-[Program 7](#p7) is set up so that `funs`, `titles`, and `ax` are all 2×2 in the same way we want them to appear in the final subplot grid. So, when we call `pairs(funs)` or `pairs(ax)`, we get an iterator whose index is a `CartesianIndex` value, like in the following:
+[Program 7](#p7) is set up so that `funs`, `titles`, and `ax` are all 2 × 2 in the same way we want them to appear in the final subplot grid. So, when we call `pairs(funs)` or `pairs(ax)`, we get an iterator whose index is a `CartesianIndex` value, like in the following:
 
 :::{code-cell}
 A = [11 12; 21 22]
@@ -128,7 +129,7 @@ Because `i` is a `CartesianIndex`, we can use it to index into `A` directly, as 
 ::::{note} Automatic differentiation
 :icon: false
 :class: dropdown
-The `ForwardDiff` package provides a powerful way to compute derivatives called {term}`automatic differentiation`. It applies the basic rules of differentiation, like the product rule and chain rule, to compute the derivative of a Julia function at a given value of its argument. Even though it gives floating-point results, it is not a numerical approximation, but rather an exact application of the differentiation rules.
+The `ForwardDiff` package provides a convenient way to compute derivatives called {term}`automatic differentiation`. It applies the basic rules of differentiation, like the product rule and chain rule, to compute the derivative of a Julia function at a given value of its argument. Even though it gives floating-point results, it is not a numerical approximation, but rather an exact application of the differentiation rules.
 
 Automatic differentiation is a highly developed area for Julia, because of the benefits it offers to scientific computing (e.g., Jacobian and Hessian matrices) and machine learning (e.g., backpropagation). 
 ::::
@@ -137,9 +138,11 @@ Automatic differentiation is a highly developed area for Julia, because of the b
 :icon: false
 :class: dropdown
 In each of lines 30 and 31 you can see two equals signs. This is a chained assignment, which allows you to assign the same value to multiple variables in one line. They are evaluated right to left, and since the result of an assignment statement is the value that was assigned, so, for instance, the value of `ax[2, 1].ylabel` is the string `"error"`, which is then assigned to `ax[1, 1].ylabel`. 
+
+You can also chain comparisons, like `1 < x <= 2`, or `-1 .< A .< 1`. 
 ::::
 
-## Program p8
+## Program 8
 
 :::{literalinclude} SpectralMethodsTrefethen/src/scripts/p8.jl
 :label: p8
@@ -148,6 +151,8 @@ In each of lines 30 and 31 you can see two equals signs. This is a chained assig
 :filename: p8
 :::
 
+This is our first use of the `LinearAlgebra` package, part of the standard library. While matrix multiplication and linear system solving are in base Julia, most other linear algebra functionality is in this package, including norms, factorizations, and singular values, and eigenvalues.
+
 ### Output 8
 
 ```{code-cell}
@@ -155,11 +160,9 @@ In each of lines 30 and 31 you can see two equals signs. This is a chained assig
 p8()
 ```
 
-::::{note} `LinearAlgebra` and eigenvalues
+::::{note} Eigenvalues
 :icon: false
 :class: dropdown
-This is our first use of the `LinearAlgebra` package, part of the standard library. While matrix multiplication and linear system solving is in base Julia, most other basic linear algebra functionality is in this package, including norms, factorizations, and eigenvalues.
-
 Since we only want eigenvalues here, we use `eigvals` to get them. This is faster than getting both the eigenvalues and eigenvectors, which is done by `eigen`. In either case, the default is to return everything lexicographically sorted by real and imaginary parts of the eigenvalues; you can override this by adding, for example, `sortby=abs` to use magnitude (i. e., absolute value in the real case) instead.
 
 :::{tip}

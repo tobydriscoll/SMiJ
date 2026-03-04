@@ -7,7 +7,7 @@ kernelspec:
   name: julia-1.11
 ---
 
-Here's a look at the unstable version of p6:
+Here's a look at the unstable version of [Program 6](#p6):
 
 ```{code-cell}
 :tags: [hide-output]
@@ -30,7 +30,7 @@ p20anim(24, 0.5, 6.6/24^2)
 
 You should pause the animation and step through frame by frame to see how the error creeps in from the corners of the domain.
 
-## Program p25
+## Program 25
 
 :::{literalinclude} SpectralMethodsTrefethen/src/scripts/p25.jl
 :label: p25
@@ -57,7 +57,7 @@ I've used `reim(w)...` as a slight shorthand for `real(w), imag(w)`. The `reim` 
 A subtle point: the real part of a vector is a vector, so it's okay to use `real(w)`, though the broadcasted version `real.(w)` would also work. The same is true for `imag`. However, broadcasting `reim` returns a vector of tuples rather than a tuple of vectors and would not splat in a useful way here. In Makie, you could use `Point2.(reim.(w))` to get an equivalent plot. 
 ::::
 
-## Program p26
+## Program 26
 
 :::{literalinclude} SpectralMethodsTrefethen/src/scripts/p26.jl
 :label: p26
@@ -85,7 +85,7 @@ The third plot is supposed to show values that oscillate around zero, but at mag
 where $a$ is a parameter that controls the transition between linear and logarithmic behavior. The `Makie.AsinhScale` constructor takes this parameter as an argument.
 ::::
 
-## Program p27
+## Program 27
 
 :::{literalinclude} SpectralMethodsTrefethen/src/scripts/p27.jl
 :label: p27
@@ -117,7 +117,7 @@ I used `interpolate=true` in the `heatmap` call to get a smoother-looking plot. 
 Simple fixed-time-step implementations of methods for IVPs are great to learn from, but they should not be used when solving challenging problems. Julia has the best collection of IVP solvers in the world, in the [DifferentialEquations](https://docs.sciml.ai/DiffEqDocs/stable/) package. Most of its sovlers automatically provide adaptive step size and interpolation in time. The package even offers [exponential Runge–Kutta methods](https://docs.sciml.ai/DiffEqDocs/stable/solvers/ode_solve/#exp_RK) ready to use.
 ::::
 
-## Program p27-anim
+## Program 27-anim
 
 :::{literalinclude} SpectralMethodsTrefethen/src/scripts/p27anim.jl
 :label: p27anim
