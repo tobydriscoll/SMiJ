@@ -1,1 +1,1 @@
-import{a}from"tobydriscoll.net/SMiJ/build/_shared/chunk-KOX2ZSDT.js";import"tobydriscoll.net/SMiJ/build/_shared/chunk-J3PKFMLQ.js";import"tobydriscoll.net/SMiJ/build/_shared/chunk-OZE3FFNP.js";export default a();
+import{a}from"https://tobydriscoll.net/build/_shared/chunk-KOX2ZSDT.js";import"https://tobydriscoll.net/build/_shared/chunk-J3PKFMLQ.js";import"https://tobydriscoll.net/build/_shared/chunk-OZE3FFNP.js";export default a();
