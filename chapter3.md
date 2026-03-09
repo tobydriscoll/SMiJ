@@ -7,6 +7,30 @@ kernelspec:
   name: julia-1.11
 ---
 
+## fourier
+
+In a break with *SMiM*, I've put Fourier discretization setup into its own function in `SpectralMethodsTrefethen`, based on the formulas in this chapter:
+
+:::{literalinclude} SpectralMethodsTrefethen/src/fourier.jl
+:label: fourier
+:linenos: true
+:language: julia
+:::
+
+Most of the time, we won't need both differentiation matrices at once, but the cost of constructing them is negligible next to our applications. When we don't need the second derivative matrix, for example, we can call `x, D, _ = fourier(N)` to ignore the third output.
+
+::::{note} `@assert`
+:icon: false
+:class: dropdown
+In line 6 I use the `@assert` macro to check that the input argument `N` is an even integer. If the condition is not satisfied, an error is raised with the given message.
+::::
+
+::::{note} Superscript
+:icon: false
+:class: dropdown
+I used a superscript for the name of the second derivative matrix by typing `D\^2`, then {kbd}`TAB`.
+::::
+
 ## Program 4
 
 :::{literalinclude} SpectralMethodsTrefethen/src/scripts/p4.jl

@@ -26,12 +26,6 @@ using SpectralMethodsTrefethen
 p13()
 :::
 
-::::{note} Superscript
-:icon: false
-:class: dropdown
-Why not use a superscript for the second derivative matrix? You get it by typing {kbd}`D\^2`, then {kbd}`TAB`.
-::::
-
 Here is my implementation of general barycentric interpolation:
 
 :::{literalinclude} SpectralMethodsTrefethen/src/baryinterp.jl
