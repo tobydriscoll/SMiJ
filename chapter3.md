@@ -230,6 +230,17 @@ One advantage I have here over a printed book is the use of animations. Accordin
 
 The return value of this function is the file name of the resulting animation, which is a video file in MP4 format.
 
+There is a change in substance here, as well. You can see in [Output 6](#output6) that the solution looks pixelated in both time and space. It's easy to get more values in the time variable—just decrease the `plotgap` defined in [Program 6](#p6). But what should be done in space? The easy answer is to rely on a linear or perhaps cubic spline interpolation of the values. That might produce a reasonable plot, but you've discarded most of the high accuracy that the Fourier spectral method provided for the discrete solution.
+
+This situation arises a fair amount for spectral methods, which are meant to work well at resolutions that may look visually too low. The best way to handle off-grid evaluation is to interpolate spectrally. I've created the `fourinterp` function in `SpectralMethodsTrefethen` for that job.
+
+:::{literalinclude} SpectralMethodsTrefethen/src/fourinterp.jl
+:label: fourinterp
+:linenos: true
+:language: julia
+:filename: fourinterp
+:::
+
 ### Output 6-anim
 
 ```{code-cell}
