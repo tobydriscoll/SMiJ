@@ -1,0 +1,81 @@
+---
+title: Chapter 11
+subtitle: Programs p28, p29
+kernelspec:
+  display_name: Julia 1
+  language: julia
+  name: julia-1.11
+---
+
+## Program 28
+
+I decomposed this program to make it easier to produce both versions of the output. The first function below computes the eigenmodes and returns a function that interpolates a requested mode number onto a finer grid. The other functions, which have much in common, call the first function and then plot the results in different ways.
+
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p28.jl
+:label: p28
+:linenos: true
+:language: julia
+:filename: p28
+:::
+
+Note that I chose to plot using the parameterization $r \in [-1, 1]$ and $\theta \in [0, \pi]$, which makes it bit easier to deal with the origin.
+
+### Output 28
+
+:::{code-cell}
+:label: output28a
+using SpectralMethodsTrefethen
+p28a()
+:::
+
+:::{code-cell}
+:label: output28b
+p28b()
+:::
+
+Compare this result to the [modes on a square domain](#output23a).
+
+::::{note} `mod1`
+:icon: false
+:class: dropdown
+The most noteworthy bit of the program is in the function returned by `p28modes`. To set up for interpolation on the disk using our standard functions, we need to restore the compact polar representation to all four regions depicted in Figure 11.3 of the text—specifically, to recreate the data for $r<0$. The data matrix `V` has $\theta$ along $M$ rows and $r$ along $(N-1)/2$ columns. To find the data for extending a row, we have to look in the row that is $M/2$ rows away, where we treat the row index circularly.
+
+The `mod1` function is perfect for working with periodic 1-indexed arrays. It computes the index modulo $M$, but with the result in $0<m\le M$ instead of $0\le m<M$. Of course, we also have to reverse the order of the columns as we append to each row. Once that is taken care of, the `interp2dgrid` function doesn't care that our grid is polar—it just sees a rectangular grid with our Fourier setup in the row dimension and Chebyshev in the column dimension.
+::::
+
+## Program 29
+
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p29.jl
+:label: p29
+:linenos: true
+:language: julia
+:filename: p29
+:::
+
+There are no new algorithmic elements here. Constructing the matrix for the polar Laplacian is the same as in [Program 28](#p28).
+
+### Output 29
+
+:::{code-cell}
+:label: output29
+p29()
+::: 
+
+::::{note} `Colorbar`
+:icon: false
+:class: dropdown
+The [`Colorbar`](https://docs.makie.org/stable/reference/blocks/colorbar) function from Makie is used to add a colorbar to any part of the subplot grid you would like. Given the filled contour object we plotted, it uses the same colormap and color range.
+::::
+
+
+## Exercises
+
+::::{exercise}
+:label: exr10-eigs
+An alternative to the submatrix manipulations described in this chapter is to apply matrix-free Krylov iterations, as described in @exr9-3D. Rather than mainpulating the operator matrices, you need to manipulate the data vector to exploit the symmetry structure on the disk, similarly to it is done in `p28modes` in [Program 28](#p28). Implement this approach as an alternative to `p28`.
+::::
+
+::::{exercise}
+:label: exr10-3D
+To continue on the previous exercise, find the 6 lowest eigenmodes of the Laplacian in the cylinder $[0, 1] \times [0, 2\pi] \times [-1, 1]$, with homogeneous Dirichlet boundary conditions on the top and bottom and periodic boundary conditions in the azimuthal direction. Plot the modes as functions of $r$ and $z$ for a few values of $\theta$, or use `volume` plots in `GLMakie`.
+::::

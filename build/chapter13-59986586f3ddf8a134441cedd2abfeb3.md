@@ -1,0 +1,146 @@
+---
+title: Chapter 13
+subtitle: Programs p32, p33, p34, p35, p36, p37
+kernelspec:
+  display_name: Julia 1
+  language: julia
+  name: julia-1.11
+---
+
+## Program 32
+
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p32.jl
+:label: p32
+:linenos: true
+:language: julia
+:filename: p32
+:::
+
+Compare the following to [Output 13](#output13), which is the same ODE with homogeneous Dirichlet conditions. 
+
+### Output 32
+
+:::{code-cell}
+:label: output32a
+using SpectralMethodsTrefethen
+p32()
+:::
+
+There are alternatives to the mathematical trick used here for the boundary conditions. One is the approach in the upcoming [Program 33](#p33). Another is to apply the idea from @exr10-neumann of separating interior and boundary parts of the solution vector. If $f = A v= A_Bv_B + A_Iv_I$, then $A_I v_I = f - A_Bv_B$. By restricting this system to the rows corresponding to interior points, we get a square system for the interior values.
+
+:::{code-cell}
+:label: output32b
+using CairoMakie, Printf, SpectralMethodsTrefethen
+N = 16
+bc = [1, 0]
+D, x = cheb(N)
+v = zeros(N+1)
+idxB, idxI = [1, N+1], 2:N             # boundary and interior indices
+v[idxB] = bc
+D² = D^2
+f = exp.(4x) - D²[:, idxB] * bc        # modify RHS for the BCs
+v[idxI] = D²[idxI, idxI]  \ f[idxI]    # solve for interior values
+u = chebinterp(v)
+exact(x) = (exp(4 * x) - sinh(4) * x - cosh(4)) / 16 + (x + 1) / 2
+maxerr = maximum(abs(u(x) - exact(x)) for x in range(-1, 1, 801))
+println("max error is now: ", maxerr)
+:::
+
+## Program 33
+
+This is probably the most straightforward way to handle linear boundary conditions other than homogeneous Dirichlet: replace the boundary rows imposing collocation of the ODE with rows that collocate the boundary conditions. In a BVP, this means modifying two rows of the system matrix and the forcing vector.
+
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p33.jl
+:label: p33
+:linenos: true
+:language: julia
+:filename: p33
+:::
+
+In exact arithmetic, this approach reduces to our previous ones, though it may affect the condition number of the system matrix.
+
+### Output 33
+
+:::{code-cell}
+:label: output33
+p33()
+:::
+
+For an eigenvalue problem (for which only homogeneous conditions are sensible mathematically), we can use a generalized formulation $Av=\lambda Bv$ in which two rows of $B$ are zero and the corresponding rows of $A$ are replaced by the boundary operators. This results in two generalized eigenvalues at infinity that can be ignored.
+
+## Program 34anim
+
+
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p34anim.jl
+:label: p34anim
+:linenos: true
+:language: julia
+:filename: p34anim
+:::
+
+In this program, we exploit the explicit time-stepping method (Euler) to leave the boundary values unchanged as the solution evolves. There is a bit of subtlety involved: the first and last rows of the matrix `D²` are zeroed out, and the fact that the boundary values are steady-state solutions ensures that the boundary values remain unchanged. 
+
+### Output 34anim
+
+:::{code-cell}
+:tags: [remove-output]
+:label: output34anim
+p34anim()
+:::
+
+![](p34anim.mp4)
+
+## Program 35anim
+
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p35anim.jl
+:label: p35anim
+:linenos: true
+:language: julia
+:filename: p35anim
+:::
+
+### Output 35anim
+
+:::{code-cell}
+:tags: [remove-output]
+:label: output35anim
+p35anim()
+:::
+
+![](p35anim.mp4)
+
+## Program 36
+
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p36.jl
+:label: p36
+:linenos: true
+:language: julia
+:filename: p36
+:::
+
+### Output 36
+
+:::{code-cell}
+:label: output36
+p36()
+:::
+
+## Program 37anim
+
+:::{literalinclude} SpectralMethodsTrefethen/src/scripts/p37anim.jl
+:label: p37anim
+:linenos: true
+:language: julia
+:filename: p37anim
+:::
+
+### Output 37anim
+
+:::{code-cell}
+:tags: [remove-output]
+p37anim()
+:::
+
+(output37anim)=
+![](p37anim.mp4)
+
